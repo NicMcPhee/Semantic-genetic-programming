@@ -29,5 +29,20 @@ class SampleTest extends Specification {
         then:
         result == 5
     }
+	Operator mult = new Operator() {
+		def func = { x, y -> x * y }
+	}
+	@Test
+	public void "Multi 2 and 3 makes 6"() {
+		given:
+		def two = 2
+		def three = 3
+		
+		when:
+		def result = mult.apply(two, three)
+
+		then:
+		result == 6
+	}
 
 }
