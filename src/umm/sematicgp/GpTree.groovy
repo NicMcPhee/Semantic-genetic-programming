@@ -6,7 +6,12 @@ class GpTree {
 	def GpTree(nodes) {
 		this.nodes = nodes
 	}
-	def evaluate() {
+	def evaluate(context) {
+		if( nodes[0].equals("x")) {
+			return context.x
+		}
+		else {
 		return nodes[0]
+		}
 	}
 }

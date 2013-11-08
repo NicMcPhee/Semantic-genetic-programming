@@ -25,6 +25,18 @@ class GpTreeEvaluationTest extends Specification {
 		
 	}
 	
+	@Test
+	public void variableTest() {
+		given:
+		def context = ['x': 4]
+		def treex = new GpTree(["x"])
+		
+		when: 
+		def resultx = treex.evaluate(context)
+		
+		then:
+		resultx == 4
+	}
 
 
 }
