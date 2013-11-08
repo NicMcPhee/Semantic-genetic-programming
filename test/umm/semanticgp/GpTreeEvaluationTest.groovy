@@ -6,8 +6,14 @@ import org.junit.Test;
 
 import spock.lang.Specification;
 import umm.sematicgp.GpTree
+import umm.sematicgp.Operator;
 
 class GpTreeEvaluationTest extends Specification {
+	def plus = { x, y -> x + y }
+	def sub =  { x, y -> x - y }
+	def mult =  { x, y -> x * y }
+	def divi =  { x, y -> x / y }
+	
 
 	@Test
 	public void constantTest() {
@@ -42,6 +48,26 @@ class GpTreeEvaluationTest extends Specification {
 		resultx == 4
 		resulty == 6
 	}
-
+	
+	@Test
+	public void simpleConstantTreeTest() {
+		given:
+		def context = [:]
+		def constantAddTree = new GpTree([plus, 0, 1])
+		def constantSubTree = new GpTree([sub, 4, 1])
+		def constantMultTree = new GpTree([mult, 2, 3])
+		def constantDiviTree = new GpTree([divi, 6, 3])
+		when:
+		def resultAddTree = constantAddTree.evaluate(context)
+		def resultSubTree = constantSubTree.evaluate(context)
+		def resultMultTree = constantMultTree.evaluate(context)
+		def resultDiviTree = constantDiviTree.evaluate(context)
+		
+		then: 
+		resultAddTree == 1
+		resultSubTree == 3
+		resultMultTree == 6
+		resultDiviTree == 2
+	}
 
 }
