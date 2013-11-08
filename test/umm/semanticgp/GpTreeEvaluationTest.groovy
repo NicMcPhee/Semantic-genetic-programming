@@ -73,15 +73,47 @@ class GpTreeEvaluationTest extends Specification {
 	@Test
 	public void simpleVariableTreeTest () {
 		given:
-		def context = ['x' : 3]
-		def variableAddTree = new GpTree ([plus, "x", 1])
+		def context = ['x' : 3, 'y' : 6]
+		def firstVarAddTree = new GpTree ([plus, "x", 1])
+		def lastVarAddTree = new GpTree ([plus, 1, "x"])
+		def twoVarAddTree = new GpTree ([plus, "x" , "y"])
+		def firstVarSubTree = new GpTree ([sub, "x", 1])
+		def lastVarSubTree = new GpTree ([sub, 1, "x"])
+		def twoVarSubTree = new GpTree ([sub, "x" , "y"])
+		def firstVarMultTree = new GpTree ([mult, "x", 1])
+		def lastVarMultTree = new GpTree ([mult, 1, "x"])
+		def twoVarMultTree = new GpTree ([mult, "x" , "y"])
+		def firstVarDiviTree = new GpTree ([divi, "x", 1])
+		def lastVarDiviTree = new GpTree ([divi, 3, "x"])
+		def twoVarDiviTree = new GpTree ([divi, "x" , "y"])
 		
 		when:
-		def resultAddTree = variableAddTree.evaluate(context)
+		def resultFirstAddTree = firstVarAddTree.evaluate(context)
+		def resultLastAddTree = lastVarAddTree.evaluate(context)
+		def resultTwoVarAddTree = twoVarAddTree.evaluate(context)
+		def resultFirstSubTree = firstVarSubTree.evaluate(context)
+		def resultLastSubTree = lastVarSubTree.evaluate(context)
+		def resultTwoVarSubTree = twoVarSubTree.evaluate(context)
+		def resultFirstMultTree = firstVarMultTree.evaluate(context)
+		def resultLastMultTree = lastVarMultTree.evaluate(context)
+		def resultTwoVarMultTree = twoVarMultTree.evaluate(context)
+		def resultFirstDiviTree = firstVarDiviTree.evaluate(context)
+		def resultLastDiviTree = lastVarDiviTree.evaluate(context)
+		def resultTwoVarDiviTree = twoVarDiviTree.evaluate(context)
 		
 		then:
-		resultAddTree == 4
-		
+		resultFirstAddTree == 4
+		resultLastAddTree == 4
+		resultTwoVarAddTree == 9
+		resultFirstSubTree == 2
+		resultLastSubTree == -2
+		resultTwoVarSubTree == -3
+		resultFirstMultTree == 3
+		resultLastMultTree == 3
+		resultTwoVarMultTree == 18
+		resultFirstDiviTree == 3
+		resultLastDiviTree == 1
+		resultTwoVarDiviTree == 1/2
 	}
 
 }
