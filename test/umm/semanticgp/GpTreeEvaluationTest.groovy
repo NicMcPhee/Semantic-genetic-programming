@@ -69,5 +69,19 @@ class GpTreeEvaluationTest extends Specification {
 		resultMultTree == 6
 		resultDiviTree == 2
 	}
+	
+	@Test
+	public void simpleVariableTreeTest () {
+		given:
+		def context = ['x' : 3]
+		def variableAddTree = new GpTree ([plus, "x", 1])
+		
+		when:
+		def resultAddTree = variableAddTree.evaluate(context)
+		
+		then:
+		resultAddTree == 4
+		
+	}
 
 }

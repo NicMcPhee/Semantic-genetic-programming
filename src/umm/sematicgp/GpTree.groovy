@@ -6,17 +6,19 @@ class GpTree {
 	def GpTree(nodes) {
 		this.nodes = nodes
 	}
-	def evaluate(context) {
-		if (nodes[0] instanceof Closure) {
-			def f = nodes[0]
-			return f(nodes[1], nodes[2])
+	def evaluate(context, index = 0) {
+		if (nodes[index] instanceof Closure) {
+			def f = nodes[index]
+			def x = evaluate(context, index + 1)
+			def y = evaluate(context, index + 2)
+			return f(x, y)
 		}
 		else {
-			if(context.containsKey(nodes[0])) {
-				return context.(nodes[0])
+			if(context.containsKey(nodes[index])) {
+				return context.(nodes[index])
 			}
 			else {
-				return nodes[0]
+				return nodes[index]
 			}
 		}
 	}
