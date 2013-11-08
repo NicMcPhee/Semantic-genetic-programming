@@ -7,8 +7,9 @@ class GpTree {
 		this.nodes = nodes
 	}
 	def evaluate(context) {
-		if( nodes[0].equals("x")) {
-			return context.x
+	
+		if(context.containsKey(nodes[0])) {
+			return context.(nodes[0])
 		}
 		else {
 		return nodes[0]
