@@ -36,7 +36,6 @@ class GpTreeEvaluationTest extends Specification {
 	public void variableTest() {
 		given:
 		def context = ['x': 4, 'y' : 6]
-		
 		def treex = new GpTree(["x"])
 		def treey = new GpTree(["y"])
 		
@@ -57,6 +56,7 @@ class GpTreeEvaluationTest extends Specification {
 		def constantSubTree = new GpTree([sub, 4, 1])
 		def constantMultTree = new GpTree([mult, 2, 3])
 		def constantDiviTree = new GpTree([divi, 6, 3])
+		
 		when:
 		def resultAddTree = constantAddTree.evaluate(context)
 		def resultSubTree = constantSubTree.evaluate(context)
@@ -115,5 +115,69 @@ class GpTreeEvaluationTest extends Specification {
 		resultLastDiviTree == 1
 		resultTwoVarDiviTree == 1/2
 	}
-
+	
+	@Test
+	public void threeOperatorConstantTreeTest() {
+		given:
+		def context = [:]
+		def threeOperatorTree = new GpTree([mult, plus, 2, 3, sub, 6, 5])
+		def threeAdditionTree = new GpTree([plus, plus, 1, 2, plus, 3, 4])
+		
+		when:
+		def resultThreeOperatorTree = threeOperatorTree.evaluate(context)
+		def resultThreeAdditionTree = threeAdditionTree.evaluate(context)
+		
+		then:
+		resultThreeOperatorTree == 5
+		resultThreeAdditionTree == 10
+	}
+	
+	@Test
+	public void threeOperatorVariableTreeTest() {
+		given:
+		def context = ['x':3, 'y':5]
+		def threeOperatorTree = new GpTree([mult, plus, 2, 'x', sub, 6, 'y'])
+		def threeAdditionTree = new GpTree([plus, plus, 1, 2, plus, 'x', 4])
+		
+		when:
+		def resultThreeOperatorTree = threeOperatorTree.evaluate(context)
+		def resultThreeAdditionTree = threeAdditionTree.evaluate(context)
+		
+		then:
+		resultThreeOperatorTree == 5
+		resultThreeAdditionTree == 10
+	}
+	
+	@Test
+	public void complexOperatorConstantTreeTest() {
+		given:
+		def context = [:]
+		def threeOperatorTree = new GpTree([mult, plus, plus, 1, 1, 3, sub, 6, divi, 10, 2])
+		def threeAdditionTree = new GpTree([plus, plus, 1, plus, 1, 1, plus, plus, 1, plus, 1, 1, 4])
+		
+		when:
+		def resultThreeOperatorTree = threeOperatorTree.evaluate(context)
+		def resultThreeAdditionTree = threeAdditionTree.evaluate(context)
+		
+		then:
+		resultThreeOperatorTree == 5
+		resultThreeAdditionTree == 10
+	}
+	
+	@Test
+	public void complexOperatorVariableTreeTest() {
+		given:
+		def context = ['x': 2, 'y': 6, 'z': 1]
+		def threeOperatorTree = new GpTree([mult, plus, plus, 'z', 'z', 3, sub, 'y', divi, 10, 'x'])
+		def threeAdditionTree = 
+			new GpTree([plus, plus, 'z', plus, 'z', 'z', plus, plus, 'z', plus, 'z', 'z', 4])
+		
+		when:
+		def resultThreeOperatorTree = threeOperatorTree.evaluate(context)
+		def resultThreeAdditionTree = threeAdditionTree.evaluate(context)
+		
+		then:
+		resultThreeOperatorTree == 5
+		resultThreeAdditionTree == 10
+	}
 }
