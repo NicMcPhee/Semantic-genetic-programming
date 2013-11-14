@@ -9,8 +9,8 @@ class GpTree {
 
 	def evaluate(context, index = 0) {
 		while (nodes.size > 3 && index < nodes.size - 2) {
-			if (nodes[index] instanceof Closure && !(nodes[index + 1] instanceof Closure) &&
-			!(nodes[index + 2] instanceof Closure)) {
+			if (isFunction(nodes[index]) && !(isFunction(nodes[index + 1])) &&
+			!(isFunction(nodes[index + 2]))) {
 				def simpleNodes = new GpTree([nodes[index], nodes[index + 1], nodes[index + 2]])
 				nodes[index] = simpleNodes.evaluate(context)
 				nodes.remove(index + 1)
@@ -20,7 +20,7 @@ class GpTree {
 				index++
 			}
 		}
-		if (nodes[index] instanceof Closure) {
+		if (isFunction(nodes[index])) {
 			def f = nodes[index]
 			def x = evaluate(context, index + 1)
 			def y = evaluate(context, index + 2)
@@ -44,7 +44,7 @@ class GpTree {
 
 	def numArgs(node) {
 		if (isFunction(node)) {
-			2
+			node.parameterTypes.length
 		}
 		else {
 			0
