@@ -21,8 +21,10 @@ class GpTreeEvaluationTest extends Specification {
 	def divi =  {
 		x, y -> x / y
 	}
-
-
+	def sin = {
+		x -> Math.sin(x)
+	}
+	
 	@Test
 	public void constantTest() {
 		given:
@@ -122,6 +124,21 @@ class GpTreeEvaluationTest extends Specification {
 		resultLastDiviTree == 1
 		resultTwoVarDiviTree == 1/2
 	}
+	
+//	@Test
+//	public void simpleSingleParameterOperatorTreeTest() {
+//		given:
+//		def context = [:]
+//		def sinTree = new GpTree([sin, 0])
+//
+//
+//		when:
+//		def resultSinTree = sinTree.evaluate(context)
+//
+//		then:
+//		resultSinTree == Math.PI
+//
+//	}
 
 	@Test
 	public void threeOperatorConstantTreeTest() {
