@@ -10,7 +10,45 @@ package umm.sematicgp;
  * do.
  */
 class Operator {
-    def apply(x, y) {
-        func(x, y)
-    }
+//	def operator
+//    /*def apply(x, y) {
+//        func(x, y)
+//    }*/
+//	def Operator(operator) {
+//		this.operator = operator
+//	}
+	
+	static plus = {
+		x, y -> x + y
+	}
+	static sub =  {
+		x, y -> x - y
+	}
+	static mult =  {
+		x, y -> x * y
+	}
+	static divi =  {
+		x, y -> x / y
+	}
+	static sin = {
+		x -> Math.sin(x)
+	}
+	static cos = {
+		x -> Math.cos(x)
+	}
+	static log = {
+		x -> Math.log(x)
+	}
+	static gpif = {
+		test, positive, negative ->
+		if (test > 0) {
+			positive
+		} else {
+			negative
+		}
+	}
+	
+//	def random() {
+//		
+//	}
 }
