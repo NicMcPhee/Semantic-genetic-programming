@@ -24,7 +24,21 @@ class GpTreeEvaluationTest extends Specification {
 	def sin = {
 		x -> Math.sin(x)
 	}
+	def cos = {
+		x -> Math.cos(x)
+	}
+	def log = {
+		x -> Math.log(x)
+	}
 	
+	def gpif = {
+		test, positive, negative -> 
+		if (test > 0) {
+			positive
+		} else {
+			negative
+		}
+	}
 	@Test
 	public void constantTest() {
 		given:
@@ -125,21 +139,55 @@ class GpTreeEvaluationTest extends Specification {
 		resultTwoVarDiviTree == 1/2
 	}
 	
-//	@Test
-//	public void simpleSingleParameterOperatorTreeTest() {
-//		given:
-//		def context = [:]
-//		def sinTree = new GpTree([sin, 0])
-//
-//
-//		when:
-//		def resultSinTree = sinTree.evaluate(context)
-//
-//		then:
-//		resultSinTree == Math.PI
-//
-//	}
+	@Test
+	public void simpleSingleParameterOperatorTreeTest() {
+		given:
+		def context = ['x' : Math.PI / 2, 'y' : 10]
+		def sinTree = new GpTree([sin, 0])
+		def sinVTree = new GpTree([sin, "x"])
+		def cosTree = new GpTree([cos, 0])
+		def cosVTree = new GpTree([cos, "x"])
+		def logTree = new GpTree([log, Math.E])
+		def logVTree = new GpTree([log, 1])
 
+
+		when:
+		def resultSinTree = sinTree.evaluate(context)
+		def resultSinVTree = sinVTree.evaluate(context)
+		def resultCosTree = cosTree.evaluate(context)
+		def resultCosVTree = cosVTree.evaluate(context)
+		def resultLogTree = logTree.evaluate(context)
+		def resultLogVTree = logVTree.evaluate(context)
+
+		then:
+		resultSinTree == 0
+		resultSinVTree == 1
+		resultCosTree == 1
+//		resultCosVTree == 0
+		resultLogTree == 1
+		resultLogVTree == 0
+
+	}
+	@Test
+	public void simpleThreeParameterOperatorTreeTest() {
+		given:
+		def context = [:]
+		def gpifTree = new GpTree([gpif, 1, 0, 2])
+		def gpifZeroTree = new GpTree([gpif, 0, 1, 2])
+		def gpifNegativeTree = new GpTree([gpif, -1, 1, 2])
+
+
+		when:
+		def resultGpifTree = gpifTree.evaluate(context)
+		def resultGpifZeroTree = gpifZeroTree.evaluate(context)
+		def resultGpifNegativeTree = gpifNegativeTree.evaluate(context)
+		
+		then:
+		resultGpifTree == 0
+		resultGpifZeroTree == 2
+		resultGpifNegativeTree == 2
+
+	}
 	@Test
 	public void threeOperatorConstantTreeTest() {
 		given:
@@ -204,7 +252,23 @@ class GpTreeEvaluationTest extends Specification {
 		resultThreeOperatorTree == 5
 		resultThreeAdditionTree == 10
 	}
+	
+	@Test
+	public void diffArgLengthComplexOperatorVariableTreeTest() {
+		given:
+		def context = ['x': 2, 'y': 6, 'z': 1]
+		def multOperatorTree = new GpTree([sin, mult, sub, plus, sin, Math.PI/2, cos, 0, sub, 'y', divi, 10, 'x', Math.PI/2])
+		def complexMultOperatorTree =
+		new GpTree([gpif, plus, gpif, sub, 'x', 'y', -1, 0, 1, mult, sin, Math.PI/2, 'z', log, Math.E])
 
+		when:
+		def resultMultOperatorTree = multOperatorTree.evaluate(context)
+		def resultComplexMultOperatorTree = complexMultOperatorTree.evaluate(context)
+
+		then:
+		resultMultOperatorTree == 1
+		resultComplexMultOperatorTree == 1
+	}
 	@Test 
 	public void findCrossOverParameters() {
 		given: 

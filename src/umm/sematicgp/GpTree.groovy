@@ -10,9 +10,14 @@ class GpTree {
 	def evaluate(context, index = 0) {
 		if (isFunction(nodes[index])) {
 			def f = nodes[index]
-			def x = evaluate(context, index + 1)
-			def y = evaluate(context, findCrossoverParameters(index + 1) + 1)
-			return f(x, y)
+			def numberOfArgs = numArgs(f)
+			def position = index + 1
+			for(int j = 0; j < numberOfArgs; j++) {	
+				def x = evaluate(context, position)
+				f = f.curry(x)
+				position = findCrossoverParameters(position) + 1
+			}	
+			return f()
 		} else {
 			if(context.containsKey(nodes[index])) {
 				return context.(nodes[index])
