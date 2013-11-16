@@ -1,5 +1,7 @@
 package umm.sematicgp
 
+import java.util.Random
+
 class GpTree {
 	def nodes
 
@@ -52,4 +54,6 @@ class GpTree {
 		}
 		return end 
 	}
+	
+
 }
