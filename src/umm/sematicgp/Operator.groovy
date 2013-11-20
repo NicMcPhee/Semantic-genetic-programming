@@ -9,6 +9,7 @@ package umm.sematicgp;
  * it like this, but I thought I'd show some of the stuff you can
  * do.
  */
+import java.util.Random
 class Operator {
 //	def operator
 //    /*def apply(x, y) {
@@ -48,7 +49,9 @@ class Operator {
 		}
 	}
 	
-//	def random() {
-//		
-//	}
+	static random() {
+		def operatorArr = [plus, sub, mult, divi, sin, cos, log, gpif]
+		Random rand = new Random()
+		return operatorArr[rand.nextInt(operatorArr.size())]
+	}
 }
