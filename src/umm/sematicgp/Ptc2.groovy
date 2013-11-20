@@ -2,7 +2,7 @@ package umm.sematicgp
 
 class Ptc2 {
 
-	def ptc2(size, variableRange) {
+	def generateTree(size, variableRange) {
 		def randomTree = new GpTree([])
 		Random rand = new Random()
 		
@@ -15,7 +15,7 @@ class Ptc2 {
 			randomTree[0] = randomOperator
 			def count = 1
 			def i = 0;
-			for (i; i < numArgs(randomOperator); i++) {
+			for (i; i < randomTree.numArgs(randomOperator); i++) {
 				randomTree[i + 1] = "ERC"
 				indexArr[i] = i + 1
 			}
@@ -25,7 +25,7 @@ class Ptc2 {
 				def indexInGpTree = indexArr[rand.nextInt(indexArr.size())]
 				randomTree[indexInGpTree] = anotherOperator
 				def ercArr = []
-				for(int j = 0; j < numArgs(randomOperator); j++) {
+				for(int j = 0; j < randomTree.numArgs(randomOperator); j++) {
 					ercArr[j] = "ERC"
 					indexArr[indexArr.size] = indexInGpTree + j + 1
 				}

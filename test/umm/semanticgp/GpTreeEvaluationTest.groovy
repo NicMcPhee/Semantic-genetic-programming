@@ -7,6 +7,7 @@ import org.junit.Test;
 import spock.lang.Specification;
 import umm.sematicgp.GpTree
 import umm.sematicgp.Operator;
+import umm.sematicgp.Ptc2
 
 class GpTreeEvaluationTest extends Specification {
 
@@ -276,5 +277,12 @@ class GpTreeEvaluationTest extends Specification {
 	resultVariableSubTree == threeOperatorTree.nodes[4..4]
 	resultOneOpSubTree == threeOperatorTree.nodes[8..10]
 	resultMultOpSubTree == threeOperatorTree.nodes[1..5]
+	}
+	
+	@Test
+	public void randomTree() {
+		def treegen = new Ptc2()
+		def randomTree = treegen.generateTree(10,10)
+		
 	}
 }
