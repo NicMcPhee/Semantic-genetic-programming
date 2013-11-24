@@ -86,7 +86,7 @@ class Operator {
 		
 	
 	static random() {
-		def operatorArr = [/*plus, sub, mult, divi,*/ sin/*, cos, log, gpif*/]
+		def operatorArr = [plus, sub, mult, divi, sin, cos, log, gpif]
 		Random rand = new Random()
 		return operatorArr[rand.nextInt(operatorArr.size())]
 	}

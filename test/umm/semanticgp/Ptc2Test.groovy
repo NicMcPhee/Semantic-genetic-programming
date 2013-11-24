@@ -13,8 +13,14 @@ class Ptc2Test extends Specification {
 
 	@Test
 	public void randomTree() {
+		given:
 		def treegen = new Ptc2()
-		def randomTree = treegen.generateTree(10,10)
 		
+		when:
+		def randomTree = treegen.generateTree(13,2)
+		
+		then:
+		assert (6..8).contains(randomTree.nodes.size())
+		randomTree.printGpTree()
 	}
 }
