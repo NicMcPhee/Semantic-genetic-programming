@@ -49,8 +49,44 @@ class Operator {
 		}
 	}
 	
+	static isFunction(node) {
+		(node instanceof Closure)
+	}
+	
+	static numArgs(node) {
+		if (isFunction(node)) {
+			node.parameterTypes.length
+		}
+		else {
+			0
+		}
+	}
+	
+	static toString(node) {
+		
+		if (node == plus) {
+			return "+"
+		} else if (node == sub) {
+			return "-"
+		} else if (node == mult) {
+			return "*"
+		} else if (node == divi) {
+			return "/"
+		} else if (node == sin) {
+			return "sin"
+		} else if (node == cos) {
+			return "cos"
+		} else if (node == log) {
+			return "log"
+		} else if (node == gpif) {
+			return "if"
+		} 
+	
+	}
+		
+	
 	static random() {
-		def operatorArr = [plus, sub, mult, divi, sin, cos, log, gpif]
+		def operatorArr = [/*plus, sub, mult, divi,*/ sin/*, cos, log, gpif*/]
 		Random rand = new Random()
 		return operatorArr[rand.nextInt(operatorArr.size())]
 	}

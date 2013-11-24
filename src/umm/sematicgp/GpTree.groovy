@@ -10,9 +10,9 @@ class GpTree {
 	}
 
 	def evaluate(context, index = 0) {
-		if (isFunction(nodes[index])) {
+		if (Operator.isFunction(nodes[index])) {
 			def f = nodes[index]
-			def numberOfArgs = numArgs(f)
+			def numberOfArgs = Operator.numArgs(f)
 			def position = index + 1
 			for(int j = 0; j < numberOfArgs; j++) {	
 				def x = evaluate(context, position)
@@ -33,27 +33,41 @@ class GpTree {
 		return nodes[i..findCrossoverParameters(i)]
 	}
 
-	def isFunction(node) {
-		(node instanceof Closure)
-	}
 
-	def numArgs(node) {
-		if (isFunction(node)) {
-			node.parameterTypes.length
-		}
-		else {
-			0
-		}
-	}
+
+
 	def findCrossoverParameters(int i) {
 		def j = 0
 		def end = i
-		while(j < numArgs(nodes[i])) {
+		while(j < Operator.numArgs(nodes[i])) {
 			end = findCrossoverParameters(end + 1)
 			j++;
 		}
 		return end 
 	}
 	
+	def printGpTree() {
+			def gpString = "["
+//			print("[");
+			for (int i = 0; i < nodes.size(); ++i) {
+				if (Operator.isFunction(nodes[i])) {
+					//print(Operator.toString(nodes[i]))
+					gpString += Operator.toString(nodes[i])
+					if (i != nodes.size() - 1) {
+						gpString += ", "
+//						print(", ")
+					}
+				} else {
+				gpString += nodes[i]
+//				print(nodes[i]);
+				if (i != nodes.size() - 1)
+					gpString += ", "
+//					print(", ")
+				}
+			}
+//			println("]");
+			return gpString += "]"
+		}
+		
+	}
 
-}
