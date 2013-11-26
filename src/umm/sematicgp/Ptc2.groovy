@@ -1,13 +1,13 @@
 package umm.sematicgp
-
+import java.util.Random
 class Ptc2 {
 	
-//	def Ops
+	static Ops = []
 //	def Vars
-//	def Ptc2(Ops,Vars) {
-//		this.Ops = Ops
-//		this.Vars = Vars
-//	}
+	def Ptc2(Ops/*Vars*/) {
+		this.Ops = Ops
+	//	this.Vars = Vars
+	}
 
 	def generateTree(size, constantRange) {
 		def randomTree = new GpTree([])
@@ -18,9 +18,9 @@ class Ptc2 {
 			return randomTree
 		} else {
 			def indexArr = []
-			def randomOperator = Operator.random()
+			def randomOperator = randomOperators()
 			randomTree.nodes[0] = randomOperator
-			def count = 1
+			//def count = 1
 			def i = 0;
 			for (i; i < Operator.numArgs(randomOperator); i++) {
 				randomTree.nodes[i + 1] = "ERC"
@@ -30,15 +30,15 @@ class Ptc2 {
 				System.out.println(randomTree.nodes[m])
 			}
 			println " "
-			while (count + randomTree.nodes.size() <= size) {
+			while (/*count + */randomTree.nodes.size() < size) {
 				print "la"
-				def anotherOperator = Operator.random()
-				count += 1
+				def anotherOperator = randomOperators()
+				//count += 1
 				def randomNodeIndex = rand.nextInt(indexArr.size())
 				def indexInGpTree = indexArr[randomNodeIndex]
 				randomTree.nodes[indexInGpTree] = anotherOperator
 				def ercArr = []
-				for(int j = 0; j < Operator.numArgs(randomOperator); j++) {
+				for(int j = 0; j < Operator.numArgs(anotherOperator); j++) {
 					ercArr[j] = "ERC"
 					println "IndexArrErcAdd"
 					for (def m = 0; m < indexArr.size(); m++) {
@@ -75,5 +75,12 @@ class Ptc2 {
 			}
 			return randomTree
 		}
+	}
+	
+	static randomOperators() {
+		
+		Random rand = new Random()
+		return Ops[rand.nextInt(Ops.size())]
+		
 	}
 }

@@ -29,7 +29,14 @@ class Operator {
 		x, y -> x * y
 	}
 	static divi =  {
-		x, y -> x / y
+//		try {
+			x, y -> x / y //if adding these statements need {}
+//			}
+//		catch (Exception e) {
+//			{x,y -> 1}
+//		}
+			
+		
 	}
 	static sin = {
 		x -> Math.sin(x)

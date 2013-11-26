@@ -241,4 +241,20 @@ class GpTreeEvaluationTest extends Specification {
 		resultMultOperatorTree == 1
 		resultComplexMultOperatorTree == 1
 	}
+	
+	// Need Protected Division
+	@Test 
+	public void divideByZero() {
+		given:
+		def context = ['x': 4, 'y': 0]
+		def simpleCaseTree = new GpTree([Operator.divi, 2, 0])
+		def simpleVariableCaseTree = new GpTree([Operator.divi, "x","y"])
+		when:
+		def resultsimpleCaseTree = simpleCaseTree.evaluate(context)
+		def resultsimpleVariableCaseTree = simpleVariableCaseTree.evaluate(context)
+		then:
+		resultsimpleCaseTree == 1
+		resultsimpleVariableCaseTree == 1
+		
+	}
 }
