@@ -3,18 +3,22 @@ import java.util.Random
 class Ptc2 {
 	
 	static Ops = []
-//	def Vars
-	def Ptc2(Ops/*Vars*/) {
+	static Vars = []
+	static PercentageVariable
+	static ConstantRange
+	def Ptc2(Ops, Vars, PercentageVariable, ConstantRange) {
 		this.Ops = Ops
-	//	this.Vars = Vars
+		this.Vars = Vars
+		this.PercentageVariable = PercentageVariable
+		this.ConstantRange = ConstantRange
 	}
 
-	def generateTree(size, constantRange) {
+	def generateTree(size) {
 		def randomTree = new GpTree([])
 		Random rand = new Random()
 		
 		if (size == 1) {
-			randomTree[0] = rand.nextInt(constantRange)
+			randomTree[0] = nonOperatorSelection()
 			return randomTree
 		} else {
 			def indexArr = []
@@ -26,12 +30,8 @@ class Ptc2 {
 				randomTree.nodes[i + 1] = "ERC"
 				indexArr[i] = i + 1
 			}
-			for (def m = 0; m < randomTree.nodes.size(); m++) {
-				System.out.println(randomTree.nodes[m])
-			}
-			println " "
+
 			while (/*count + */randomTree.nodes.size() < size) {
-				print "la"
 				def anotherOperator = randomOperators()
 				//count += 1
 				def randomNodeIndex = rand.nextInt(indexArr.size())
@@ -40,10 +40,6 @@ class Ptc2 {
 				def ercArr = []
 				for(int j = 0; j < Operator.numArgs(anotherOperator); j++) {
 					ercArr[j] = "ERC"
-					println "IndexArrErcAdd"
-					for (def m = 0; m < indexArr.size(); m++) {
-						System.out.println(indexArr[m])
-					}
 				}			
 				randomTree.nodes.addAll(indexInGpTree + 1, ercArr)
 				indexArr.clear()
@@ -52,26 +48,9 @@ class Ptc2 {
 						indexArr[indexArr.size()] = k
 					}
 				}
-				for (def m = 0; m < 15; m++) {
-					System.out.println(randomTree.nodes[m])
-				}
-				println " "
-			}
-			println "IndexArr"
-			for (def m = 0; m < indexArr.size(); m++) {
-				System.out.println(indexArr[m])
-			}
-		
+			}		
 			for (int k = 0; k < indexArr.size(); k++) {
-				randomTree.nodes[indexArr[k]] = rand.nextInt(constantRange)
-				for (def m = 0; m < randomTree.nodes.size(); m++) {
-					System.out.println(randomTree.nodes[m])
-				}
-				println " "
-			}
-
-			for (def m = 0; m < randomTree.nodes.size(); m++) {
-				System.out.println(randomTree.nodes[m])
+				randomTree.nodes[indexArr[k]] = nonOperatorSelection()
 			}
 			return randomTree
 		}
@@ -82,5 +61,15 @@ class Ptc2 {
 		Random rand = new Random()
 		return Ops[rand.nextInt(Ops.size())]
 		
+	}
+	
+	static nonOperatorSelection() {
+		Random rand = new Random()
+		if (rand.nextInt(100) < PercentageVariable) {
+			Vars[rand.nextInt(Vars.size())]
+		}
+		else {
+			rand.nextInt(ConstantRange)
+		}
 	}
 }
