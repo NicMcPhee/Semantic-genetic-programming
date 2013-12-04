@@ -1,4 +1,4 @@
-package umm.sematicgp
+package umm.semanticgp
 
 import java.util.Random
 

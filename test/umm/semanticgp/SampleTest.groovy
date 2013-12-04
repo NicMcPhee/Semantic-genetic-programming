@@ -3,7 +3,7 @@ package umm.semanticgp;
 import static org.junit.Assert.*;
 
 import spock.lang.Specification;
-import umm.sematicgp.Operator
+import umm.semanticgp.Operator
 
 import org.junit.Test;
 

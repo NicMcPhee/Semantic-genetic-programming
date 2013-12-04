@@ -5,8 +5,8 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import spock.lang.Specification;
-import umm.sematicgp.GpTree
-import umm.sematicgp.Operator;
+import umm.semanticgp.GpTree
+import umm.semanticgp.Operator;
 
 class ToStringTest extends Specification {
 	

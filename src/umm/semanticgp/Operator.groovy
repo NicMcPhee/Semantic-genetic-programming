@@ -1,4 +1,4 @@
-package umm.sematicgp;
+package umm.semanticgp;
 
 /**
  * A simple Groovy class that wraps a function that isn't

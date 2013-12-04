@@ -5,9 +5,9 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import spock.lang.Specification;
-import umm.sematicgp.GpTree
-import umm.sematicgp.Operator;
-import umm.sematicgp.Ptc2
+import umm.semanticgp.GpTree
+import umm.semanticgp.Operator;
+import umm.semanticgp.Ptc2
 
 class GpTreeEvaluationTest extends Specification {
 
