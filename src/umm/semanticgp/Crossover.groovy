@@ -63,15 +63,3 @@ class Crossover {
     }
     
 }
-
-//  static main(args) {
-//      if (percentage < 1) {
-//          mutation(P1)
-//      }
-//      else if (percentage < 91) { //90% crossover rate.
-//          crossover(P1,P2)
-//      }
-//      else {
-//          reproduction(P1)
-//      }
-//}

@@ -24,27 +24,25 @@ class Ptc2 {
 			def indexArr = []
 			def randomOperator = randomOperators()
 			randomTree.nodes[0] = randomOperator
-			//def count = 1
 			def i = 0;
 			for (i; i < Operator.numArgs(randomOperator); i++) {
-				randomTree.nodes[i + 1] = "ERC"
+				randomTree.nodes[i + 1] = null
 				indexArr[i] = i + 1
 			}
 
-			while (/*count + */randomTree.nodes.size() < size) {
+			while (randomTree.nodes.size() < size) {
 				def anotherOperator = randomOperators()
-				//count += 1
 				def randomNodeIndex = rand.nextInt(indexArr.size())
 				def indexInGpTree = indexArr[randomNodeIndex]
 				randomTree.nodes[indexInGpTree] = anotherOperator
-				def ercArr = []
+				def nullArray = []
 				for(int j = 0; j < Operator.numArgs(anotherOperator); j++) {
-					ercArr[j] = "ERC"
+					nullArray[j] = null
 				}			
-				randomTree.nodes.addAll(indexInGpTree + 1, ercArr)
+				randomTree.nodes.addAll(indexInGpTree + 1, nullArray)
 				indexArr.clear()
 				for (def k = 0; k < randomTree.nodes.size(); k++) {
-					if (randomTree.nodes[k] == "ERC") {
+					if (randomTree.nodes[k] == null) {
 						indexArr[indexArr.size()] = k
 					}
 				}
