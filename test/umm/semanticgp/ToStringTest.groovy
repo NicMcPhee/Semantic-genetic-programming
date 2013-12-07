@@ -1,12 +1,10 @@
-package umm.semanticgp;
+package umm.semanticgp
 
-import static org.junit.Assert.*;
-
-import org.junit.Test;
-
-import spock.lang.Specification;
+import static org.junit.Assert.*
+import org.junit.Test
+import spock.lang.Specification
 import umm.semanticgp.GpTree
-import umm.semanticgp.Operator;
+import umm.semanticgp.Operator
 
 class ToStringTest extends Specification {
 	
@@ -56,10 +54,10 @@ class ToStringTest extends Specification {
 		def resultConstantPrint = cTree.printGpTree()
 		def resultVariablePrint = vTree.printGpTree()
 		def resultSimpleOpPrint = opTree.printGpTree()
+		
 		then:
 		resultConstantPrint == "[5, 3, 2, 3]"
 		resultVariablePrint == "[x, y, z]"
 		resultSimpleOpPrint == "[+, sin, z, 1]"
 	}
-
 }

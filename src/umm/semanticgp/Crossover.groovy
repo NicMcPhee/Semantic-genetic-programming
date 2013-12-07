@@ -1,6 +1,6 @@
 package umm.semanticgp
 
-import java.util.Random;
+import java.util.Random
 
 // 90% or more crossover 1% mutation rest copy into next generation.
 class Crossover {
@@ -10,7 +10,6 @@ class Crossover {
 
     static crossover(GpTree P1, GpTree P2) {
         def copyP1 = new GpTree(P1.nodes.clone())
-        
         
         def l2opP1 = rand.nextInt(10)
         def l2opP2 = rand.nextInt(10)
@@ -60,6 +59,5 @@ class Crossover {
             }
         }
         return copyP1
-    }
-    
+    }   
 }

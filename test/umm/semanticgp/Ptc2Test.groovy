@@ -1,12 +1,10 @@
-package umm.semanticgp;
+package umm.semanticgp
 
-import static org.junit.Assert.*;
-
-import org.junit.Test;
-
-import spock.lang.Specification;
+import static org.junit.Assert.*
+import org.junit.Test
+import spock.lang.Specification
 import umm.semanticgp.GpTree
-import umm.semanticgp.Operator;
+import umm.semanticgp.Operator
 import umm.semanticgp.Ptc2
 
 class Ptc2Test extends Specification {
@@ -22,10 +20,11 @@ class Ptc2Test extends Specification {
 		when:
 		def randomTree = treegen.generateTree(6)
 		System.out.println(randomTree.printGpTree())
+		
 		then:
 		assert (6..7).contains(randomTree.nodes.size())
-		
 	}
+	
 	@Test
 	public void singleOpRandomTree() {
 		given:
@@ -34,10 +33,11 @@ class Ptc2Test extends Specification {
 		when:
 		def randomTree = treegen.generateTree(7)
 		System.out.println(randomTree.printGpTree())
+		
 		then:
 		assert (7..7).contains(randomTree.nodes.size())
-		
 	}
+	
 	@Test
 	public void tripleOpRandomTree() {
 		given:
@@ -46,10 +46,11 @@ class Ptc2Test extends Specification {
 		when:
 		def randomTree = treegen.generateTree(7)
 		System.out.println(randomTree.printGpTree())
+		
 		then:
 		assert (7..9).contains(randomTree.nodes.size())
-		
 	}
+	
 	@Test
 	public void mixOpRandomTree() {
 		given:
@@ -58,10 +59,11 @@ class Ptc2Test extends Specification {
 		when:
 		def randomTree = treegen.generateTree(7)
 		System.out.println(randomTree.printGpTree())
+		
 		then:
 		assert (7..9).contains(randomTree.nodes.size())
-		
 	}
+	
 	@Test
 	public void largeAllOpRandomTree() {
 		given:
@@ -70,9 +72,9 @@ class Ptc2Test extends Specification {
 		when:
 		def randomTree = treegen.generateTree(30)
 		System.out.println(randomTree.printGpTree())
+		
 		then:
 		assert (30..32).contains(randomTree.nodes.size())
-		
 	}
 	
 	@Test
@@ -83,10 +85,11 @@ class Ptc2Test extends Specification {
 		when:
 		def randomTree = treegen.generateTree(7)
 		System.out.println(randomTree.printGpTree())
+		
 		then:
 		assert (7..8).contains(randomTree.nodes.size())
-		
 	}
+	
 	@Test
 	public void simpleTwoVariableRandomTree() {
 		given:
@@ -95,10 +98,11 @@ class Ptc2Test extends Specification {
 		when:
 		def randomTree = treegen.generateTree(7)
 		System.out.println(randomTree.printGpTree())
+		
 		then:
 		assert (7..8).contains(randomTree.nodes.size())
-		
 	}
+	
 	@Test
 	public void simpleFiveVariableRandomTree() {
 		given:
@@ -107,8 +111,8 @@ class Ptc2Test extends Specification {
 		when:
 		def randomTree = treegen.generateTree(15)
 		System.out.println(randomTree.printGpTree())
+		
 		then:
 		assert (15..17).contains(randomTree.nodes.size())
-		
 	}
 }

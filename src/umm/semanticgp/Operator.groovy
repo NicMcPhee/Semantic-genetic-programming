@@ -1,4 +1,4 @@
-package umm.semanticgp;
+package umm.semanticgp
 
 /**
  * A simple Groovy class that wraps a function that isn't
@@ -9,7 +9,9 @@ package umm.semanticgp;
  * it like this, but I thought I'd show some of the stuff you can
  * do.
  */
+
 import java.util.Random
+
 class Operator {
 //	def operator
 //    /*def apply(x, y) {
@@ -68,7 +70,6 @@ class Operator {
 	}
 	
 	static toString(node) {
-		
 		if (node == plus) {
 			return "+"
 		} else if (node == sub) {
@@ -86,9 +87,7 @@ class Operator {
 		} else if (node == gpif) {
 			return "if"
 		} 
-	
 	}
-		
 	
 	static random() {
 		def operatorArr = [plus, sub, mult, divi, sin, cos, log, gpif]

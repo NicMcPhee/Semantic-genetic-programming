@@ -1,5 +1,7 @@
 package umm.semanticgp
+
 import java.util.Random
+
 class Ptc2 {
 	
 	static Ops = []
@@ -55,10 +57,8 @@ class Ptc2 {
 	}
 	
 	static randomOperators() {
-		
 		Random rand = new Random()
-		return Ops[rand.nextInt(Ops.size())]
-		
+		return Ops[rand.nextInt(Ops.size())]	
 	}
 	
 	static nonOperatorSelection() {

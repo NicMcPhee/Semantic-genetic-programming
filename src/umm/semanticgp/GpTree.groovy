@@ -33,9 +33,6 @@ class GpTree {
 		return nodes[i..findCrossoverParameters(i)]
 	}
 
-
-
-
 	def findCrossoverParameters(int i) {
 		def j = 0
 		def end = i
@@ -47,27 +44,25 @@ class GpTree {
 	}
 	
 	def printGpTree() {
-			def gpString = "["
-//			print("[");
-			for (int i = 0; i < nodes.size(); ++i) {
-				if (Operator.isFunction(nodes[i])) {
-					//print(Operator.toString(nodes[i]))
-					gpString += Operator.toString(nodes[i])
-					if (i != nodes.size() - 1) {
-						gpString += ", "
-//						print(", ")
-					}
-				} else {
+		def gpString = "["
+//		print("[");
+		for (int i = 0; i < nodes.size(); ++i) {
+			if (Operator.isFunction(nodes[i])) {
+				//print(Operator.toString(nodes[i]))
+				gpString += Operator.toString(nodes[i])
+				if (i != nodes.size() - 1) {
+					gpString += ", "
+//					print(", ")
+				}
+			} else {
 				gpString += nodes[i]
 //				print(nodes[i]);
 				if (i != nodes.size() - 1)
 					gpString += ", "
 //					print(", ")
-				}
 			}
-//			println("]");
-			return gpString += "]"
 		}
-		
+//		println("]");
+		return gpString += "]"
 	}
-
+}

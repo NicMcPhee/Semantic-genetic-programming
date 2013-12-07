@@ -1,12 +1,10 @@
-package umm.semanticgp;
+package umm.semanticgp
 
-import static org.junit.Assert.*;
-
-import org.junit.Test;
-
-import spock.lang.Specification;
+import static org.junit.Assert.*
+import org.junit.Test
+import spock.lang.Specification
 import umm.semanticgp.GpTree
-import umm.semanticgp.Operator;
+import umm.semanticgp.Operator
 import umm.semanticgp.Ptc2
 
 class GpTreeEvaluationTest extends Specification {
@@ -31,7 +29,6 @@ class GpTreeEvaluationTest extends Specification {
 	public void variableTest() {
 		given:
 		def context = ['x': 4, 'y' : 6]
-
 		def treex = new GpTree(["x"])
 		def treey = new GpTree(["y"])
 
@@ -52,6 +49,7 @@ class GpTreeEvaluationTest extends Specification {
 		def constantSubTree = new GpTree([Operator.sub, 4, 1])
 		def constantMultTree = new GpTree([Operator.mult, 2, 3])
 		def constantDiviTree = new GpTree([Operator.divi, 6, 3])
+		
 		when:
 		def resultAddTree = constantAddTree.evaluate(context)
 		def resultSubTree = constantSubTree.evaluate(context)
@@ -122,7 +120,6 @@ class GpTreeEvaluationTest extends Specification {
 		def logTree = new GpTree([Operator.log, Math.E])
 		def logVTree = new GpTree([Operator.log, 1])
 
-
 		when:
 		def resultSinTree = sinTree.evaluate(context)
 		def resultSinVTree = sinVTree.evaluate(context)
@@ -138,8 +135,8 @@ class GpTreeEvaluationTest extends Specification {
 //		resultCosVTree == 0
 		resultLogTree == 1
 		resultLogVTree == 0
-
 	}
+	
 	@Test
 	public void simpleThreeParameterOperatorTreeTest() {
 		given:
@@ -147,7 +144,6 @@ class GpTreeEvaluationTest extends Specification {
 		def gpifTree = new GpTree([Operator.gpif, 1, 0, 2])
 		def gpifZeroTree = new GpTree([Operator.gpif, 0, 1, 2])
 		def gpifNegativeTree = new GpTree([Operator.gpif, -1, 1, 2])
-
 
 		when:
 		def resultGpifTree = gpifTree.evaluate(context)
@@ -158,8 +154,8 @@ class GpTreeEvaluationTest extends Specification {
 		resultGpifTree == 0
 		resultGpifZeroTree == 2
 		resultGpifNegativeTree == 2
-
 	}
+	
 	@Test
 	public void threeOperatorConstantTreeTest() {
 		given:
@@ -249,12 +245,13 @@ class GpTreeEvaluationTest extends Specification {
 		def context = ['x': 4, 'y': 0]
 		def simpleCaseTree = new GpTree([Operator.divi, 2, 0])
 		def simpleVariableCaseTree = new GpTree([Operator.divi, "x","y"])
+		
 		when:
 		def resultsimpleCaseTree = simpleCaseTree.evaluate(context)
 		def resultsimpleVariableCaseTree = simpleVariableCaseTree.evaluate(context)
+		
 		then:
 		resultsimpleCaseTree == 1
 		resultsimpleVariableCaseTree == 1
-		
 	}
 }

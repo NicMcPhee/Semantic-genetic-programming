@@ -9,10 +9,7 @@ class GPMain {
 		def initialPopulationSize = 20
 		def initialPopulation = []
 		for (int i = 0; i < initialPopulationSize; i++) {
-			initialPopulation[i] = new Ptc2([Operator.plus], ["x","y"], 90, 10); 
+			initialPopulation[i] = new Ptc2([Operator.plus], ["x","y"], 90, 10)
 		}
-		
-		
 	}
-
 }

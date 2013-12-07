@@ -1,10 +1,9 @@
-package umm.semanticgp;
+package umm.semanticgp
 
-import static org.junit.Assert.*;
-
-import org.junit.Test;
+import static org.junit.Assert.*
+import org.junit.Test
 import umm.semanticgp.GpTree
-import spock.lang.Specification;
+import spock.lang.Specification
 
 class CrossoverTest extends Specification {
 
@@ -19,9 +18,9 @@ class CrossoverTest extends Specification {
         println(P1.printGpTree())
         println(P2.printGpTree())
         println(childTree.printGpTree())
+		
         then:
         assert (1..9).contains(childTree.nodes.size())
-
     }
     
     @Test
@@ -35,8 +34,8 @@ class CrossoverTest extends Specification {
         println(P1.printGpTree())
         println(P2.printGpTree())
         println(childTree.printGpTree())
+		
         then:
         assert (1..17).contains(childTree.nodes.size())
-
     }
 }
