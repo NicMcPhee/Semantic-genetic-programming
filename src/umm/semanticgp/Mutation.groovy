@@ -14,7 +14,7 @@ public class Mutation {
 		def min
 		def max
 		
-		for (def i = 0; i < P1.size(); i++) {
+		for (def i = 0; i < P1.nodes.size(); i++) {
 			if (noiseProbability >= random.nextInt(10)) {
 				def fromNormalDistribution
 				if (!(min <= P1.nodes[i] && P1.nodes[i] <= max)) {
