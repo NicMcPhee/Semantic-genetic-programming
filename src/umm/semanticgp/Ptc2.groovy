@@ -20,7 +20,7 @@ class Ptc2 {
 		Random rand = new Random()
 		
 		if (size == 1) {
-			randomTree[0] = nonOperatorSelection()
+			randomTree.nodes[0] = nonOperatorSelection()
 			return randomTree
 		} else {
 			def indexArr = []

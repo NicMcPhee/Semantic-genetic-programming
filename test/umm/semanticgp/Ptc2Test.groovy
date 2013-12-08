@@ -11,6 +11,19 @@ class Ptc2Test extends Specification {
 	
 //	@Test 
 //	public void randomOpTest ()
+	
+	@Test
+	public void singleRandomTree() {
+		given:
+		def treegen = new Ptc2([Operator.plus, Operator.sub, Operator.mult, Operator.divi], [] , 0, 2)
+		
+		when:
+		def randomTree = treegen.generateTree(1)
+		System.out.println(randomTree.printGpTree())
+		
+		then:
+		assert (1..1).contains(randomTree.nodes.size())
+	}
 
 	@Test
 	public void doubleOpRandomTree() {

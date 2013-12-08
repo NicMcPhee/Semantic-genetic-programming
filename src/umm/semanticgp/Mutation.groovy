@@ -6,23 +6,53 @@ public class Mutation {
 	
 	static mutation(GpTree P1) {
 		Random random = new Random()
-		
+
 		def copyP1 = new GpTree(P1.nodes.clone())
-		
-		def noiseProbability
-		def normalDistributionVariance
-		def min
-		def max
-		
-		for (def i = 0; i < P1.nodes.size(); i++) {
-			if (noiseProbability >= random.nextInt(10)) {
-				def fromNormalDistribution
-				if (!(min <= P1.nodes[i] && P1.nodes[i] <= max)) {
-					fromNormalDistribution //random number from N(0, normalDistributionVariance)
+		def int noiseProbability = 1/copyP1.nodes.size() * 100
+		int i = 0
+		while (copyP1.nodes[i] != null) {
+			if (random.nextInt(100) <= noiseProbability && !(copyP1.nodes[i] instanceof Closure)) {
+				copyP1.nodes.remove(i)
+				def randomGeneratedTree = new Ptc2([Operator.plus],["x"], 50 , 3 
+					//Evolver.operatorList,
+					//Evolver.variableList,
+					//Evolver.percentVariables, 
+					//Evolver.initialConstantRange
+					)
+				int mutationTreeSize = (random.nextInt(P1.nodes.size() + 1) / 2) + 1
+				def mutationTree = randomGeneratedTree.generateTree(mutationTreeSize)
+				
+				//ask Nic about size of random mutated tree size
+				if (i == copyP1.nodes.size()) {
+				copyP1.nodes.addAll(mutationTree.findSubTree(0))
+				} else {
+				copyP1.nodes.addAll(i, mutationTree.findSubTree(0))
 				}
-				copyP1.nodes[i] = P1.nodes[i] + fromNormalDistribution
+				noiseProbability = 1/copyP1.nodes.size() * 100
+				i = copyP1.findCrossoverParameters(i) + 1
+			} else {
+			i++
 			}
 		}
-		return copyP1;
+		return copyP1
 	}
 }
+				
+				
+				
+/** Other form of mutation, might want to come back to? **/				
+				
+//		def normalDistributionVariance
+//		def min
+//		def max
+				
+//				def fromNormalDistribution
+//				if (!(min <= P1.nodes[i] && P1.nodes[i] <= max)) {
+//					fromNormalDistribution //random number from N(0, normalDistributionVariance)
+//				}
+//				copyP1.nodes[i] = P1.nodes[i] + fromNormalDistribution
+//			}
+//		}
+//		return copyP1;
+//	}
+//}

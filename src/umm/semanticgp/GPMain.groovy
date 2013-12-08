@@ -16,12 +16,6 @@ class GPMain {
 		Random random = new Random()
 		GpTree parent1 = initialPopulation[random.nextInt(initialPopulationSize)]
 		GpTree parent2 = initialPopulation[random.nextInt(initialPopulationSize)]
-		if (random.nextInt(100) < 90 /*this may be a variable*/) {
-			Crossover.crossover(parent1, parent2)
-		} else if (random.nextInt(100) < 91) {
-			Mutation.mutation(parent1)
-		} else {
-			GpTree copyParent1 = new GpTree(parent1.nodes.clone())
-		}
+
 	}
 }
