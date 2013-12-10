@@ -5,21 +5,23 @@ class Evolver {
 	static variableList
 	static initialConstantRange
 	static percentVariables
-	static popSize
+	//static popSize
 	
-	def Evolver(operatorList, variableList, percentVariables, initialConstantRange, popSize) {
+	def Evolver(operatorList, variableList, percentVariables, initialConstantRange) {
 		this.operatorList = operatorList
 		this.variableList = variableList
 		this.percentVariables = percentVariables
 		this.initialConstantRange = initialConstantRange
-		this.popSize = popSize
+		//this.popSize = popSize
 	}
+	
 	def initialPop(popSize) {
 		def initialPopulation = []
 		for (int i = 0; i < initialPopulationSize; i++) {
 			initialPopulation[i] = new Ptc2(operatorList, variableList, percentVariables, initialConstantRange)
 		}
 	}
+	
 	def mutationType() {
 		if (random.nextInt(100) < 90 /*this may be a variable*/) {
 			Crossover.crossover(parent1, parent2)

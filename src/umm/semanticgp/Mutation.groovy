@@ -4,7 +4,7 @@ import java.util.Random
 
 public class Mutation {
 	
-	static mutation(GpTree P1) {
+	static mutation(GpTree P1, Evolver P1Evolver) {
 		Random random = new Random()
 
 		def copyP1 = new GpTree(P1.nodes.clone())
@@ -13,11 +13,11 @@ public class Mutation {
 		while (copyP1.nodes[i] != null) {
 			if (random.nextInt(100) <= noiseProbability && !(copyP1.nodes[i] instanceof Closure)) {
 				copyP1.nodes.remove(i)
-				def randomGeneratedTree = new Ptc2([Operator.plus],["x"], 50 , 3 
-					//Evolver.operatorList,
-					//Evolver.variableList,
-					//Evolver.percentVariables, 
-					//Evolver.initialConstantRange
+				def randomGeneratedTree = new Ptc2(
+					Evolver.operatorList,
+					Evolver.variableList,
+					Evolver.percentVariables, 
+					Evolver.initialConstantRange
 					)
 				int mutationTreeSize = (random.nextInt(P1.nodes.size() + 1) / 2) + 1
 				def mutationTree = randomGeneratedTree.generateTree(mutationTreeSize)
@@ -37,8 +37,6 @@ public class Mutation {
 		return copyP1
 	}
 }
-				
-				
 				
 /** Other form of mutation, might want to come back to? **/				
 				

@@ -16,6 +16,5 @@ class GPMain {
 		Random random = new Random()
 		GpTree parent1 = initialPopulation[random.nextInt(initialPopulationSize)]
 		GpTree parent2 = initialPopulation[random.nextInt(initialPopulationSize)]
-
 	}
 }
