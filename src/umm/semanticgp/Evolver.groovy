@@ -17,7 +17,7 @@ class Evolver {
 	
 	def initialPop(popSize) {
 		def initialPopulation = []
-		for (int i = 0; i < initialPopulationSize; i++) {
+		for (int i = 0; i < popSize; i++) {
 			initialPopulation[i] = new Ptc2(operatorList, variableList, percentVariables, initialConstantRange)
 		}
 	}

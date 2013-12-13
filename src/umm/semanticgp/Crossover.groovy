@@ -36,28 +36,28 @@ class Crossover {
             }
         }
 
+		def newNodes 
+		if (l2opP2 < 1) {
+			newNodes = P2.nodes[parent2Leaves[rand.nextInt(parent2Leaves.size())]]
+		}
+		else {
+			newNodes = P2.findSubTree(parent2Operators[rand.nextInt(parent2Operators.size())])
+		}
+		def indexToAdd
+		def endIndex
         if (l2opP1 < 1) {
-            def leafIndexToAdd = parent1Leaves[rand.nextInt(parent1Leaves.size())]
-            copyP1.nodes.remove(leafIndexToAdd)
-            
-            if (l2opP2 < 1) {
-                copyP1.nodes.addAll(leafIndexToAdd, P2.nodes[parent2Leaves[rand.nextInt(parent2Leaves.size())]])
-            }
-            else {
-                copyP1.nodes.addAll(leafIndexToAdd,P2.findSubTree(parent2Operators[rand.nextInt(parent2Operators.size())]))
-            }
+            indexToAdd = parent1Leaves[rand.nextInt(parent1Leaves.size())]
+			endIndex = indexToAdd + 1
+
         }
         else {
-            def opIndexToAdd = parent1Operators[rand.nextInt(parent1Operators.size())]
-            def endIndex = copyP1.findCrossoverParameters(opIndexToAdd) + 1
-            copyP1.nodes.removeRange(opIndexToAdd,endIndex)
-            if (l2opP2 < 1) {
-                copyP1.nodes.addAll(opIndexToAdd, P2.nodes[parent2Leaves[rand.nextInt(parent2Leaves.size())]])
-            }
-            else {
-                copyP1.nodes.addAll(opIndexToAdd,P2.findSubTree(parent2Operators[rand.nextInt(parent2Operators.size())]))
-            }
+            indexToAdd = parent1Operators[rand.nextInt(parent1Operators.size())]
+            endIndex = copyP1.findCrossoverParameters(indexToAdd) + 1
+
         }
+		//Add a method to call to mutation.
+		copyP1.nodes.removeRange(indexToAdd,endIndex)
+		copyP1.nodes.addAll(indexToAdd, newNodes)
         return copyP1
     }   
 }
