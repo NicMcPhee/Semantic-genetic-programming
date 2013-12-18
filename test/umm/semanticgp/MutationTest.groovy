@@ -11,7 +11,7 @@ class MutationTest {
 	public void simpleMutation() {
 		given:
 		def P1 = new GpTree([Operator.plus, 3, Operator.sub, 2, 1])
-		def P1Evolver = new Evolver([Operator.plus, Operator.sub], [], 0, 4)
+		def P1Evolver = new Evolver([Operator.plus, Operator.sub], [], 0, 4, 20)
 		
 		when:
 		def childTree = Mutation.mutation(P1, P1Evolver)
@@ -26,7 +26,7 @@ class MutationTest {
 	public void complexMutation() {
 		given:
 		def P1 = new GpTree([Operator.gpif, 3, Operator.sub, 2, 1, Operator.mult, 1 , Operator.sin, Operator.divi, Operator.cos, "x", 7])
-		def P1Evolver = new Evolver([Operator.gpif, Operator.sub, Operator.mult, Operator.sin, Operator.divi, Operator.cos], ['x'], 10, 8)
+		def P1Evolver = new Evolver([Operator.gpif, Operator.sub, Operator.mult, Operator.sin, Operator.divi, Operator.cos], ['x'], 10, 8, 20)
 		
 		when:
 		def childTree = Mutation.mutation(P1, P1Evolver)
