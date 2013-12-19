@@ -12,7 +12,6 @@ class Tourney {
 		int i = 0
 		while (toTourneyIndex.size() != n) {
 			def randomIndex = rand.nextInt(array.size())
-			println(randomIndex)
 			if(!(toTourneyIndex.contains(randomIndex))) {
 				toTourneyIndex[i] = randomIndex
 				tourneyFitnesses[i] = Fitness.computeFitness(array[randomIndex])
