@@ -1,19 +1,34 @@
 package umm.semanticgp
 
 class Tourney {
-	
-	static Tournament(GpTree potentialParent1, GpTree potentialParent2) {
-		
-	/* should take the whole population and computes n things to tourney */
-		def fitness1 = Fitness.computeFitness(potentialParent1)
-		def fitness2 = Fitness.computeFitness(potentialParent2)
-		println fitness1
-		println fitness2
-		if (fitness1 <= fitness2) {
-			return potentialParent1
-		} else {
-			return potentialParent2
+	/* takes the whole population and computes n things to tourney */
+	static Tournament(array, n) {
+		def Fitness = new Fitness(Evolver.FitnessList)
+		Random rand = new Random()
+		def toTourneyIndex = []
+		def tourneyFitnesses = []
+		def bestFitnessIndex = 0;
+		def bestFitness = Double.POSITIVE_INFINITY
+		int i = 0
+		while (toTourneyIndex.size() != n) {
+			def randomIndex = rand.nextInt(array.size())
+			println(randomIndex)
+			if(!(toTourneyIndex.contains(randomIndex))) {
+				toTourneyIndex[i] = randomIndex
+				tourneyFitnesses[i] = Fitness.computeFitness(array[randomIndex])
+				i++
+			}
 		}
+		for(def j = 0; j < n; j++) {
+			def computedFitness = tourneyFitnesses[j]
+			
+			if (computedFitness < bestFitness) {
+				bestFitness = computedFitness
+				bestFitnessIndex = toTourneyIndex[j]
+			}
+		}
+		println(bestFitnessIndex)
+		return array[bestFitnessIndex]
 	}
 	
 }

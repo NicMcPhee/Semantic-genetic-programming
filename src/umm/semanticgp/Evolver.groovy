@@ -6,7 +6,8 @@ class Evolver {
 	static initialConstantRange
 	static percentVariables
 	static popSize
-	static Population
+	def Population
+	static FitnessList
 
 	def Evolver(operatorList, variableList, percentVariables, initialConstantRange, popSize) {
 		this.operatorList = operatorList
@@ -14,8 +15,9 @@ class Evolver {
 		this.percentVariables = percentVariables
 		this.initialConstantRange = initialConstantRange
 		this.popSize = popSize
+		
 	}
-
+	
 	def initialPop(popSize) {
 		for (int i = 0; i < popSize; i++) {
 			Population[i] = new Ptc2(operatorList, variableList, percentVariables, initialConstantRange)
@@ -24,6 +26,8 @@ class Evolver {
 
 	def mutationType(crossoverPercentage) {
 		def childGeneration = []
+		def parent1 = Tourney.Tournament(Population, 2)
+		def parent2 = Tourney.Tournament(Population, 2)
 		for(def i = 0; i < popSize; i++) {
 			if (random.nextInt(100) < crossoverPercentage /*90 /*this may be a variable*/) {
 				childGeneration[i] = Crossover.crossover(parent1, parent2)
@@ -34,5 +38,6 @@ class Evolver {
 				childGeneration[i] = copyParent1
 			}
 		}
+	Population = childGeneration
 	}
 }
