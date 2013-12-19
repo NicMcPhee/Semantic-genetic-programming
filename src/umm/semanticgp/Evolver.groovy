@@ -6,6 +6,7 @@ class Evolver {
 	static initialConstantRange
 	static percentVariables
 	static popSize
+	static Population
 
 	def Evolver(operatorList, variableList, percentVariables, initialConstantRange, popSize) {
 		this.operatorList = operatorList
@@ -16,7 +17,6 @@ class Evolver {
 	}
 
 	def initialPop(popSize) {
-		def Population = []
 		for (int i = 0; i < popSize; i++) {
 			Population[i] = new Ptc2(operatorList, variableList, percentVariables, initialConstantRange)
 		}

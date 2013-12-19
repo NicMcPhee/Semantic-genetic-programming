@@ -55,7 +55,6 @@ class Crossover {
             endIndex = copyP1.findCrossoverParameters(indexToAdd) + 1
 
         }
-		//Add a method to call to mutation.
 		copyP1.nodes.removeRange(indexToAdd,endIndex)
 		copyP1.nodes.addAll(indexToAdd, newNodes)
         return copyP1
