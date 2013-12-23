@@ -14,10 +14,10 @@ public class Mutation {
 			if (random.nextInt(100) <= noiseProbability && !(copyP1.nodes[i] instanceof Closure)) {
 				copyP1.nodes.remove(i)
 				def randomGeneratedTree = new Ptc2(
-					Evolver.operatorList,
-					Evolver.variableList,
-					Evolver.percentVariables, 
-					Evolver.initialConstantRange
+					P1Evolver.operatorList,
+					P1Evolver.variableList,
+					P1Evolver.percentVariables, 
+					P1Evolver.initialConstantRange
 					)
 				int mutationTreeSize = (random.nextInt(P1.nodes.size() + 1) / 2) + 1
 				def mutationTree = randomGeneratedTree.generateTree(mutationTreeSize)

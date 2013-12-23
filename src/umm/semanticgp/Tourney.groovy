@@ -26,7 +26,6 @@ class Tourney {
 				bestFitnessIndex = toTourneyIndex[j]
 			}
 		}
-		println(bestFitnessIndex)
 		return array[bestFitnessIndex]
 	}
 	

@@ -1,15 +1,15 @@
 package umm.semanticgp
 import java.util.Random
 class Evolver {
-	static operatorList
-	static variableList
-	static initialConstantRange
-	static percentVariables
-	static initialTreeSize
-	static popSize
-	static Population = []
+	def operatorList
+	def variableList
+	def initialConstantRange
+	def percentVariables
+	def initialTreeSize
+	def popSize
+	def Population = []
 	static FitnessList = []
-	static generations
+	def generations
 
 	def Evolver(operatorList, variableList, percentVariables, initialConstantRange, initialTreeSize, popSize, generations) {
 		this.operatorList = operatorList
@@ -21,8 +21,11 @@ class Evolver {
 		this.generations = generations
 	}
 
-	def evolve() {
+	def evolve(crossoverPercent) {
 		initialPop()
+		for (def j = 1; j < generations; j++) {
+			mutationType(crossoverPercent)
+		}
 	}
 
 	def readFitness() {
@@ -36,28 +39,27 @@ class Evolver {
 		for (int i = 0; i < popSize; i++) {
 			def GpTree = new Ptc2(operatorList, variableList, percentVariables, initialConstantRange)
 			Population[i] =  GpTree.generateTree(initialTreeSize)
-			
 		}
 	}
 
 	def mutationType(crossoverPercentage) {
-		//	for (def j = 0; j < Generations; j++) {
+
 		def childGeneration = []
 		Random random = new Random()
 		def parent1 = Tourney.Tournament(Population, 2)
 		def parent2 = Tourney.Tournament(Population, 2)
 		for(def i = 0; i < popSize; i++) {
-			if (random.nextInt(100) < crossoverPercentage /*90 /*this may be a variable*/) {
+			if (random.nextInt(100) < crossoverPercentage /*this may be a variable*/) {
 				childGeneration[i] = Crossover.crossover(parent1, parent2)
-			} else if (random.nextInt(100) < (crossoverPercentage + 1)/*91*/) {
-				childGeneration[i] = Mutation.mutation(parent1)
+			} else if (random.nextInt(100) < (crossoverPercentage  + 1)) {
+				childGeneration[i] = Mutation.mutation(parent1, this)
 			} else {
 				GpTree copyParent1 = new GpTree(parent1.nodes.clone())
 				childGeneration[i] = copyParent1
 			}
 		}
-
-		Population = childGeneration.clone()
-		//}
+		for (def k = 0; k < childGeneration.size(); k++) {
+			Population[k] = childGeneration[k]
+		}
 	}
 }

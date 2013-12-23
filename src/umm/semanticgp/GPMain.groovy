@@ -7,7 +7,7 @@ import java.util.Random
 class GPMain {
 
 	static main(args) {
-		def Evolve = new Evolver([Operator.plus, Operator.mult], ["x","y"], 50, 2, 4)
+		def Evolve = new Evolver([Operator.plus, Operator.mult], ["x","y"], 80, 2, 10, 2, 30)
 		Evolve.FitnessList = [
 			[['x': 0, 'y': 0], 0],
 			[['x': 0, 'y': 1], 1],
@@ -31,13 +31,9 @@ class GPMain {
 			[['x': 6, 'y': 7], 13],
 			[['x': 7, 'y': 6], 13]
 		]
-		Evolve.initialPop()
+		Evolve.evolve(90)
 		for(def i = 0; i < Evolve.popSize; i++){
-			Evolve.Population[i].printGpTree()
-		}
-		Evolve.mutationType(90)
-		for(def i = 0; i < Evolve.popSize; i++){
-			Evolve.Population[i].printGpTree()
+		println (Evolve.Population[i].printGpTree())
 		}
 	}
 }
