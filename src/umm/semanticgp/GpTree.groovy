@@ -65,4 +65,8 @@ class GpTree {
 //		println("]");
 		return gpString += "]"
 	}
+	
+	def size() {
+		return nodes.size()
+   }
 }

@@ -74,7 +74,7 @@ class Ptc2Test extends Specification {
 		System.out.println(randomTree.printGpTree())
 		
 		then:
-		assert (7..9).contains(randomTree.nodes.size())
+		assert (7..9).contains(randomTree.size())
 	}
 	
 	@Test
@@ -87,7 +87,7 @@ class Ptc2Test extends Specification {
 		System.out.println(randomTree.printGpTree())
 		
 		then:
-		assert (30..32).contains(randomTree.nodes.size())
+		assert (30..32).contains(randomTree.size())
 	}
 	
 	@Test
@@ -100,7 +100,7 @@ class Ptc2Test extends Specification {
 		System.out.println(randomTree.printGpTree())
 		
 		then:
-		assert (7..8).contains(randomTree.nodes.size())
+		assert (7..8).contains(randomTree.size())
 	}
 	
 	@Test
@@ -113,7 +113,7 @@ class Ptc2Test extends Specification {
 		System.out.println(randomTree.printGpTree())
 		
 		then:
-		assert (7..8).contains(randomTree.nodes.size())
+		assert (7..8).contains(randomTree.size())
 	}
 	
 	@Test
@@ -126,6 +126,6 @@ class Ptc2Test extends Specification {
 		System.out.println(randomTree.printGpTree())
 		
 		then:
-		assert (15..17).contains(randomTree.nodes.size())
+		assert (15..17).contains(randomTree.size())
 	}
 }
