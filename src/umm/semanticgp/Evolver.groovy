@@ -47,7 +47,7 @@ class Evolver {
 			FitnessList.add(subList)
 			i++
 		}
-		println(FitnessList)
+		return FitnessList
 	}
 
 	def initialPop() {
