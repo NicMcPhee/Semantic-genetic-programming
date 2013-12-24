@@ -38,4 +38,38 @@ class CrossoverTest extends Specification {
         then:
         assert (1..17).contains(childTree.nodes.size())
     }
+	
+	@Test
+	public void singleNodeP1Crossover() {
+		given:
+		def P1 = new GpTree([1])
+		def P2 = new GpTree([Operator.sub, "y", Operator.plus, "z", Operator.gpif, "x", "w", Operator.cos, "v"])
+		
+		when:
+		def childTree = Crossover.crossover(P1,P2)
+		println ("parent 1 is single node")
+		println(P1.printGpTree())
+		println(P2.printGpTree())
+		println(childTree.printGpTree())
+		
+		then:
+		assert (1..17).contains(childTree.nodes.size())
+	}
+	
+	@Test
+	public void singleNodeP2Crossover() {
+		given:
+		def P1 =  new GpTree([Operator.sub, "y", Operator.plus, "z", Operator.gpif, "x", "w", Operator.cos, "v"])
+		def P2 = new GpTree([1])
+		
+		when:
+		def childTree = Crossover.crossover(P1,P2)
+		println ("parent 2 is single node")
+		println(P1.printGpTree())
+		println(P2.printGpTree())
+		println(childTree.printGpTree())
+		
+		then:
+		assert (1..17).contains(childTree.nodes.size())
+	}
 }

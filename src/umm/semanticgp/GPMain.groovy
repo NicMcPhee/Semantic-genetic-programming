@@ -7,7 +7,7 @@ import java.util.Random
 class GPMain {
 
 	static main(args) {
-		def Evolve = new Evolver([Operator.plus, Operator.mult], ["x","y"], 80, 2, 10, 2, 30)
+		def Evolve = new Evolver([Operator.plus, Operator.mult], ["x","y"], 80, 2, 20, 5, 100)
 		Evolve.FitnessList = [
 			[['x': 0, 'y': 0], 0],
 			[['x': 0, 'y': 1], 1],

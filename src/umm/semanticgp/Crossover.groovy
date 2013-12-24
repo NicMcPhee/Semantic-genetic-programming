@@ -37,7 +37,7 @@ class Crossover {
         }
 
 		def newNodes 
-		if (l2opP2 < 1) {
+		if (l2opP2 < 1 || parent2Operators.empty) {
 			newNodes = P2.nodes[parent2Leaves[rand.nextInt(parent2Leaves.size())]]
 		}
 		else {
@@ -45,7 +45,7 @@ class Crossover {
 		}
 		def indexToAdd
 		def endIndex
-        if (l2opP1 < 1) {
+        if (l2opP1 < 1 || parent1Operators.empty) {
             indexToAdd = parent1Leaves[rand.nextInt(parent1Leaves.size())]
 			endIndex = indexToAdd + 1
 
