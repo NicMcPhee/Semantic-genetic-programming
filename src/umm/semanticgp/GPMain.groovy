@@ -8,7 +8,7 @@ class GPMain {
 
 	static main(args) {
 		def Evolve = new Evolver([Operator.plus, Operator.mult], ["x","y"], 80, 2, 20, 5, 100)
-		Evolve.FitnessList = [
+		Evolve.FitnessList = Evolve.readFitness(args[0] /*Does Not Work in Eclipse, but Should Work from Console. I Think.*/) /*[
 			[['x': 0, 'y': 0], 0],
 			[['x': 0, 'y': 1], 1],
 			[['x': 1, 'y': 0], 1],
@@ -30,7 +30,7 @@ class GPMain {
 			[['x': 6, 'y': 6], 12],
 			[['x': 6, 'y': 7], 13],
 			[['x': 7, 'y': 6], 13]
-		]
+		]*/
 		Evolve.evolve(90)
 		for(def i = 0; i < Evolve.popSize; i++){
 		println (Evolve.Population[i].printGpTree())

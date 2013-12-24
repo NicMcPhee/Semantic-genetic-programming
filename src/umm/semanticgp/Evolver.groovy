@@ -8,7 +8,7 @@ class Evolver {
 	def initialTreeSize
 	def popSize
 	def Population = []
-	static FitnessList = []
+	static FitnessList = [][]
 	def generations
 
 	def Evolver(operatorList, variableList, percentVariables, initialConstantRange, initialTreeSize, popSize, generations) {
@@ -28,11 +28,26 @@ class Evolver {
 		}
 	}
 
-	def readFitness() {
-		Scanner scan = new Scanner(args[0])
-		while(scan.hasNext("],")) {
-			FitnessList.add(scan.nextLine())
+	def readFitness(input) {
+		FileReader inputFile = new FileReader(input/*args[0]*/)
+		Scanner scan = new Scanner(inputFile)
+		def i = 0
+		while (scan.hasNextLine()) {
+			def context = [:]
+			def j = 0
+			while (scan.hasNext('[a-zA-Z]*:[0-9]*')) {
+				def contextString = scan.next()
+				def contextArray = contextString.split(':')
+				String key = contextArray[0]
+				int value = contextArray[1].toInteger()
+				context.put(key, value)
+				j++
+			}
+			def subList = [context, scan.nextInt()]
+			FitnessList.add(subList)
+			i++
 		}
+		println(FitnessList)
 	}
 
 	def initialPop() {
