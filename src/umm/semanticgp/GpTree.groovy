@@ -38,35 +38,29 @@ class GpTree {
 		def end = i
 		while(j < Operator.numArgs(nodes[i])) {
 			end = findCrossoverParameters(end + 1)
-			j++;
+			j++
 		}
 		return end 
 	}
 	
 	def printGpTree() {
 		def gpString = "["
-//		print("[");
 		for (int i = 0; i < nodes.size(); ++i) {
 			if (Operator.isFunction(nodes[i])) {
-				//print(Operator.toString(nodes[i]))
 				gpString += Operator.toString(nodes[i])
 				if (i != nodes.size() - 1) {
 					gpString += ", "
-//					print(", ")
 				}
 			} else {
 				gpString += nodes[i]
-//				print(nodes[i]);
 				if (i != nodes.size() - 1)
 					gpString += ", "
-//					print(", ")
 			}
 		}
-//		println("]");
 		return gpString += "]"
 	}
 	
 	def size() {
 		return nodes.size()
-   }
+	}
 }

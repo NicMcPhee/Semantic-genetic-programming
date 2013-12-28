@@ -1,8 +1,7 @@
 package umm.semanticgp;
 
-import static org.junit.Assert.*;
-
-import org.junit.Test;
+import static org.junit.Assert.*
+import org.junit.Test
 
 class TourneyTest {
 
@@ -23,8 +22,8 @@ class TourneyTest {
 			"x",
 			1
 		])
+		
 		when:
-
 		def xplusyFitness = new Fitness([
 			[['x': 0, 'y': 0], 0],
 			[['x': 0, 'y': 1], 1],
@@ -50,10 +49,12 @@ class TourneyTest {
 		])
 		def cand1Fitness = xplusyFitness.computeFitness(candidate1)
 		def cand2Fitness = xplusyFitness.computeFitness(candidate2)
+		
 		then:
 		assert cand1Fitness == 21
 		assert cand2Fitness == 0
 	}
+	
 	@Test
 	public void testTourney() {
 		given:
@@ -72,6 +73,7 @@ class TourneyTest {
 			1
 		])
 		def P1Evolver = new Evolver([Operator.plus, Operator.sub], [], 0, 4, 5, 20, 15)
+		
 		when:
 		P1Evolver.FitnessList = [
 			[['x': 0, 'y': 0], 0],
@@ -98,6 +100,7 @@ class TourneyTest {
 		]
 		def parent = Tourney.Tournament([candidate1, candidate2],2)
 		def equals = candidate2.equals(parent)
+		
 		then:
 		assert equals
 	}

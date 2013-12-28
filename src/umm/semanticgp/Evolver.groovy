@@ -1,6 +1,9 @@
 package umm.semanticgp
+
 import java.util.Random
+
 class Evolver {
+	
 	def operatorList
 	def variableList
 	def initialConstantRange
@@ -29,7 +32,7 @@ class Evolver {
 	}
 
 	def readFitness(input) {
-		FileReader inputFile = new FileReader(input/*args[0]*/)
+		FileReader inputFile = new FileReader(input)
 		Scanner scan = new Scanner(inputFile)
 		def i = 0
 		while (scan.hasNextLine()) {
@@ -47,6 +50,8 @@ class Evolver {
 			FitnessList.add(subList)
 			i++
 		}
+		inputFile.close()
+		scan.close()
 		return FitnessList
 	}
 
@@ -58,7 +63,6 @@ class Evolver {
 	}
 
 	def mutationType(crossoverPercentage) {
-
 		def childGeneration = []
 		Random random = new Random()
 		def parent1 = Tourney.Tournament(Population, 2)

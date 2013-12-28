@@ -8,6 +8,7 @@ class Ptc2 {
 	static Vars = []
 	static PercentageVariable
 	static ConstantRange
+	
 	def Ptc2(Ops, Vars, PercentageVariable, ConstantRange) {
 		this.Ops = Ops
 		this.Vars = Vars
@@ -26,7 +27,7 @@ class Ptc2 {
 			def indexArr = []
 			def randomOperator = randomOperators()
 			randomTree.nodes[0] = randomOperator
-			def i = 0;
+			def i = 0
 			for (i; i < Operator.numArgs(randomOperator); i++) {
 				randomTree.nodes[i + 1] = null
 				indexArr[i] = i + 1

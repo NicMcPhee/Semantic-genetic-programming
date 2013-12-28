@@ -7,7 +7,7 @@ class Tourney {
 		Random rand = new Random()
 		def toTourneyIndex = []
 		def tourneyFitnesses = []
-		def bestFitnessIndex = 0;
+		def bestFitnessIndex = 0
 		def bestFitness = Double.POSITIVE_INFINITY
 		int i = 0
 		while (toTourneyIndex.size() != n) {
@@ -28,5 +28,4 @@ class Tourney {
 		}
 		return array[bestFitnessIndex]
 	}
-	
 }
