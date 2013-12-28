@@ -34,7 +34,6 @@ class Evolver {
 	def readFitness(input) {
 		FileReader inputFile = new FileReader(input)
 		Scanner scan = new Scanner(inputFile)
-		def i = 0
 		while (scan.hasNextLine()) {
 			def context = [:]
 			def j = 0
@@ -48,7 +47,6 @@ class Evolver {
 			}
 			def subList = [context, scan.nextInt()]
 			FitnessList.add(subList)
-			i++
 		}
 		inputFile.close()
 		scan.close()
