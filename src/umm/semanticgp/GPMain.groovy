@@ -33,7 +33,7 @@ class GPMain {
 		]*/
 		Evolve.evolve(90)
 		for(def i = 0; i < Evolve.popSize; i++){
-		println (Evolve.Population[i].printGpTree())
+			println(Evolve.Population[i].printGpTree())
 		}
 	}
 }
