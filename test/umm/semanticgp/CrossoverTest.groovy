@@ -47,7 +47,7 @@ class CrossoverTest extends Specification {
 		
 		when:
 		def childTree = Crossover.crossover(P1,P2)
-		println ("parent 1 is single node")
+		println("parent 1 is single node")
 		println(P1.printGpTree())
 		println(P2.printGpTree())
 		println(childTree.printGpTree())
@@ -64,7 +64,7 @@ class CrossoverTest extends Specification {
 		
 		when:
 		def childTree = Crossover.crossover(P1,P2)
-		println ("parent 2 is single node")
+		println("parent 2 is single node")
 		println(P1.printGpTree())
 		println(P2.printGpTree())
 		println(childTree.printGpTree())
