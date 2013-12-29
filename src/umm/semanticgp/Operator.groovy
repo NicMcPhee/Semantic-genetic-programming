@@ -13,13 +13,6 @@ package umm.semanticgp
 import java.util.Random
 
 class Operator {
-//	def operator
-//    /*def apply(x, y) {
-//        func(x, y)
-//    }*/
-//	def Operator(operator) {
-//		this.operator = operator
-//	}
 	
 	static plus = {
 		x, y -> x + y
@@ -33,8 +26,7 @@ class Operator {
 	static divi =  {x, y -> 
 	if (y== 0) {
 		1
-	}
-	else {
+	} else {
 		x / y 
 		}
 	}
@@ -63,8 +55,7 @@ class Operator {
 	static numArgs(node) {
 		if (isFunction(node)) {
 			node.parameterTypes.length
-		}
-		else {
+		} else {
 			0
 		}
 	}
