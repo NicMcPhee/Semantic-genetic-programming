@@ -8,7 +8,7 @@ public class Mutation {
 		Random random = new Random()
 
 		def copyP1 = new GpTree(P1.nodes.clone())
-		def int noiseProbability = 1/copyP1.nodes.size() * 100
+		def noiseProbability = 1/copyP1.nodes.size() * 100
 		int i = 0
 		while (copyP1.nodes[i] != null) {
 			if (random.nextInt(100) <= noiseProbability && !(copyP1.nodes[i] instanceof Closure)) {
@@ -24,14 +24,14 @@ public class Mutation {
 				
 				//ask Nic about size of random mutated tree size
 				if (i == copyP1.nodes.size()) {
-				copyP1.nodes.addAll(mutationTree.findSubTree(0))
+					copyP1.nodes.addAll(mutationTree.findSubTree(0))
 				} else {
-				copyP1.nodes.addAll(i, mutationTree.findSubTree(0))
+					copyP1.nodes.addAll(i, mutationTree.findSubTree(0))
 				}
 				noiseProbability = 1/copyP1.nodes.size() * 100
 				i = copyP1.findCrossoverParameters(i) + 1
 			} else {
-			i++
+				i++
 			}
 		}
 		return copyP1
