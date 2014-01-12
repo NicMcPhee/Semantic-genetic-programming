@@ -7,7 +7,14 @@ import java.util.Random
 class GPMain {
 
 	static main(args) {
-		def Evolve = new Evolver([Operator.plus, Operator.mult], ["x","y"], 80, 2, 20, 5, 100)
+		def OperatorList = [Operator.plus, Operator.mult]
+		def VarsList = ["x","y"]
+		def PercentVariables = 80
+		def InitialConstantRange = 2
+		def InitialTreeSize = 20
+		def PopSize = 5
+		def Generations = 100
+		def Evolve = new Evolver(OperatorList, VarsList, PercentVariables, InitialConstantRange, InitialTreeSize, PopSize, Generations)
 		Evolve.FitnessList = Evolve.readFitness(args[0] /*Does Not Work in Eclipse, but Should Be Correct for Console*/) /*[
 			[['x': 0, 'y': 0], 0],
 			[['x': 0, 'y': 1], 1],
