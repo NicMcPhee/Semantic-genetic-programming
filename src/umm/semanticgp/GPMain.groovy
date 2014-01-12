@@ -12,11 +12,11 @@ class GPMain {
 		def PercentVariables = 80
 		def InitialConstantRange = 2
 		def InitialTreeSize = 20
-		def PopSize = 5
+		def PopSize = 40
 		def Generations = 100
 		def Evolve = new Evolver(OperatorList, VarsList, PercentVariables, InitialConstantRange, InitialTreeSize, PopSize, Generations)
-		Evolve.FitnessList = Evolve.readFitness(args[0] /*Does Not Work in Eclipse, but Should Be Correct for Console*/) /*[
-			[['x': 0, 'y': 0], 0],
+		Evolve.FitnessList = //Evolve.readFitness(args[0] /*Does Not Work in Eclipse, but Should Be Correct for Console*/) /*[
+			[[['x': 0, 'y': 0], 0],
 			[['x': 0, 'y': 1], 1],
 			[['x': 1, 'y': 0], 1],
 			[['x': 1, 'y': 1], 2],
@@ -36,8 +36,12 @@ class GPMain {
 			[['x': 6, 'y': 5], 11],
 			[['x': 6, 'y': 6], 12],
 			[['x': 6, 'y': 7], 13],
-			[['x': 7, 'y': 6], 13]
-		]*/
+			[['x': 7, 'y': 6], 13],
+			[['x': -15, 'y': 15], 0],
+			[['x': -14, 'y': 8], -6],
+			[['x': 14, 'y': -10], 4],
+			[['x': 5, 'y': -12], -7]
+		]
 		Evolve.evolve(90)
 		for(def i = 0; i < Evolve.popSize; i++){
 			println(Evolve.Population[i].printGpTree())

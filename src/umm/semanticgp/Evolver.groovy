@@ -3,7 +3,7 @@ package umm.semanticgp
 import java.util.Random
 
 class Evolver {
-	
+
 	def operatorList
 	def variableList
 	def initialConstantRange
@@ -26,9 +26,12 @@ class Evolver {
 
 	def evolve(crossoverPercent) {
 		initialPop()
+		printFitness()
 		for (def j = 1; j < generations; j++) {
 			mutationType(crossoverPercent)
 		}
+
+		printFitness()
 	}
 
 	def readFitness(input) {
@@ -77,6 +80,12 @@ class Evolver {
 		}
 		for (def k = 0; k < childGeneration.size(); k++) {
 			Population[k] = childGeneration[k]
+		}
+	}
+	def printFitness() {
+		def Fitness = new Fitness(FitnessList)
+		for(def i = 0; i < Population.size(); i++) {
+			println(Fitness.computeFitness(Population[i]))
 		}
 	}
 }
