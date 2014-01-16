@@ -37,7 +37,12 @@ class Operator {
 		x -> Math.cos(x)
 	}
 	static log = {
-		x -> Math.log(x)
+		x ->
+		if (x > 0) {
+			 Math.log(x)
+		} else {
+		-100000
+		}
 	}
 	static gpif = {
 		test, positive, negative ->
