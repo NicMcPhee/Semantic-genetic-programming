@@ -8,7 +8,7 @@ class EvolverTest {
 	@Test
 	public void initialPopTest() {
 		given:
-		def initialPop = new Evolver([Operator.plus], ["x","y"], 80, 10, 20, 5, 20)
+		def initialPop = new Evolver([Operator.plus], ["x","y"], 80, 0, 10, 20, 5, 20)
 		when:
 		initialPop.initialPop()
 		println(initialPop.Population[0].printGpTree())
@@ -29,7 +29,7 @@ class EvolverTest {
 	@Test
 	public void mutationTypesTest() {
 		given:
-		def initialPop = new Evolver([Operator.plus], ["x","y"], 80, 10, 20, 4, 20)
+		def initialPop = new Evolver([Operator.plus], ["x","y"], 80, 0, 10, 20, 4, 20)
 		when:
 		initialPop.initialPop()
 		println()
@@ -51,7 +51,7 @@ class EvolverTest {
 	@Test
 	public void evolveTest() {
 		given:
-		def initialPop = new Evolver([Operator.plus], ["x","y"], 80, 10, 20, 4, 3)
+		def initialPop = new Evolver([Operator.plus], ["x","y"], 80, 0, 10, 20, 4, 3)
 		when:
 		initialPop.evolve(90)
 		println(initialPop.Population[0].printGpTree())

@@ -72,7 +72,7 @@ class TourneyTest {
 			"x",
 			1
 		])
-		def P1Evolver = new Evolver([Operator.plus, Operator.sub], [], 0, 4, 5, 20, 15)
+		def P1Evolver = new Evolver([Operator.plus, Operator.sub], [], 0, 0, 4, 5, 20, 15)
 		
 		when:
 		P1Evolver.FitnessList = [

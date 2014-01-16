@@ -6,7 +6,8 @@ class Evolver {
 
 	def operatorList
 	def variableList
-	def initialConstantRange
+	def lowestConstant
+	def highestConstant
 	def percentVariables
 	def initialTreeSize
 	def popSize
@@ -14,11 +15,12 @@ class Evolver {
 	static FitnessList = [][]
 	def generations
 
-	def Evolver(operatorList, variableList, percentVariables, initialConstantRange, initialTreeSize, popSize, generations) {
+	def Evolver(operatorList, variableList, percentVariables, lowestConstant, highestConstant, initialTreeSize, popSize, generations) {
 		this.operatorList = operatorList
 		this.variableList = variableList
 		this.percentVariables = percentVariables
-		this.initialConstantRange = initialConstantRange
+		this.lowestConstant = lowestConstant
+		this.highestConstant = highestConstant
 		this.initialTreeSize = initialTreeSize
 		this.popSize = popSize
 		this.generations = generations
@@ -27,8 +29,12 @@ class Evolver {
 	def evolve(crossoverPercent) {
 		initialPop()
 		printFitness()
+		println("Resulting Fitness")
 		for (def j = 1; j < generations; j++) {
 			mutationType(crossoverPercent)
+			for( def i = 0; i < Population.size(); i++) {
+				
+			}
 		}
 
 		printFitness()
@@ -58,7 +64,7 @@ class Evolver {
 
 	def initialPop() {
 		for (int i = 0; i < popSize; i++) {
-			def GpTree = new Ptc2(operatorList, variableList, percentVariables, initialConstantRange)
+			def GpTree = new Ptc2(operatorList, variableList, percentVariables, lowestConstant, highestConstant)
 			Population[i] =  GpTree.generateTree(initialTreeSize)
 		}
 	}

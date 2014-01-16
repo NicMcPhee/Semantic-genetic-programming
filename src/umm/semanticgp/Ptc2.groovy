@@ -4,16 +4,18 @@ import java.util.Random
 
 class Ptc2 {
 	
-	static Ops = []
-	static Vars = []
-	static PercentageVariable
-	static ConstantRange
+	def Ops = []
+	def Vars = []
+	def PercentageVariable
+	def LowestConstant
+	def HighestConstant
 	
-	def Ptc2(Ops, Vars, PercentageVariable, ConstantRange) {
+	def Ptc2(Ops, Vars, PercentageVariable, LowestConstant, HighestConstant) {
 		this.Ops = Ops
 		this.Vars = Vars
 		this.PercentageVariable = PercentageVariable
-		this.ConstantRange = ConstantRange
+		this.LowestConstant = LowestConstant
+		this.HighestConstant = HighestConstant
 	}
 
 	def generateTree(size) {
@@ -57,18 +59,18 @@ class Ptc2 {
 		}
 	}
 	
-	static randomOperators() {
+	def randomOperators() {
 		Random rand = new Random()
 		return Ops[rand.nextInt(Ops.size())]	
 	}
 	
-	static nonOperatorSelection() {
+	def nonOperatorSelection() {
 		Random rand = new Random()
 		if (rand.nextInt(100) < PercentageVariable) {
 			Vars[rand.nextInt(Vars.size())]
 		}
 		else {
-			rand.nextInt(ConstantRange)
+			rand.nextInt(HighestConstant + Math.abs(LowestConstant)) - Math.abs(LowestConstant)
 		}
 	}
 }

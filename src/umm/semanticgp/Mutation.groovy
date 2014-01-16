@@ -17,7 +17,8 @@ public class Mutation {
 					P1Evolver.operatorList,
 					P1Evolver.variableList,
 					P1Evolver.percentVariables, 
-					P1Evolver.initialConstantRange
+					P1Evolver.lowestConstant,
+					P1Evolver.highestConstant
 					)
 				int mutationTreeSize = (random.nextInt(P1.nodes.size() + 1) / 2) + 1
 				def mutationTree = randomGeneratedTree.generateTree(mutationTreeSize)
