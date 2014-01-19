@@ -57,6 +57,7 @@ class TourneyTest {
 	
 	@Test
 	public void testTourney() {
+        // This has a very small chance to fail if candidate1 is selected 10 times because Tourney selects with replacement
 		given:
 		def candidate1 = new Individual(new GpTree([
 			Operator.plus,
@@ -98,10 +99,11 @@ class TourneyTest {
 			[['x': 6, 'y': 7], 13],
 			[['x': 7, 'y': 6], 13]
 		]
-		def parent = Tourney.Tournament([candidate1, candidate2],2)
-		def equals = candidate2.getTree().equals(parent.getTree())
-		
+		def parent = Tourney.Tournament([candidate1, candidate2], 10)
+        println(parent.getTree().printGpTree())
+        println(candidate2.getTree().printGpTree())
+        println(candidate1.getTree().printGpTree())
 		then:
-		assert equals
+        assert candidate2.getTree() == parent.getTree()
 	}
 }
