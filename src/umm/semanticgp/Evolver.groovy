@@ -61,13 +61,16 @@ class Evolver {
 
 	def initialPop() {
         def GpTree = new Ptc2(operatorList, variableList, percentVariables, lowestConstant, highestConstant)
+        def fitness = new Fitness(TestPointsList)
 		for (int i = 0; i < popSize; i++) {
-			def Individual = new Individual(GpTree.generateTree(initialTreeSize))
-			Population[i] = Individual
+			def individual = new Individual(GpTree.generateTree(initialTreeSize))
+            individual.setFitness(fitness.computeFitness(individual))
+			Population[i] = individual
 		}
 	}
 
 	def mutationType(crossoverPercentage) {
+        def fitness = new Fitness(TestPointsList)
 		def childGeneration = []
 		Random random = new Random()
 		def parent1 = Tourney.Tournament(Population, 2)
@@ -75,18 +78,12 @@ class Evolver {
 		for(def i = 0; i < popSize; i++) {
 			if (random.nextInt(100) < crossoverPercentage) {
 				childGeneration[i] = Crossover.crossover(parent1.getTree(), parent2.getTree())
+                childGeneration[i].setFitness(fitness.computeFitness(childGeneration[i]))
 			} else if (random.nextInt(100) < (crossoverPercentage  + 1)) {
 				childGeneration[i] = Mutation.mutation(parent1.getTree(), this)
+                childGeneration[i].setFitness(fitness.computeFitness(childGeneration[i]))
 			} else {
 				childGeneration[i] = parent1
-			}
-		}
-		for (def k = 0; k < childGeneration.size(); k++) {
-			if(!(childGeneration[k] instanceof Individual)) {
-				def Individual = new Individual(childGeneration[k])
-				Population[k] = Individual
-			} else {
-				Population[k] = childGeneration[k]
 			}
 		}
 	}

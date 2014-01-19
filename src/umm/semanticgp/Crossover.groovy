@@ -44,7 +44,8 @@ class Crossover {
 		parent1Operators = []
 		copyP1.nodes.removeRange(indexToAdd, endIndex)
 		copyP1.nodes.addAll(indexToAdd, newNodes)
-        return copyP1
+        def individual = new Individual(copyP1)
+        return individual
     }
 	
 	static leavesAndOperators(parentTree, parentOperators, parentLeaves) {

@@ -11,13 +11,7 @@ class Tourney {
         int i = 0
         while (toTourney.size() != n) {
             def randomIndex = rand.nextInt(array.size())
-            def individual = array[randomIndex]
-            toTourney[i] = individual
-            // to select fitness from existing individual or adds to individuals fitness
-            if(individual.treeFitness == null) {
-                def error = fitness.computeFitness(individual)
-                individual.setFitness(error)
-            }
+            toTourney[i] = array[randomIndex]
             i++
         }
         for(def j = 0; j < n; j++) {

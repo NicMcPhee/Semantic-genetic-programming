@@ -14,7 +14,7 @@ class CrossoverTest extends Specification {
         def P2 = new GpTree([Operator.sub, 3, Operator.plus, 4, 5])
         
         when:
-        def childTree = Crossover.crossover(P1,P2)
+        def childTree = Crossover.crossover(P1,P2).getTree()
         println(P1.printGpTree())
         println(P2.printGpTree())
         println(childTree.printGpTree())
@@ -30,7 +30,7 @@ class CrossoverTest extends Specification {
         def P2 = new GpTree([Operator.sub, "y", Operator.plus, "z", Operator.gpif, "x", "w", Operator.cos, "v"])
         
         when:
-        def childTree = Crossover.crossover(P1,P2)
+        def childTree = Crossover.crossover(P1,P2).getTree()
         println(P1.printGpTree())
         println(P2.printGpTree())
         println(childTree.printGpTree())
@@ -46,7 +46,7 @@ class CrossoverTest extends Specification {
 		def P2 = new GpTree([Operator.sub, "y", Operator.plus, "z", Operator.gpif, "x", "w", Operator.cos, "v"])
 		
 		when:
-		def childTree = Crossover.crossover(P1,P2)
+		def childTree = Crossover.crossover(P1,P2).getTree()
 		println("parent 1 is single node")
 		println(P1.printGpTree())
 		println(P2.printGpTree())
@@ -63,7 +63,7 @@ class CrossoverTest extends Specification {
 		def P2 = new GpTree([1])
 		
 		when:
-		def childTree = Crossover.crossover(P1,P2)
+		def childTree = Crossover.crossover(P1,P2).getTree()
 		println("parent 2 is single node")
 		println(P1.printGpTree())
 		println(P2.printGpTree())
