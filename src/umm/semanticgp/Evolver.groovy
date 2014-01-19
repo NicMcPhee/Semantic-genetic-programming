@@ -28,13 +28,13 @@ class Evolver {
 
 	def evolve(crossoverPercent) {
 		initialPop()
-		//printFitness()
+		printFitness()
 		println("Resulting Fitness")
 		for (def j = 1; j < generations; j++) {
 			mutationType(crossoverPercent)
 		}
 
-		//printFitness()
+		printFitness()
 	}
 
 	def readFitness(input) {
@@ -86,11 +86,11 @@ class Evolver {
 				childGeneration[i] = parent1
 			}
 		}
+        Population = childGeneration.clone()
 	}
 	def printFitness() {
-		def Fitness = new Fitness(TestPointsList)
 		for(def i = 0; i < Population.size(); i++) {
-			println(Fitness.computeFitness(Population[i]))
+			println(Population[i].toString())
 		}
 	}
 }

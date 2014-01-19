@@ -18,4 +18,8 @@ class Individual {
 	def setFitness(Fitness) {
 		this.treeFitness = Fitness
 	}
+    
+    String toString() {
+        return "[" + this.getFitness() + ": " + this.getTree().toString() + "]"
+    }
 }

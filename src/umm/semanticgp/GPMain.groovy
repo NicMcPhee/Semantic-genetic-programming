@@ -13,8 +13,8 @@ class GPMain {
 		def LowestConstant = -1
 		def HighestConstant = 1
 		def InitialTreeSize = 20
-		def PopSize = 300
-		def Generations = 30
+		def PopSize = 40
+		def Generations = 50
 		def Evolve = new Evolver(OperatorList, VarsList, PercentVariables, LowestConstant, HighestConstant, InitialTreeSize, PopSize, Generations)
 		Evolve.TestPointsList = //Evolve.readFitness(args[0] /*Does Not Work in Eclipse, but Should Be Correct for Console*/) /*[
 			[[['x': 0, 'y': 0], 0],
@@ -44,8 +44,5 @@ class GPMain {
 			[['x': 5, 'y': -12], -7]
 		]
 		Evolve.evolve(90)
-		for(def i = 0; i < Evolve.popSize; i++){
-			println(Evolve.Population[i].getTree().printGpTree())
-		}
 	}
 }
