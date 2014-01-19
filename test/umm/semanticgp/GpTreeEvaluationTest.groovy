@@ -258,7 +258,7 @@ class GpTreeEvaluationTest extends Specification {
 	@Test
 	public void logByNegative() {
 		given:
-		def context = ['x': -1,]
+		def context = ['x': 0,]
 		def simpleCaseTree = new GpTree([Operator.log, -10])
 		def simpleVariableCaseTree = new GpTree([Operator.log, "x"])
 		

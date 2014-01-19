@@ -8,20 +8,20 @@ class TourneyTest {
 	@Test
 	public void testFitness() {
 		given:
-		def candidate1 = new GpTree([
+		def candidate1 = new Individual(new GpTree([
 			Operator.plus,
 			"x",
 			Operator.plus,
 			"y",
 			1
-		])
-		def candidate2 = new GpTree([
+		]))
+		def candidate2 = new Individual(new GpTree([
 			Operator.plus,
 			"y",
 			Operator.mult,
 			"x",
 			1
-		])
+		]))
 		
 		when:
 		def xplusyFitness = new Fitness([
@@ -58,24 +58,24 @@ class TourneyTest {
 	@Test
 	public void testTourney() {
 		given:
-		def candidate1 = new GpTree([
+		def candidate1 = new Individual(new GpTree([
 			Operator.plus,
 			"x",
 			Operator.plus,
 			"y",
 			1
-		])
-		def candidate2 = new GpTree([
+		]))
+		def candidate2 = new Individual(new GpTree([
 			Operator.plus,
 			"y",
 			Operator.mult,
 			"x",
 			1
-		])
+		]))
 		def P1Evolver = new Evolver([Operator.plus, Operator.sub], [], 0, 0, 4, 5, 20, 15)
 		
 		when:
-		P1Evolver.FitnessList = [
+		P1Evolver.TestPointsList = [
 			[['x': 0, 'y': 0], 0],
 			[['x': 0, 'y': 1], 1],
 			[['x': 1, 'y': 0], 1],
@@ -99,7 +99,7 @@ class TourneyTest {
 			[['x': 7, 'y': 6], 13]
 		]
 		def parent = Tourney.Tournament([candidate1, candidate2],2)
-		def equals = candidate2.equals(parent)
+		def equals = candidate2.getTree().equals(parent.getTree())
 		
 		then:
 		assert equals

@@ -12,7 +12,7 @@ class Evolver {
 	def initialTreeSize
 	def popSize
 	def Population = []
-	static FitnessList = [][]
+	static TestPointsList = [][]
 	def generations
 
 	def Evolver(operatorList, variableList, percentVariables, lowestConstant, highestConstant, initialTreeSize, popSize, generations) {
@@ -28,16 +28,13 @@ class Evolver {
 
 	def evolve(crossoverPercent) {
 		initialPop()
-		printFitness()
+		//printFitness()
 		println("Resulting Fitness")
 		for (def j = 1; j < generations; j++) {
 			mutationType(crossoverPercent)
-			for( def i = 0; i < Population.size(); i++) {
-				
-			}
 		}
 
-		printFitness()
+		//printFitness()
 	}
 
 	def readFitness(input) {
@@ -55,17 +52,18 @@ class Evolver {
 				j++
 			}
 			def subList = [context, scan.nextInt()]
-			FitnessList.add(subList)
+			TestPointsList.add(subList)
 		}
 		inputFile.close()
 		scan.close()
-		return FitnessList
+		return TestPointsList
 	}
 
 	def initialPop() {
 		for (int i = 0; i < popSize; i++) {
 			def GpTree = new Ptc2(operatorList, variableList, percentVariables, lowestConstant, highestConstant)
-			Population[i] =  GpTree.generateTree(initialTreeSize)
+			def Individual = new Individual(GpTree.generateTree(initialTreeSize))
+			Population[i] = Individual
 		}
 	}
 
@@ -75,21 +73,25 @@ class Evolver {
 		def parent1 = Tourney.Tournament(Population, 2)
 		def parent2 = Tourney.Tournament(Population, 2)
 		for(def i = 0; i < popSize; i++) {
-			if (random.nextInt(100) < crossoverPercentage /*this may be a variable*/) {
-				childGeneration[i] = Crossover.crossover(parent1, parent2)
+			if (random.nextInt(100) < crossoverPercentage) {
+				childGeneration[i] = Crossover.crossover(parent1.getTree(), parent2.getTree())
 			} else if (random.nextInt(100) < (crossoverPercentage  + 1)) {
-				childGeneration[i] = Mutation.mutation(parent1, this)
+				childGeneration[i] = Mutation.mutation(parent1.getTree(), this)
 			} else {
-				GpTree copyParent1 = new GpTree(parent1.nodes.clone())
-				childGeneration[i] = copyParent1
+				childGeneration[i] = parent1
 			}
 		}
 		for (def k = 0; k < childGeneration.size(); k++) {
-			Population[k] = childGeneration[k]
+			if(!(childGeneration[k] instanceof Individual)) {
+				def Individual = new Individual(childGeneration[k])
+				Population[k] = Individual
+			} else {
+				Population[k] = childGeneration[k]
+			}
 		}
 	}
 	def printFitness() {
-		def Fitness = new Fitness(FitnessList)
+		def Fitness = new Fitness(TestPointsList)
 		for(def i = 0; i < Population.size(); i++) {
 			println(Fitness.computeFitness(Population[i]))
 		}

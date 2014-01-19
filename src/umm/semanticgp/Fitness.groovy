@@ -7,13 +7,13 @@ class Fitness {
 		this.inputList = inputList
 	}
 
-	def computeFitness(GpTree tree) {
+	def computeFitness(Individual individual) {
 		def count = 0
 		/* Count- What do we need this for? gp field guide said it was useful*/
 		def meanSqError = 0
 		for(def i = 0; i < inputList.size(); i++) {
 			def expectedResult = inputList[i][1]
-			def evaluatedTree = tree.evaluate(inputList[i][0])
+			def evaluatedTree = individual.getTree().evaluate(inputList[i][0])
 			if (evaluatedTree == expectedResult) {
 				count++
 			}

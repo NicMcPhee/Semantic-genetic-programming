@@ -7,16 +7,16 @@ import java.util.Random
 class GPMain {
 
 	static main(args) {
-		def OperatorList = [Operator.plus, Operator.mult, Operator.sub, Operator.divi, Operator.sin, Operator.cos]
+		def OperatorList = [Operator.plus, Operator.mult, Operator.sub, Operator.divi, Operator.sin, Operator.cos, Operator.log]
 		def VarsList = ["x","y"]
 		def PercentVariables = 80
 		def LowestConstant = -1
 		def HighestConstant = 1
 		def InitialTreeSize = 20
-		def PopSize = 40
+		def PopSize = 300
 		def Generations = 30
 		def Evolve = new Evolver(OperatorList, VarsList, PercentVariables, LowestConstant, HighestConstant, InitialTreeSize, PopSize, Generations)
-		Evolve.FitnessList = //Evolve.readFitness(args[0] /*Does Not Work in Eclipse, but Should Be Correct for Console*/) /*[
+		Evolve.TestPointsList = //Evolve.readFitness(args[0] /*Does Not Work in Eclipse, but Should Be Correct for Console*/) /*[
 			[[['x': 0, 'y': 0], 0],
 			[['x': 0, 'y': 1], 1],
 			[['x': 1, 'y': 0], 1],
@@ -30,9 +30,9 @@ class GPMain {
 			[['x': 3, 'y': 4], 7],
 			[['x': 4, 'y': 3], 7],
 			[['x': 4, 'y': 4], 8],
-			[['x': 4, 'y': 5], 9],
+			[['x': -400, 'y': -300], -700],
 			[['x': 5, 'y': 4], 9],
-			[['x': 5, 'y': 5], 10],
+			[['x': -500, 'y': 249], -251],
 			[['x': 5, 'y': 6], 11],
 			[['x': 6, 'y': 5], 11],
 			[['x': 6, 'y': 6], 12],
@@ -45,7 +45,7 @@ class GPMain {
 		]
 		Evolve.evolve(90)
 		for(def i = 0; i < Evolve.popSize; i++){
-			println(Evolve.Population[i].printGpTree())
+			println(Evolve.Population[i].getTree().printGpTree())
 		}
 	}
 }
