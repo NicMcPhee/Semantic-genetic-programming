@@ -60,8 +60,8 @@ class Evolver {
 	}
 
 	def initialPop() {
+        def GpTree = new Ptc2(operatorList, variableList, percentVariables, lowestConstant, highestConstant)
 		for (int i = 0; i < popSize; i++) {
-			def GpTree = new Ptc2(operatorList, variableList, percentVariables, lowestConstant, highestConstant)
 			def Individual = new Individual(GpTree.generateTree(initialTreeSize))
 			Population[i] = Individual
 		}
