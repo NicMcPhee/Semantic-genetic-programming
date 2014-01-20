@@ -28,22 +28,22 @@ class Evolver {
 
 	def evolve(crossoverPercent) {
 		initialPop()
-		printFitness()
+		printFitnessAndTree()
 		println("Resulting Fitness")
 		for (def j = 1; j < generations; j++) {
 			mutationType(crossoverPercent)
 		}
 
-		printFitness()
+		printFitnessAndTree()
 	}
 
-	def readFitness(input) {
+	def readTestPoints(input) {
 		FileReader inputFile = new FileReader(input)
 		Scanner scan = new Scanner(inputFile)
 		while (scan.hasNextLine()) {
 			def context = [:]
 			def j = 0
-			while (scan.hasNext('[a-zA-Z]*:[0-9]*')) {
+			while (scan.hasNext('[a-zA-Z]*:[0-9]*') || scan.hasNext('[a-zA-Z]*:-[0-9]*')) {
 				def contextString = scan.next()
 				def contextArray = contextString.split(':')
 				String key = contextArray[0]
@@ -88,7 +88,8 @@ class Evolver {
 		}
         Population = childGeneration.clone()
 	}
-	def printFitness() {
+	
+	def printFitnessAndTree() {
 		for(def i = 0; i < Population.size(); i++) {
 			println(Population[i].toString())
 		}

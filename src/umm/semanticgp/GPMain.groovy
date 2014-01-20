@@ -16,7 +16,7 @@ class GPMain {
 		def PopSize = 40
 		def Generations = 50
 		def Evolve = new Evolver(OperatorList, VarsList, PercentVariables, LowestConstant, HighestConstant, InitialTreeSize, PopSize, Generations)
-		Evolve.TestPointsList = //Evolve.readFitness(args[0] /*Does Not Work in Eclipse, but Should Be Correct for Console*/) /*[
+		Evolve.TestPointsList = //Evolve.readTestPoints(args[0])
 			[[['x': 0, 'y': 0], 0],
 			[['x': 0, 'y': 1], 1],
 			[['x': 1, 'y': 0], 1],
@@ -41,8 +41,7 @@ class GPMain {
 			[['x': -15, 'y': 15], 0],
 			[['x': -14, 'y': 8], -6],
 			[['x': 14, 'y': -10], 4],
-			[['x': 5, 'y': -12], -7]
-		]
+			[['x': 5, 'y': -12], -7]]
 		Evolve.evolve(90)
 	}
 }
