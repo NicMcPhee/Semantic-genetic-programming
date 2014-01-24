@@ -24,7 +24,7 @@ class Operator {
 		x, y -> x * y
 	}
 	static divi =  {x, y -> 
-	if (y== 0) {
+	if (Math.abs(y)== 0) {
 		1
 	} else {
 		x / y 
