@@ -29,11 +29,12 @@ class Evolver {
 	def evolve(crossoverPercent) {
 		initialPop()
 		printFitnessAndTree()
-		println("Resulting Fitness")
+		println("Best Individuals")
 		for (def j = 1; j < generations; j++) {
 			mutationType(crossoverPercent)
+			printBestFitnessIndiv()
 		}
-
+		println("Resulting Individuals")
 		printFitnessAndTree()
 	}
 
@@ -87,6 +88,16 @@ class Evolver {
 			}
 		}
         Population = childGeneration.clone()
+	}
+	
+	def printBestFitnessIndiv() {
+		def bestFitnessIndiv = Population[0]
+		for(def i = 1; i < Population.size(); i++) {
+			if( Population[i].getFitness() < bestFitnessIndiv.getFitness()) {
+				bestFitnessIndiv = Population[i]
+			}
+		}
+		return println(bestFitnessIndiv.toString())
 	}
 	
 	def printFitnessAndTree() {
