@@ -2,7 +2,7 @@ package umm.semanticgp
 
 import umm.semanticgp.Ptc2
 import umm.semanticgp.Operator
-import java.util.Random
+
 
 class GPMain {
 
@@ -13,8 +13,8 @@ class GPMain {
 		def LowestConstant = -1
 		def HighestConstant = 1
 		def InitialTreeSize = 20
-		def PopSize = 40
-		def Generations = 50
+		def PopSize = 30
+		def Generations = 2
 		def Evolve = new Evolver(OperatorList, VarsList, PercentVariables, LowestConstant, HighestConstant, InitialTreeSize, PopSize, Generations)
 		Evolve.TestPointsList = //Evolve.readTestPoints(args[0])
 			[[['x': 0, 'y': 0], 0],

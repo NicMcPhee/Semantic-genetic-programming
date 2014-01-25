@@ -1,6 +1,6 @@
 package umm.semanticgp
 
-import java.util.Random
+import umm.util.SharedPRNG;
 
 class Evolver {
 
@@ -72,7 +72,7 @@ class Evolver {
 	def mutationType(crossoverPercentage) {
         def fitness = new Fitness(TestPointsList)
 		def childGeneration = []
-		Random random = new Random()
+		Random random = SharedPRNG.instance() // new Random()
 		def parent1 = Tourney.Tournament(Population, 2)
 		def parent2 = Tourney.Tournament(Population, 2)
 		for(def i = 0; i < popSize; i++) {

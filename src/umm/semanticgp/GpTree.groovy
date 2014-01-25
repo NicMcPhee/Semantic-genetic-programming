@@ -1,7 +1,5 @@
 package umm.semanticgp
 
-import java.util.Random
-
 class GpTree {
     def nodes
 

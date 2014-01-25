@@ -1,10 +1,10 @@
 package umm.semanticgp
-
+import umm.util.SharedPRNG;
 class Tourney {
     /* takes the whole population and computes n things to tourney */
     static Tournament(array, n) {
         def fitness = new Fitness(Evolver.TestPointsList)
-        Random rand = new Random()
+        Random rand = SharedPRNG.instance()
         def toTourney = []
         def bestIndividual
         def bestFitness = Double.POSITIVE_INFINITY

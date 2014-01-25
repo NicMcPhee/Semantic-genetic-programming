@@ -1,11 +1,11 @@
 package umm.semanticgp
 
-import java.util.Random
+import umm.util.SharedPRNG;
 
 public class Mutation {
 
     static mutation(GpTree P1, Evolver P1Evolver) {
-        Random random = new Random()
+        def random = SharedPRNG.instance()
 
         def copyP1 = new GpTree(P1.nodes.clone())
         def noiseProbability = 1/copyP1.nodes.size() * 100
