@@ -17,7 +17,8 @@ class GPMain {
 		def Generations = 30
 		def Evolve = new Evolver(OperatorList, VarsList, PercentVariables, LowestConstant, HighestConstant, InitialTreeSize, PopSize, Generations)
 		Evolve.TestPointsList = //Evolve.readTestPoints(args[0])
-			[[['x': 0.1], Math.sin(0.1)],
+			[[['x': 0.0], Math.sin(0.0)],
+			[['x': 0.1], Math.sin(0.1)],
 			[['x': 0.2], Math.sin(0.2)],
 			[['x': 0.3], Math.sin(0.3)],
 			[['x': 0.4], Math.sin(0.4)],
