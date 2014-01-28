@@ -74,8 +74,8 @@ class Evolver {
         def fitness = new Fitness(TestPointsList)
 		def childGeneration = []
 		Random random = SharedPRNG.instance() // new Random()
-		def parent1 = Tourney.Tournament(Population, 2)
-		def parent2 = Tourney.Tournament(Population, 2)
+		def parent1 = Tourney.Tournament(Population, 3)
+		def parent2 = Tourney.Tournament(Population, 3)
 		for(def i = 0; i < popSize; i++) {
 			if (random.nextInt(100) < crossoverPercentage) {
 				childGeneration[i] = Crossover.crossover(parent1.getTree(), parent2.getTree())
