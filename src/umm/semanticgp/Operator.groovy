@@ -1,4 +1,5 @@
 package umm.semanticgp
+import umm.util.SharedPRNG;
 
 /**
  * A simple Groovy class that wraps a function that isn't
@@ -24,7 +25,7 @@ class Operator {
 		x, y -> x * y
 	}
 	static divi =  {x, y -> 
-	if (y== 0) {
+	if (Math.abs(y)== 0) {
 		1
 	} else {
 		x / y 
@@ -87,7 +88,7 @@ class Operator {
 	
 	static random() {
 		def operatorArr = [plus, sub, mult, divi, sin, cos, log, gpif]
-		Random rand = new Random()
+		Random rand = SharedPRNG.instance()
 		return operatorArr[rand.nextInt(operatorArr.size())]
 	}
 }

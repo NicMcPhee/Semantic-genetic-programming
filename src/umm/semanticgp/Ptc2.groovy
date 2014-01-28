@@ -1,8 +1,10 @@
 package umm.semanticgp
 
-import java.util.Random
+import umm.util.SharedPRNG;
 
 class Ptc2 {
+	
+	Random rand = SharedPRNG.instance()
 	
 	def Ops = []
 	def Vars = []
@@ -20,8 +22,6 @@ class Ptc2 {
 
 	def generateTree(size) {
 		def randomTree = new GpTree([])
-		Random rand = new Random()
-		
 		if (size == 1) {
 			randomTree.nodes[0] = nonOperatorSelection()
 			return randomTree
@@ -60,12 +60,10 @@ class Ptc2 {
 	}
 	
 	def randomOperators() {
-		Random rand = new Random()
 		return Ops[rand.nextInt(Ops.size())]	
 	}
 	
 	def nonOperatorSelection() {
-		Random rand = new Random()
 		if (rand.nextInt(100) < PercentageVariable) {
 			Vars[rand.nextInt(Vars.size())]
 		}
