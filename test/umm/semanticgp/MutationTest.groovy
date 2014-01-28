@@ -14,7 +14,7 @@ class MutationTest {
 		def P1Evolver = new Evolver([Operator.plus, Operator.sub], [], 0, 0, 4, 5, 4, 20)
 		
 		when:
-		def childTree = Mutation.mutation(P1, P1Evolver)
+		def childTree = Mutation.mutation(P1, P1Evolver).getTree()
 		println(P1.printGpTree())
 		println(childTree.printGpTree())
 		
@@ -29,7 +29,7 @@ class MutationTest {
 		def P1Evolver = new Evolver([Operator.gpif, Operator.sub, Operator.mult, Operator.sin, Operator.divi, Operator.cos], ['x'], 10, 0, 5, 8, 20, 15)
 		
 		when:
-		def childTree = Mutation.mutation(P1, P1Evolver)
+		def childTree = Mutation.mutation(P1, P1Evolver).getTree()
 		println(P1.printGpTree())
 		println(childTree.printGpTree())
 		

@@ -1,6 +1,6 @@
 package umm.semanticgp
 
-import java.util.Random
+import umm.util.SharedPRNG;
 
 class Evolver {
 
@@ -12,7 +12,7 @@ class Evolver {
 	def initialTreeSize
 	def popSize
 	def Population = []
-	static FitnessList = [][]
+	static TestPointsList = [][]
 	def generations
 
 	def Evolver(operatorList, variableList, percentVariables, lowestConstant, highestConstant, initialTreeSize, popSize, generations) {
@@ -28,25 +28,23 @@ class Evolver {
 
 	def evolve(crossoverPercent) {
 		initialPop()
-		printFitness()
-		println("Resulting Fitness")
+		printFitnessAndTree()
+		println("Best Individuals")
 		for (def j = 1; j < generations; j++) {
 			mutationType(crossoverPercent)
-			for( def i = 0; i < Population.size(); i++) {
-				
-			}
+			printBestFitnessIndiv()
 		}
-
-		printFitness()
+		println("Resulting Individuals")
+		printFitnessAndTree()
 	}
 
-	def readFitness(input) {
+	def readTestPoints(input) {
 		FileReader inputFile = new FileReader(input)
 		Scanner scan = new Scanner(inputFile)
 		while (scan.hasNextLine()) {
 			def context = [:]
 			def j = 0
-			while (scan.hasNext('[a-zA-Z]*:[0-9]*')) {
+			while (scan.hasNext('[a-zA-Z]*:[0-9]*') || scan.hasNext('[a-zA-Z]*:-[0-9]*')) {
 				def contextString = scan.next()
 				def contextArray = contextString.split(':')
 				String key = contextArray[0]
@@ -55,43 +53,56 @@ class Evolver {
 				j++
 			}
 			def subList = [context, scan.nextInt()]
-			FitnessList.add(subList)
+			TestPointsList.add(subList)
 		}
 		inputFile.close()
 		scan.close()
-		return FitnessList
+		return TestPointsList
 	}
 
 	def initialPop() {
+        def GpTree = new Ptc2(operatorList, variableList, percentVariables, lowestConstant, highestConstant)
+        def fitness = new Fitness(TestPointsList)
 		for (int i = 0; i < popSize; i++) {
-			def GpTree = new Ptc2(operatorList, variableList, percentVariables, lowestConstant, highestConstant)
-			Population[i] =  GpTree.generateTree(initialTreeSize)
+			def individual = new Individual(GpTree.generateTree(initialTreeSize))
+            individual.setFitness(fitness.computeFitness(individual))
+			Population[i] = individual
 		}
 	}
 
 	def mutationType(crossoverPercentage) {
+        def fitness = new Fitness(TestPointsList)
 		def childGeneration = []
-		Random random = new Random()
+		Random random = SharedPRNG.instance() // new Random()
 		def parent1 = Tourney.Tournament(Population, 2)
 		def parent2 = Tourney.Tournament(Population, 2)
 		for(def i = 0; i < popSize; i++) {
-			if (random.nextInt(100) < crossoverPercentage /*this may be a variable*/) {
-				childGeneration[i] = Crossover.crossover(parent1, parent2)
+			if (random.nextInt(100) < crossoverPercentage) {
+				childGeneration[i] = Crossover.crossover(parent1.getTree(), parent2.getTree())
+                childGeneration[i].setFitness(fitness.computeFitness(childGeneration[i]))
 			} else if (random.nextInt(100) < (crossoverPercentage  + 1)) {
-				childGeneration[i] = Mutation.mutation(parent1, this)
+				childGeneration[i] = Mutation.mutation(parent1.getTree(), this)
+                childGeneration[i].setFitness(fitness.computeFitness(childGeneration[i]))
 			} else {
-				GpTree copyParent1 = new GpTree(parent1.nodes.clone())
-				childGeneration[i] = copyParent1
+				childGeneration[i] = parent1
 			}
 		}
-		for (def k = 0; k < childGeneration.size(); k++) {
-			Population[k] = childGeneration[k]
-		}
+        Population = childGeneration.clone()
 	}
-	def printFitness() {
-		def Fitness = new Fitness(FitnessList)
+	
+	def printBestFitnessIndiv() {
+		def bestFitnessIndiv = Population[0]
+		for(def i = 1; i < Population.size(); i++) {
+			if( Population[i].getFitness() < bestFitnessIndiv.getFitness()) {
+				bestFitnessIndiv = Population[i]
+			}
+		}
+		return println(bestFitnessIndiv.toString())
+	}
+	
+	def printFitnessAndTree() {
 		for(def i = 0; i < Population.size(); i++) {
-			println(Fitness.computeFitness(Population[i]))
+			println(Population[i].toString())
 		}
 	}
 }

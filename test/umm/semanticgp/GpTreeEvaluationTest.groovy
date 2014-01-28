@@ -258,7 +258,7 @@ class GpTreeEvaluationTest extends Specification {
 	@Test
 	public void logByNegative() {
 		given:
-		def context = ['x': -1,]
+		def context = ['x': 0,]
 		def simpleCaseTree = new GpTree([Operator.log, -10])
 		def simpleVariableCaseTree = new GpTree([Operator.log, "x"])
 		
@@ -269,5 +269,28 @@ class GpTreeEvaluationTest extends Specification {
 		then:
 		resultsimpleCaseTree == -100000
 		resultsimpleVariableCaseTree == -100000
+	}
+	
+	@Test
+	public void NaNTest() {
+		given:
+		def context = ['x': 4, 'y' : 6]
+		def treex = new GpTree([Operator.divi, Operator.plus, Operator.sin, "y", Operator.mult, "y", "x", Operator.mult, Operator.sub, Operator.mult, 0, Operator.sin, -1, Operator.log, Operator.cos, Operator.sub, "x", "x", Operator.mult, 0, "x"])
+		def leftSubTree = new GpTree([Operator.plus, Operator.sin, "y", Operator.mult, "y", "x"])
+		def rightSubTree = new GpTree([Operator.mult, Operator.sub, Operator.mult, 0, Operator.sin, -1, Operator.log, Operator.cos, Operator.sub, "x", "x", Operator.mult, 0, "x"])
+		def treey = new GpTree([Operator.divi, Operator.cos, Operator.divi, "y", Operator.cos, Operator.divi, Operator.cos, "y", "x", Operator.cos, Operator.divi, Operator.mult, "x", "x", Operator.mult, -1, Operator.plus, Operator.sin, "y", "y"])
+		
+		when:
+		def resultx = treex.evaluate(context)
+		def resultLeftSubTree = leftSubTree.evaluate(context)
+		def resultRightSubTree = rightSubTree.evaluate(context)
+		def resulty = treey.evaluate(context)
+
+
+		then:
+		resultx == 1
+		assert !Double.isNaN(resulty)
+		resultLeftSubTree == 24 + Math.sin(6)
+		Math.abs(resultRightSubTree) == 0
 	}
 }
