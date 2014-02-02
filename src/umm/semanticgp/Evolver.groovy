@@ -32,7 +32,9 @@ class Evolver {
 		println("Best Individuals")
 		for (def j = 1; j < generations; j++) {
 			mutationType(crossoverPercent)
+			println( "Generation " + j)
 			printBestFitnessIndiv()
+
 		}
 		println("Resulting Individuals")
 		printFitnessAndTree()
@@ -74,9 +76,9 @@ class Evolver {
         def fitness = new Fitness(TestPointsList)
 		def childGeneration = []
 		Random random = SharedPRNG.instance() // new Random()
-		def parent1 = Tourney.Tournament(Population, 3)
-		def parent2 = Tourney.Tournament(Population, 3)
 		for(def i = 0; i < popSize; i++) {
+			def parent1 = Tourney.Tournament(Population, 2)
+			def parent2 = Tourney.Tournament(Population, 2)
 			if (random.nextInt(100) < crossoverPercentage) {
 				childGeneration[i] = Crossover.crossover(parent1.getTree(), parent2.getTree())
                 childGeneration[i].setFitness(fitness.computeFitness(childGeneration[i]))
