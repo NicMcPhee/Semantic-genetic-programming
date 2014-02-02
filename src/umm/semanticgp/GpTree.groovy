@@ -2,28 +2,36 @@ package umm.semanticgp
 
 class GpTree {
     def nodes
+	def index
 
     def GpTree(nodes) {
         this.nodes = nodes
     }
 
-    def evaluate(context, index = 0) {
+	def evaluate(context) {
+		index = 0
+		return doEvaluate(context)
+	}
+	
+    def doEvaluate(context) {
         if (Operator.isFunction(nodes[index])) {
             def f = nodes[index]
             def numberOfArgs = Operator.numArgs(f)
-            def position = index + 1
+            index = index + 1
             for(int j = 0; j < numberOfArgs; j++) {
-                def x = evaluate(context, position)
+                def x = doEvaluate(context)
                 f = f.curry(x)
-                position = findCrossoverParameters(position) + 1
             }
             return f()
         } else {
+			def result
             if(context.containsKey(nodes[index])) {
-                return context.(nodes[index])
+                result = context.(nodes[index])
             } else {
-                return nodes[index]
+                result = nodes[index]
             }
+			index = index + 1
+			return result
         }
     }
 
