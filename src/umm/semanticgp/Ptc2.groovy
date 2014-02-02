@@ -68,7 +68,7 @@ class Ptc2 {
 			Vars[rand.nextInt(Vars.size())]
 		}
 		else {
-			rand.nextInt(HighestConstant + Math.abs(LowestConstant)) - Math.abs(LowestConstant)
+			rand.nextFloat() * (HighestConstant - LowestConstant) + LowestConstant
 		}
 	}
 }
