@@ -19,6 +19,14 @@ class Individual {
 		this.treeFitness = Fitness
 	}
     
+	def compareTo(individual) {
+		if (this.treeFitness < individual.treeFitness) {
+			return this
+		} else {
+			return individual
+		}
+	}
+	
     String toString() {
         return "[" + this.getFitness() + ": " + this.getTree().toString() + "]"
     }

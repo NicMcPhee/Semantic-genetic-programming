@@ -31,10 +31,11 @@ class Evolver {
 		printFitnessAndTree()
 		println("Best Individuals")
 		for (def j = 1; j < generations; j++) {
+			def start = System.currentTimeMillis()
 			mutationType(crossoverPercent)
 			println( "Generation " + j)
-			printBestFitnessIndiv()
-
+			println(nBestFitnessIndiv(1)[0].toString())
+			println(System.currentTimeMillis() - start)
 		}
 		println("Resulting Individuals")
 		printFitnessAndTree()
@@ -63,45 +64,55 @@ class Evolver {
 	}
 
 	def initialPop() {
-        def GpTree = new Ptc2(operatorList, variableList, percentVariables, lowestConstant, highestConstant)
-        def fitness = new Fitness(TestPointsList)
+		def GpTree = new Ptc2(operatorList, variableList, percentVariables, lowestConstant, highestConstant)
+		def fitness = new Fitness(TestPointsList)
 		for (int i = 0; i < popSize; i++) {
 			def individual = new Individual(GpTree.generateTree(initialTreeSize))
-            individual.setFitness(fitness.computeFitness(individual))
+			individual.setFitness(fitness.computeFitness(individual))
 			Population[i] = individual
 		}
 	}
 
 	def mutationType(crossoverPercentage) {
-        def fitness = new Fitness(TestPointsList)
+		def fitness = new Fitness(TestPointsList)
 		def childGeneration = []
 		Random random = SharedPRNG.instance() // new Random()
-		for(def i = 0; i < popSize; i++) {
-			def parent1 = Tourney.Tournament(Population, 2)
-			def parent2 = Tourney.Tournament(Population, 2)
-			if (random.nextInt(100) < crossoverPercentage) {
-				childGeneration[i] = Crossover.crossover(parent1.getTree(), parent2.getTree())
-                childGeneration[i].setFitness(fitness.computeFitness(childGeneration[i]))
-			} else if (random.nextInt(100) < (crossoverPercentage  + 1)) {
-				childGeneration[i] = Mutation.mutation(parent1.getTree(), this)
-                childGeneration[i].setFitness(fitness.computeFitness(childGeneration[i]))
+		for(int i = 0; i < popSize; i++) {
+			if(i < popSize/100) {
+				childGeneration[i] = nBestFitnessIndiv(popSize/100)[i]
 			} else {
-				childGeneration[i] = parent1
+				def parent1 = Tourney.Tournament(Population, 2)
+				def parent2 = Tourney.Tournament(Population, 2)
+				if (random.nextInt(100) < crossoverPercentage) {
+					childGeneration[i] = Crossover.crossover(parent1.getTree(), parent2.getTree())
+					childGeneration[i].setFitness(fitness.computeFitness(childGeneration[i]))
+				} else if (random.nextInt(100) < (crossoverPercentage  + 1)) {
+					childGeneration[i] = Mutation.mutation(parent1.getTree(), this)
+					childGeneration[i].setFitness(fitness.computeFitness(childGeneration[i]))
+				} else {
+					childGeneration[i] = parent1
+				}
 			}
 		}
-        Population = childGeneration.clone()
+		Population = childGeneration.clone()
 	}
-	
-	def printBestFitnessIndiv() {
-		def bestFitnessIndiv = Population[0]
-		for(def i = 1; i < Population.size(); i++) {
-			if( Population[i].getFitness() < bestFitnessIndiv.getFitness()) {
-				bestFitnessIndiv = Population[i]
-			}
+
+
+	def nBestFitnessIndiv(n) {
+		def bestIndivArray = []
+		Population.sort {it.getFitness()}
+		for (def i = 0; i < n; i++) {
+			bestIndivArray[i] = Population[i]
 		}
-		return println(bestFitnessIndiv.toString())
+		//		def bestFitnessIndiv = Population[0]
+		//		for(def j = 0; j < Population.size(); j++) {
+		//			if( Population[j].getFitness() < bestFitnessIndiv.getFitness()) {
+		//				bestFitnessIndiv = Population[j]
+		//			}
+		//		}
+		return bestIndivArray
 	}
-	
+
 	def printFitnessAndTree() {
 		for(def i = 0; i < Population.size(); i++) {
 			println(Population[i].toString())

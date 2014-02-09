@@ -51,8 +51,8 @@ class TourneyTest {
 		def cand2Fitness = xplusyFitness.computeFitness(candidate2)
 		
 		then:
-		assert cand1Fitness == 21
-		assert cand2Fitness == 0
+		assert cand1Fitness == 21.05
+		assert cand2Fitness == 0.05
 	}
 	
 	@Test
