@@ -14,80 +14,86 @@ import umm.util.SharedPRNG;
 import java.util.Random
 
 class Operator {
-	
-	static plus = {
-		x, y -> x + y
+	static operatorArr = [
+		"plus",
+		"sub",
+		"mult",
+		"divi",
+		"sin",
+		"cos",
+		"log",
+		"gpif"
+	]
+	static plus(a,b) {
+		return a+b
 	}
-	static sub =  {
-		x, y -> x - y
+	static sub(a,b)  {
+		a-b
 	}
-	static mult =  {
-		x, y -> x * y
+	static mult(a,b){
+		return a*b
 	}
-	static divi =  {x, y -> 
-	if (Math.abs(y)== 0) {
-		1
-	} else {
-		x / y 
-		}
-	}
-	static sin = {
-		x -> Math.sin(x)
-	}
-	static cos = {
-		x -> Math.cos(x)
-	}
-	static log = {
-		x ->
-		if (x > 0) {
-			 Math.log(x)
+	static divi(a,b) {
+		if (Math.abs(b)== 0) {
+			1
 		} else {
-		-100000
+			a / b
 		}
 	}
-	static gpif = {
-		test, positive, negative ->
+	static sin(a) {
+		Math.sin(a)
+	}
+	static cos(a) {
+		Math.cos(a)
+	}
+	static log(a) {
+		if (a > 0) {
+			Math.log(a)
+		} else {
+			-100000
+		}
+	}
+	static gpif(test,positive,negative) {
 		if (test > 0) {
 			positive
 		} else {
 			negative
 		}
 	}
-	
-	static isFunction(node) {
-		(node instanceof Closure)
-	}
-	
-	static numArgs(node) {
-		if (isFunction(node)) {
-			node.parameterTypes.length
+
+	static numArgs(function) {
+		if (function == "plus" || function == "sub" || function == "mult" || function == "divi") {
+			2
+		} else if (function == "sin" || function == "cos" || function == "log") {
+			1
+		} else if (function == "gpif") {
+			3
 		} else {
 			0
 		}
 	}
 	
-	static toString(node) {
-		if (node == plus) {
-			return "+"
-		} else if (node == sub) {
-			return "-"
-		} else if (node == mult) {
-			return "*"
-		} else if (node == divi) {
-			return "/"
-		} else if (node == sin) {
-			return "sin"
-		} else if (node == cos) {
-			return "cos"
-		} else if (node == log) {
-			return "log"
-		} else if (node == gpif) {
-			return "if"
-		} 
+	static isFunction(function) {
+		operatorArr.contains(function)
 	}
 	
+	static toString(node) {
+		if (node == "plus") {
+			return "+"
+		} else if (node == "sub") {
+			return "-"
+		} else if (node == "mult") {
+			return "*"
+		} else if (node == "divi") {
+			return "/"
+		} else if (node == "gpif") {
+			return "if"
+		} else {
+			return node
+		}
+	}
+
 	static random() {
-		def operatorArr = [plus, sub, mult, divi, sin, cos, log, gpif]
 		Random rand = SharedPRNG.instance()
 		return operatorArr[rand.nextInt(operatorArr.size())]
 	}

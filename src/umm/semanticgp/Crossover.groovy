@@ -43,6 +43,8 @@ class Crossover {
         return individual
     }
 	
+	
+	
 	static leavesAndOperators(parentTree, parentOperators, parentLeaves) {
 		for (def i = 0; i < parentTree.nodes.size(); i++) {
 			if (parentTree.nodes[i] instanceof Closure) {

@@ -10,32 +10,40 @@ class GpTree {
 
 	def evaluate(context) {
 		index = 0
-		return doEvaluate(context/*, index*/)
+		return doEvaluate(context)
 	}
 
 	def doEvaluate(context) {
 		if (Operator.isFunction(nodes[index])) {
 			def f = nodes[index]
-			def numberOfArgs = Operator.numArgs(f)
-			index = index + 1
-			if (numberOfArgs == 1) {
-				return f(doEvaluate(context))
-			} else if (numberOfArgs == 2) {
-				def firstArg = doEvaluate(context)
-				def secArg = doEvaluate(context)
-				return f(firstArg, secArg)
-			} else if (numberOfArgs == 3) {
-				def firstArg = doEvaluate(context)
-				def secArg = doEvaluate(context)
-				def thirdArg = doEvaluate(context)
-				return f(firstArg, secArg, thirdArg)
-			} else {
-				for(int j = 0; j < numberOfArgs; j++) {
-					def x = doEvaluate(context)
-					f = f.curry(x)
-				}
-				return f()
+			index++
+			switch (f) {
+				case 'plus':
+					Operator.plus(doEvaluate(context), doEvaluate(context))
+					break
+				case 'sub':
+					Operator.sub(doEvaluate(context), doEvaluate(context))
+					break
+				case 'mult':
+					Operator.mult(doEvaluate(context), doEvaluate(context))
+					break
+				case 'divi':
+					Operator.divi(doEvaluate(context), doEvaluate(context))
+					break
+				case 'sin':
+					Operator.sin(doEvaluate(context))
+					break
+				case 'cos':
+					Operator.cos(doEvaluate(context))
+					break
+				case 'log':
+					Operator.log(doEvaluate(context))
+					break
+				case 'gpif':
+					Operator.gpif(doEvaluate(context),doEvaluate(context),doEvaluate(context))
+					break
 			}
+		 	
 		} else {
 			def result
 			if(context.containsKey(nodes[index])) {

@@ -12,14 +12,14 @@ class ToStringTest extends Specification {
 	public void PrintOperationsTest() {
 		given:
 		def context = [:]
-		def plusTree = new GpTree([Operator.plus, 1, 1])
-		def subTree = new GpTree([Operator.sub, 1, 1])
-		def multTree = new GpTree([Operator.mult, 1, 1])
-		def diviTree = new GpTree([Operator.divi, 1, 1])
-		def sinTree = new GpTree([Operator.sin, 1])
-		def cosTree = new GpTree([Operator.cos, 1])
-		def logTree = new GpTree([Operator.log, 1])
-		def gpifTree = new GpTree([Operator.gpif, 1, 1, 0])
+		def plusTree = new GpTree(["plus", 1, 1])
+		def subTree = new GpTree(["sub", 1, 1])
+		def multTree = new GpTree(["mult", 1, 1])
+		def diviTree = new GpTree(["divi", 1, 1])
+		def sinTree = new GpTree(["sin", 1])
+		def cosTree = new GpTree(["cos", 1])
+		def logTree = new GpTree(["log", 1])
+		def gpifTree = new GpTree(["gpif", 1, 1, 0])
 		
 		when:
 		def plusPrint = plusTree.printGpTree()
@@ -48,7 +48,7 @@ class ToStringTest extends Specification {
 		def context = [:]
 		def cTree = new GpTree([5,3,2,3])
 		def vTree = new GpTree(["x","y","z"])
-		def opTree = new GpTree([Operator.plus, Operator.sin,"z", 1])
+		def opTree = new GpTree(["plus", "sin","z", 1])
 
 		when:
 		def resultConstantPrint = cTree.printGpTree()

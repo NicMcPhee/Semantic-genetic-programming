@@ -11,7 +11,7 @@ class GpTreeCrossOverTest extends Specification {
 	@Test 
 	public void findCrossOverParameters() {
 		given: 
-		def threeOperatorTree = new GpTree([Operator.mult, Operator.plus, Operator.plus, 'z', 'z', 3, Operator.sub, 'y', Operator.divi, 10, 'x'])
+		def threeOperatorTree = new GpTree(["mult", "plus", "plus", 'z', 'z', 3, "sub", 'y', "divi", 10, 'x'])
 		
 		when:
 		def resultSingleCParameter = threeOperatorTree.findCrossoverParameters(5)
@@ -30,7 +30,7 @@ class GpTreeCrossOverTest extends Specification {
 	public void findSubTrees() {
 		given:
 		def context = ['x': 2]
-		def threeOperatorTree = new GpTree([Operator.mult, Operator.plus, Operator.plus, 'z', 'z', 3, Operator.sub, 'y', Operator.divi, 10, 'x'])
+		def threeOperatorTree = new GpTree(["mult", "plus", "plus", 'z', 'z', 3, "sub", 'y', "divi", 10, 'x'])
 
 		when:
 		def resultConstantSubTree = threeOperatorTree.findSubTree(5)

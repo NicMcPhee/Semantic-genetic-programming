@@ -45,10 +45,10 @@ class GpTreeEvaluationTest extends Specification {
 	public void simpleConstantTreeTest() {
 		given:
 		def context = [:]
-		def constantAddTree = new GpTree([Operator.plus, 0, 1])
-		def constantSubTree = new GpTree([Operator.sub, 4, 1])
-		def constantMultTree = new GpTree([Operator.mult, 2, 3])
-		def constantDiviTree = new GpTree([Operator.divi, 6, 3])
+		def constantAddTree = new GpTree(["plus", 0, 1])
+		def constantSubTree = new GpTree(["sub", 4, 1])
+		def constantMultTree = new GpTree(["mult", 2, 3])
+		def constantDiviTree = new GpTree(["divi", 6, 3])
 		
 		when:
 		def resultAddTree = constantAddTree.evaluate(context)
@@ -67,18 +67,18 @@ class GpTreeEvaluationTest extends Specification {
 	public void simpleVariableTreeTest () {
 		given:
 		def context = ['x' : 3, 'y' : 6]
-		def firstVarAddTree = new GpTree ([Operator.plus, "x", 1])
-		def lastVarAddTree = new GpTree ([Operator.plus, 1, "x"])
-		def twoVarAddTree = new GpTree ([Operator.plus, "x" , "y"])
-		def firstVarSubTree = new GpTree ([Operator.sub, "x", 1])
-		def lastVarSubTree = new GpTree ([Operator.sub, 1, "x"])
-		def twoVarSubTree = new GpTree ([Operator.sub, "x" , "y"])
-		def firstVarMultTree = new GpTree ([Operator.mult, "x", 1])
-		def lastVarMultTree = new GpTree ([Operator.mult, 1, "x"])
-		def twoVarMultTree = new GpTree ([Operator.mult, "x" , "y"])
-		def firstVarDiviTree = new GpTree ([Operator.divi, "x", 1])
-		def lastVarDiviTree = new GpTree ([Operator.divi, 3, "x"])
-		def twoVarDiviTree = new GpTree ([Operator.divi, "x" , "y"])
+		def firstVarAddTree = new GpTree (["plus", "x", 1])
+		def lastVarAddTree = new GpTree (["plus", 1, "x"])
+		def twoVarAddTree = new GpTree (["plus", "x" , "y"])
+		def firstVarSubTree = new GpTree (["sub", "x", 1])
+		def lastVarSubTree = new GpTree (["sub", 1, "x"])
+		def twoVarSubTree = new GpTree (["sub", "x" , "y"])
+		def firstVarMultTree = new GpTree (["mult", "x", 1])
+		def lastVarMultTree = new GpTree (["mult", 1, "x"])
+		def twoVarMultTree = new GpTree (["mult", "x" , "y"])
+		def firstVarDiviTree = new GpTree (["divi", "x", 1])
+		def lastVarDiviTree = new GpTree (["divi", 3, "x"])
+		def twoVarDiviTree = new GpTree (["divi", "x" , "y"])
 
 		when:
 		def resultFirstAddTree = firstVarAddTree.evaluate(context)
@@ -113,12 +113,12 @@ class GpTreeEvaluationTest extends Specification {
 	public void simpleSingleParameterOperatorTreeTest() {
 		given:
 		def context = ['x' : Math.PI / 2, 'y' : 10]
-		def sinTree = new GpTree([Operator.sin, 0])
-		def sinVTree = new GpTree([Operator.sin, "x"])
-		def cosTree = new GpTree([Operator.cos, 0])
-		def cosVTree = new GpTree([Operator.cos, "x"])
-		def logTree = new GpTree([Operator.log, Math.E])
-		def logVTree = new GpTree([Operator.log, 1])
+		def sinTree = new GpTree(["sin", 0])
+		def sinVTree = new GpTree(["sin", "x"])
+		def cosTree = new GpTree(["cos", 0])
+		def cosVTree = new GpTree(["cos", "x"])
+		def logTree = new GpTree(["log", Math.E])
+		def logVTree = new GpTree(["log", 1])
 
 		when:
 		def resultSinTree = sinTree.evaluate(context)
@@ -141,9 +141,9 @@ class GpTreeEvaluationTest extends Specification {
 	public void simpleThreeParameterOperatorTreeTest() {
 		given:
 		def context = [:]
-		def gpifTree = new GpTree([Operator.gpif, 1, 0, 2])
-		def gpifZeroTree = new GpTree([Operator.gpif, 0, 1, 2])
-		def gpifNegativeTree = new GpTree([Operator.gpif, -1, 1, 2])
+		def gpifTree = new GpTree(["gpif", 1, 0, 2])
+		def gpifZeroTree = new GpTree(["gpif", 0, 1, 2])
+		def gpifNegativeTree = new GpTree(["gpif", -1, 1, 2])
 
 		when:
 		def resultGpifTree = gpifTree.evaluate(context)
@@ -160,8 +160,8 @@ class GpTreeEvaluationTest extends Specification {
 	public void threeOperatorConstantTreeTest() {
 		given:
 		def context = [:]
-		def threeOperatorTree = new GpTree([Operator.mult, Operator.plus, 2, 3, Operator.sub, 6, 5])
-		def threeAdditionTree = new GpTree([Operator.plus, Operator.plus, 1, 2, Operator.plus, 3, 4])
+		def threeOperatorTree = new GpTree(["mult", "plus", 2, 3, "sub", 6, 5])
+		def threeAdditionTree = new GpTree(["plus", "plus", 1, 2, "plus", 3, 4])
 
 		when:
 		def resultThreeOperatorTree = threeOperatorTree.evaluate(context)
@@ -176,8 +176,8 @@ class GpTreeEvaluationTest extends Specification {
 	public void threeOperatorVariableTreeTest() {
 		given:
 		def context = ['x':3, 'y':5]
-		def threeOperatorTree = new GpTree([Operator.mult, Operator.plus, 2, 'x', Operator.sub, 6, 'y'])
-		def threeAdditionTree = new GpTree([Operator.plus, Operator.plus, 1, 2, Operator.plus, 'x', 4])
+		def threeOperatorTree = new GpTree(["mult", "plus", 2, 'x', "sub", 6, 'y'])
+		def threeAdditionTree = new GpTree(["plus", "plus", 1, 2, "plus", 'x', 4])
 
 		when:
 		def resultThreeOperatorTree = threeOperatorTree.evaluate(context)
@@ -192,8 +192,8 @@ class GpTreeEvaluationTest extends Specification {
 	public void complexOperatorConstantTreeTest() {
 		given:
 		def context = [:]
-		def threeOperatorTree = new GpTree([Operator.mult, Operator.plus, Operator.plus, 1, 1, 3, Operator.sub, 6, Operator.divi, 10, 2])
-		def threeAdditionTree = new GpTree([Operator.plus, Operator.plus, 1, Operator.plus, 1, 1, Operator.plus, Operator.plus, 1, Operator.plus, 1, 1, 4])
+		def threeOperatorTree = new GpTree(["mult", "plus", "plus", 1, 1, 3, "sub", 6, "divi", 10, 2])
+		def threeAdditionTree = new GpTree(["plus", "plus", 1, "plus", 1, 1, "plus", "plus", 1, "plus", 1, 1, 4])
 
 		when:
 		def resultThreeOperatorTree = threeOperatorTree.evaluate(context)
@@ -208,9 +208,9 @@ class GpTreeEvaluationTest extends Specification {
 	public void complexOperatorVariableTreeTest() {
 		given:
 		def context = ['x': 2, 'y': 6, 'z': 1]
-		def threeOperatorTree = new GpTree([Operator.mult, Operator.plus, Operator.plus, 'z', 'z', 3, Operator.sub, 'y', Operator.divi, 10, 'x'])
+		def threeOperatorTree = new GpTree(["mult", "plus", "plus", 'z', 'z', 3, "sub", 'y', "divi", 10, 'x'])
 		def threeAdditionTree =
-		new GpTree([Operator.plus, Operator.plus, 'z', Operator.plus, 'z', 'z', Operator.plus, Operator.plus, 'z', Operator.plus, 'z', 'z', 4])
+		new GpTree(["plus", "plus", 'z', "plus", 'z', 'z', "plus", "plus", 'z', "plus", 'z', 'z', 4])
 
 		when:
 		def resultThreeOperatorTree = threeOperatorTree.evaluate(context)
@@ -225,9 +225,9 @@ class GpTreeEvaluationTest extends Specification {
 	public void diffArgLengthComplexOperatorVariableTreeTest() {
 		given:
 		def context = ['x': 2, 'y': 6, 'z': 1]
-		def multOperatorTree = new GpTree([Operator.sin, Operator.mult, Operator.sub, Operator.plus, Operator.sin, Math.PI/2, Operator.cos, 0, Operator.sub, 'y', Operator.divi, 10, 'x', Math.PI/2])
+		def multOperatorTree = new GpTree(["sin", "mult", "sub", "plus", "sin", Math.PI/2, "cos", 0, "sub", 'y', "divi", 10, 'x', Math.PI/2])
 		def complexMultOperatorTree =
-		new GpTree([Operator.gpif, Operator.plus, Operator.gpif, Operator.sub, 'x', 'y', -1, 0, 1, Operator.mult, Operator.sin, Math.PI/2, 'z', Operator.log, Math.E])
+		new GpTree(["gpif", "plus", "gpif", "sub", 'x', 'y', -1, 0, 1, "mult", "sin", Math.PI/2, 'z', "log", Math.E])
 
 		when:
 		def resultMultOperatorTree = multOperatorTree.evaluate(context)
@@ -243,8 +243,8 @@ class GpTreeEvaluationTest extends Specification {
 	public void divideByZero() {
 		given:
 		def context = ['x': 4, 'y': 0]
-		def simpleCaseTree = new GpTree([Operator.divi, 2, 0])
-		def simpleVariableCaseTree = new GpTree([Operator.divi, "x","y"])
+		def simpleCaseTree = new GpTree(["divi", 2, 0])
+		def simpleVariableCaseTree = new GpTree(["divi", "x","y"])
 		
 		when:
 		def resultsimpleCaseTree = simpleCaseTree.evaluate(context)
@@ -259,8 +259,8 @@ class GpTreeEvaluationTest extends Specification {
 	public void logByNegative() {
 		given:
 		def context = ['x': 0,]
-		def simpleCaseTree = new GpTree([Operator.log, -10])
-		def simpleVariableCaseTree = new GpTree([Operator.log, "x"])
+		def simpleCaseTree = new GpTree(["log", -10])
+		def simpleVariableCaseTree = new GpTree(["log", "x"])
 		
 		when:
 		def resultsimpleCaseTree = simpleCaseTree.evaluate(context)
@@ -275,10 +275,10 @@ class GpTreeEvaluationTest extends Specification {
 	public void NaNTest() {
 		given:
 		def context = ['x': 4, 'y' : 6]
-		def treex = new GpTree([Operator.divi, Operator.plus, Operator.sin, "y", Operator.mult, "y", "x", Operator.mult, Operator.sub, Operator.mult, 0, Operator.sin, -1, Operator.log, Operator.cos, Operator.sub, "x", "x", Operator.mult, 0, "x"])
-		def leftSubTree = new GpTree([Operator.plus, Operator.sin, "y", Operator.mult, "y", "x"])
-		def rightSubTree = new GpTree([Operator.mult, Operator.sub, Operator.mult, 0, Operator.sin, -1, Operator.log, Operator.cos, Operator.sub, "x", "x", Operator.mult, 0, "x"])
-		def treey = new GpTree([Operator.divi, Operator.cos, Operator.divi, "y", Operator.cos, Operator.divi, Operator.cos, "y", "x", Operator.cos, Operator.divi, Operator.mult, "x", "x", Operator.mult, -1, Operator.plus, Operator.sin, "y", "y"])
+		def treex = new GpTree(["divi", "plus", "sin", "y", "mult", "y", "x", "mult", "sub", "mult", 0, "sin", -1, "log", "cos", "sub", "x", "x", "mult", 0, "x"])
+		def leftSubTree = new GpTree(["plus", "sin", "y", "mult", "y", "x"])
+		def rightSubTree = new GpTree(["mult", "sub", "mult", 0, "sin", -1, "log", "cos", "sub", "x", "x", "mult", 0, "x"])
+		def treey = new GpTree(["divi", "cos", "divi", "y", "cos", "divi", "cos", "y", "x", "cos", "divi", "mult", "x", "x", "mult", -1, "plus", "sin", "y", "y"])
 		
 		when:
 		def resultx = treex.evaluate(context)

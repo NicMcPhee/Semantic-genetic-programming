@@ -10,8 +10,8 @@ class CrossoverTest extends Specification {
     @Test
     public void simpleCrossOver() {
         given:
-        def P1 = new GpTree([Operator.mult, 0, Operator.divi, 1, 2])
-        def P2 = new GpTree([Operator.sub, 3, Operator.plus, 4, 5])
+        def P1 = new GpTree(["mult", 0, "divi", 1, 2])
+        def P2 = new GpTree(["sub", 3, "plus", 4, 5])
         
         when:
         def childTree = Crossover.crossover(P1,P2).getTree()
@@ -26,8 +26,8 @@ class CrossoverTest extends Specification {
     @Test
     public void longerCrossOver() {
         given:
-        def P1 = new GpTree([Operator.mult, 0, Operator.divi, 1, Operator.log, Operator.gpif, 1, 3, 4])
-        def P2 = new GpTree([Operator.sub, "y", Operator.plus, "z", Operator.gpif, "x", "w", Operator.cos, "v"])
+        def P1 = new GpTree(["mult", 0, "divi", 1, "log", "gpif", 1, 3, 4])
+        def P2 = new GpTree(["sub", "y", "plus", "z", "gpif", "x", "w", "cos", "v"])
         
         when:
         def childTree = Crossover.crossover(P1,P2).getTree()
@@ -43,7 +43,7 @@ class CrossoverTest extends Specification {
 	public void singleNodeP1Crossover() {
 		given:
 		def P1 = new GpTree([1])
-		def P2 = new GpTree([Operator.sub, "y", Operator.plus, "z", Operator.gpif, "x", "w", Operator.cos, "v"])
+		def P2 = new GpTree(["sub", "y", "plus", "z", "gpif", "x", "w", "cos", "v"])
 		
 		when:
 		def childTree = Crossover.crossover(P1,P2).getTree()
@@ -59,7 +59,7 @@ class CrossoverTest extends Specification {
 	@Test
 	public void singleNodeP2Crossover() {
 		given:
-		def P1 =  new GpTree([Operator.sub, "y", Operator.plus, "z", Operator.gpif, "x", "w", Operator.cos, "v"])
+		def P1 =  new GpTree(["sub", "y", "plus", "z", "gpif", "x", "w", "cos", "v"])
 		def P2 = new GpTree([1])
 		
 		when:

@@ -9,16 +9,16 @@ class TourneyTest {
 	public void testFitness() {
 		given:
 		def candidate1 = new Individual(new GpTree([
-			Operator.plus,
+			"plus",
 			"x",
-			Operator.plus,
+			"plus",
 			"y",
 			1
 		]))
 		def candidate2 = new Individual(new GpTree([
-			Operator.plus,
+			"plus",
 			"y",
-			Operator.mult,
+			"mult",
 			"x",
 			1
 		]))
@@ -60,20 +60,20 @@ class TourneyTest {
         // This has a very small chance to fail if candidate1 is selected 10 times because Tourney selects with replacement
 		given:
 		def candidate1 = new Individual(new GpTree([
-			Operator.plus,
+			"plus",
 			"x",
-			Operator.plus,
+			"plus",
 			"y",
 			1
 		]))
 		def candidate2 = new Individual(new GpTree([
-			Operator.plus,
+			"plus",
 			"y",
-			Operator.mult,
+			"mult",
 			"x",
 			1
 		]))
-		def P1Evolver = new Evolver([Operator.plus, Operator.sub], [], 0, 0, 4, 5, 20, 15)
+		def P1Evolver = new Evolver(["plus", "sub"], [], 0, 0, 4, 5, 20, 15)
 		
 		when:
 		P1Evolver.TestPointsList = [

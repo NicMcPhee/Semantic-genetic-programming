@@ -7,7 +7,7 @@ import umm.semanticgp.Operator
 class GPMain {
 
 	static main(args) {
-		def OperatorList = [Operator.plus, Operator.mult, Operator.sub, Operator.divi]
+		def OperatorList = ["plus", "mult", "sub", "divi"]
 		def VarsList = ["x"]
 		def PercentVariables = 63
 		def LowestConstant = -5
