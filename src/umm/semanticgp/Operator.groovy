@@ -25,13 +25,13 @@ class Operator {
 		"gpif"
 	]
 	static plus(a,b) {
-		return a+b
+		return a + b
 	}
 	static sub(a,b)  {
-		a-b
+		return a - b
 	}
 	static mult(a,b){
-		return a*b
+		return a * b
 	}
 	static divi(a,b) {
 		if (Math.abs(b)== 0) {
