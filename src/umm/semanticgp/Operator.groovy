@@ -11,7 +11,6 @@ import umm.util.SharedPRNG;
  * do.
  */
 
-import java.util.Random
 
 class Operator {
 	static operatorArr = [
@@ -24,36 +23,42 @@ class Operator {
 		"log",
 		"gpif"
 	]
-	static plus(a,b) {
+
+	static binaryOpArr = ["plus", "sub", "mult","divi"]
+
+	static singularOpArr = ["sin", "cos", "log"]
+	
+	static trinaryOpArr = ["gpif"]
+	static plus(double a, double b) {
 		return a + b
 	}
-	static sub(a,b)  {
+	static sub(double a, double b)  {
 		return a - b
 	}
-	static mult(a,b){
+	static mult(double a, double b){
 		return a * b
 	}
-	static divi(a,b) {
+	static divi(double a, double b) {
 		if (Math.abs(b)== 0) {
 			1
 		} else {
 			a / b
 		}
 	}
-	static sin(a) {
+	static sin(double a) {
 		Math.sin(a)
 	}
-	static cos(a) {
+	static cos(double a) {
 		Math.cos(a)
 	}
-	static log(a) {
+	static log(double a) {
 		if (a > 0) {
 			Math.log(a)
 		} else {
 			-100000
 		}
 	}
-	static gpif(test,positive,negative) {
+	static gpif(double test,double positive,double negative) {
 		if (test > 0) {
 			positive
 		} else {
@@ -62,21 +67,33 @@ class Operator {
 	}
 
 	static numArgs(function) {
-		if (function == "plus" || function == "sub" || function == "mult" || function == "divi") {
+		if (isBinary(function)) {
 			2
-		} else if (function == "sin" || function == "cos" || function == "log") {
+		} else if (isSingular(function)) {
 			1
-		} else if (function == "gpif") {
+		} else if (isTrinary(function)) {
 			3
 		} else {
 			0
 		}
 	}
+
+	static isBinary(function) {
+		binaryOpArr.contains(function)
+	}
 	
+	static isTrinary(function) {
+		trinaryOpArr.contains(function)
+	}
+	
+	static isSingular(function) {
+		singularOpArr.contains(function)
+	}
+
 	static isFunction(function) {
 		operatorArr.contains(function)
 	}
-	
+
 	static toString(node) {
 		if (node == "plus") {
 			return "+"

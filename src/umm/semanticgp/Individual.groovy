@@ -15,8 +15,8 @@ class Individual {
 	def getTree() {
 		return gpTree
 	}
-	def setFitness(Fitness) {
-		this.treeFitness = Fitness
+	def setFitness(fitness) {
+		this.treeFitness = fitness
 	}
     
 	def compareTo(individual) {

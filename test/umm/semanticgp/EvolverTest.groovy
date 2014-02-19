@@ -32,7 +32,7 @@ class EvolverTest {
 		def initialPop = new Evolver(["plus"], ["x","y"], 80, 0, 10, 20, 4, 20)
 		when:
 		initialPop.initialPop()
-		println()
+		println("MUTATION TYPE TEST")
 		println(initialPop.Population[0].getTree().printGpTree())
 		println(initialPop.Population[1].getTree().printGpTree())
 		println(initialPop.Population[2].getTree().printGpTree())
@@ -53,6 +53,7 @@ class EvolverTest {
 		given:
 		def initialPop = new Evolver(["plus"], ["x","y"], 80, 0, 10, 20, 4, 3)
 		when:
+		println("evolveTest")
 		initialPop.evolve(90)
 		println(initialPop.Population[0].getTree().printGpTree())
 		println(initialPop.Population[1].getTree().printGpTree())

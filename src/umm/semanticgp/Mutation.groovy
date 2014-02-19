@@ -11,7 +11,7 @@ public class Mutation {
         def noiseProbability = 1/copyP1.nodes.size() * 100
         int i = 0
         while (copyP1.nodes[i] != null) {
-            if (random.nextInt(100) <= noiseProbability && !(Operator.isFunction(copyP1.nodes[i]))) {
+            if (random.nextInt(100) <= noiseProbability && !(OperatorJava.isFunction(copyP1.nodes[i]))) {
                 copyP1.nodes.remove(i)
                 def randomGeneratedTree = new Ptc2(
                         P1Evolver.operatorList,

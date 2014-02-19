@@ -14,33 +14,33 @@ class GpTree {
 	}
 
 	def doEvaluate(context) {
-		if (Operator.isFunction(nodes[index])) {
+		if (OperatorJava.isFunction(nodes[index])) {
 			def f = nodes[index]
 			index++
 			switch (f) {
 				case 'plus':
-					Operator.plus(doEvaluate(context), doEvaluate(context))
+					OperatorJava.plus(doEvaluate(context), doEvaluate(context))
 					break
 				case 'sub':
-					Operator.sub(doEvaluate(context), doEvaluate(context))
+					OperatorJava.sub(doEvaluate(context), doEvaluate(context))
 					break
 				case 'mult':
-					Operator.mult(doEvaluate(context), doEvaluate(context))
+					OperatorJava.mult(doEvaluate(context), doEvaluate(context))
 					break
 				case 'divi':
-					Operator.divi(doEvaluate(context), doEvaluate(context))
+					OperatorJava.divi(doEvaluate(context), doEvaluate(context))
 					break
 				case 'sin':
-					Operator.sin(doEvaluate(context))
+					OperatorJava.sin(doEvaluate(context))
 					break
 				case 'cos':
-					Operator.cos(doEvaluate(context))
+					OperatorJava.cos(doEvaluate(context))
 					break
 				case 'log':
-					Operator.log(doEvaluate(context))
+					OperatorJava.log(doEvaluate(context))
 					break
 				case 'gpif':
-					Operator.gpif(doEvaluate(context),doEvaluate(context),doEvaluate(context))
+					OperatorJava.gpif(doEvaluate(context),doEvaluate(context),doEvaluate(context))
 					break
 			}
 		 	
@@ -63,7 +63,7 @@ class GpTree {
 	def findCrossoverParameters(int i) {
 		def j = 0
 		def end = i
-		while(j < Operator.numArgs(nodes[i])) {
+		while(j < OperatorJava.numArgs(nodes[i])) {
 			end = findCrossoverParameters(end + 1)
 			j++
 		}
@@ -75,8 +75,8 @@ class GpTree {
 	def printGpTree() {
 		def gpString = "["
 		for (int i = 0; i < nodes.size(); ++i) {
-			if (Operator.isFunction(nodes[i])) {
-				gpString += Operator.toString(nodes[i])
+			if (OperatorJava.isFunction(nodes[i])) {
+				gpString += OperatorJava.toString(nodes[i])
 				if (i != nodes.size() - 1) {
 					gpString += ", "
 				}

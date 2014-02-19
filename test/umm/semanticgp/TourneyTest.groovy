@@ -99,6 +99,7 @@ class TourneyTest {
 			[['x': 6, 'y': 7], 13],
 			[['x': 7, 'y': 6], 13]
 		]
+		candidate1.setFitness(candidate2)
 		def parent = Tourney.Tournament([candidate1, candidate2], 10)
         println(parent.getTree().printGpTree())
         println(candidate2.getTree().printGpTree())

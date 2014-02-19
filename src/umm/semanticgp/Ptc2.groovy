@@ -30,7 +30,7 @@ class Ptc2 {
 			def randomOperator = randomOperators()
 			randomTree.nodes[0] = randomOperator
 			def i = 0
-			for (i; i < Operator.numArgs(randomOperator); i++) {
+			for (i; i < OperatorJava.numArgs(randomOperator); i++) {
 				randomTree.nodes[i + 1] = null
 				indexArr[i] = i + 1
 			}
@@ -41,7 +41,7 @@ class Ptc2 {
 				def indexInGpTree = indexArr[randomNodeIndex]
 				randomTree.nodes[indexInGpTree] = anotherOperator
 				def nullArray = []
-				for(int j = 0; j < Operator.numArgs(anotherOperator); j++) {
+				for(int j = 0; j < OperatorJava.numArgs(anotherOperator); j++) {
 					nullArray[j] = null
 				}			
 				randomTree.nodes.addAll(indexInGpTree + 1, nullArray)

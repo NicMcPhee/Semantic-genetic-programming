@@ -47,7 +47,7 @@ class Crossover {
 	
 	static leavesAndOperators(parentTree, parentOperators, parentLeaves) {
 		for (def i = 0; i < parentTree.nodes.size(); i++) {
-			if (Operator.isFunction(parentTree.nodes[i])) {
+			if (OperatorJava.isFunction(parentTree.nodes[i])) {
 				parentOperators.add(i)
 			} else {
 				parentLeaves.add(i)
