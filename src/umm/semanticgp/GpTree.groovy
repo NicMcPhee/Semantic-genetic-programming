@@ -19,31 +19,48 @@ class GpTree {
 			index++
 			switch (f) {
 				case 'plus':
-					OperatorJava.plus(doEvaluate(context), doEvaluate(context))
+					doEvaluate(context) + doEvaluate(context)
 					break
 				case 'sub':
-					OperatorJava.sub(doEvaluate(context), doEvaluate(context))
+					doEvaluate(context) - doEvaluate(context)
 					break
 				case 'mult':
-					OperatorJava.mult(doEvaluate(context), doEvaluate(context))
+					doEvaluate(context) * doEvaluate(context)
 					break
 				case 'divi':
-					OperatorJava.divi(doEvaluate(context), doEvaluate(context))
+					def diviFirstArg = doEvaluate(context)
+					def diviSecondArg = doEvaluate(context)
+					if (Math.abs(diviSecondArg)== 0) {
+						1
+					} else {
+						diviFirstArg / diviSecondArg
+					}
 					break
 				case 'sin':
-					OperatorJava.sin(doEvaluate(context))
+					Math.sin(doEvaluate(context))
 					break
 				case 'cos':
-					OperatorJava.cos(doEvaluate(context))
+					Math.cos(doEvaluate(context))
 					break
 				case 'log':
-					OperatorJava.log(doEvaluate(context))
+					def logArg = doEvaluate(context)
+					if (logArg > 0) {
+						Math.log(logArg)
+					} else {
+						-100000
+					}
 					break
 				case 'gpif':
-					OperatorJava.gpif(doEvaluate(context),doEvaluate(context),doEvaluate(context))
+					def ifFirstArg = doEvaluate(context)
+					def ifSecondArg = doEvaluate(context)
+					def ifThirdArg = doEvaluate(context)
+					if (ifFirstArg > 0) {
+						ifSecondArg
+					} else {
+						ifThirdArg
+					}
 					break
 			}
-		 	
 		} else {
 			def result
 			if(context.containsKey(nodes[index])) {

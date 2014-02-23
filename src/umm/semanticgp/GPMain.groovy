@@ -13,8 +13,8 @@ class GPMain {
 		def LowestConstant = -5
 		def HighestConstant = 5
 		def InitialTreeSize = 20
-		def PopSize = 10000
-		def Generations = 100
+		def PopSize = 1000
+		def Generations = 30
 		def Evolve = new Evolver(OperatorList, VarsList, PercentVariables, LowestConstant, HighestConstant, InitialTreeSize, PopSize, Generations)
 		Evolve.TestPointsList = //Evolve.readTestPoints(args[0])
 			[[['x': 0.0], Math.sin(0.0)],
