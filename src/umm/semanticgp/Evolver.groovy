@@ -15,6 +15,9 @@ class Evolver {
 	static TestPointsList = [][]
 	def generations
 
+	Neo4jObserverNotifier neo4j = new Neo4jObserverNotifier()
+	LocalDBObserver observer = new LocalDBObserver(neo4j)
+
 	def Evolver(operatorList, variableList, percentVariables, lowestConstant, highestConstant, initialTreeSize, popSize, generations) {
 		this.operatorList = operatorList
 		this.variableList = variableList
@@ -32,7 +35,7 @@ class Evolver {
 		println("Best Individuals")
 		for (def j = 1; j < generations; j++) {
 			def start = System.currentTimeMillis()
-			mutationType(crossoverPercent)
+			mutationType(crossoverPercent, j)
 			println( "Generation " + j)
 			println(nBestFitnessIndiv(1)[0].toString())
 			println(System.currentTimeMillis() - start)
@@ -70,27 +73,35 @@ class Evolver {
 			def individual = new Individual(GpTree.generateTree(initialTreeSize))
 			individual.setFitness(fitness.computeFitness(individual))
 			Population[i] = individual
+			neo4j.setInitial(individual)
 		}
 	}
 
-	def mutationType(crossoverPercentage) {
+	def mutationType(crossoverPercentage, generation) {
 		def fitness = new Fitness(TestPointsList)
 		def childGeneration = []
+
 		Random random = SharedPRNG.instance() // new Random()
 		for(int i = 0; i < popSize; i++) {
-			if(i < popSize/100) {
+			if(i < ((int) (popSize/100))) {
 				childGeneration[i] = nBestFitnessIndiv(popSize/100)[i]
 			} else {
 				def parent1 = Tourney.Tournament(Population, 2)
 				def parent2 = Tourney.Tournament(Population, 2)
 				if (random.nextInt(100) < crossoverPercentage) {
-					childGeneration[i] = Crossover.crossover(parent1.getTree(), parent2.getTree())
+					def (child, XoPoint) = Crossover.crossover(parent1.getTree(), parent2.getTree())
+					childGeneration[i] = child
 					childGeneration[i].setFitness(fitness.computeFitness(childGeneration[i]))
+					neo4j.setCrossover(parent1, parent2, childGeneration[i], generation, XoPoint)
 				} else if (random.nextInt(100) < (crossoverPercentage  + 1)) {
-					childGeneration[i] = Mutation.mutation(parent1.getTree(), this)
+					def (child, mutationPoint) = Mutation.mutation(parent1.getTree(), this)
+					childGeneration[i] = child
 					childGeneration[i].setFitness(fitness.computeFitness(childGeneration[i]))
+					neo4j.setMutation(parent1, childGeneration[i], generation, mutationPoint)
 				} else {
 					childGeneration[i] = parent1
+					childGeneration[i].setUid()
+					neo4j.setReproduction(parent1, generation)
 				}
 			}
 		}

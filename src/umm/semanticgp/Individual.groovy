@@ -17,6 +17,10 @@ class Individual {
 	def getTree() {
 		return gpTree
 	}
+	
+	def setUid() {
+		return UUID.randomUUID();
+	}
 	def getUid() {
 		return uid
 	}

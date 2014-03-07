@@ -40,7 +40,7 @@ class Crossover {
 		copyP1.nodes.removeRange(indexToAdd, endIndex)
 		copyP1.nodes.addAll(indexToAdd, newNodes)
         def individual = new Individual(copyP1)
-        return individual
+        return [individual, indexToAdd]
     }
 	
 	

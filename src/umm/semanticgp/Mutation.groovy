@@ -3,56 +3,36 @@ package umm.semanticgp
 import umm.util.SharedPRNG;
 
 public class Mutation {
+	static random = SharedPRNG.instance()
 
-    static mutation(GpTree P1, Evolver P1Evolver) {
-        def random = SharedPRNG.instance()
+	static mutation(GpTree P1, Evolver P1Evolver) {
+		def copyP1 = new GpTree(P1.nodes.clone())
+		int mutationPoint = random.nextInt(copyP1.nodes.size)
+		def randomGeneratedTree = new Ptc2(
+				P1Evolver.operatorList,
+				P1Evolver.variableList,
+				P1Evolver.percentVariables,
+				P1Evolver.lowestConstant,
+				P1Evolver.highestConstant
+				)
+		if (!(OperatorJava.isFunction(copyP1.nodes[mutationPoint]))) {
+			copyP1.nodes.remove(mutationPoint)
+			int mutationTreeSize = (random.nextInt(P1.nodes.size() + 1) / 2) + 1
+			def mutationTree = randomGeneratedTree.generateTree(mutationTreeSize)
+			if (mutationPoint == copyP1.nodes.size()) {
+				copyP1.nodes.addAll(mutationTree.findSubTree(0))
+			} else {
+				copyP1.nodes.addAll(mutationPoint, mutationTree.findSubTree(0))
+			}
+		} else {
+			copyP1.nodes.removeRange(mutationPoint, copyP1.findCrossoverParameters((int) mutationPoint) + 1)
+			int mutationTreeSize = (random.nextInt(P1.nodes.size() + 1) / 2) + 1
+			def mutationTree = randomGeneratedTree.generateTree(mutationTreeSize)
+			copyP1.nodes.addAll(mutationPoint, mutationTree.findSubTree(0))
+		}
 
-        def copyP1 = new GpTree(P1.nodes.clone())
-        def noiseProbability = 1/copyP1.nodes.size() * 100
-        int i = 0
-        while (copyP1.nodes[i] != null) {
-            if (random.nextInt(100) <= noiseProbability && !(OperatorJava.isFunction(copyP1.nodes[i]))) {
-                copyP1.nodes.remove(i)
-                def randomGeneratedTree = new Ptc2(
-                        P1Evolver.operatorList,
-                        P1Evolver.variableList,
-                        P1Evolver.percentVariables,
-                        P1Evolver.lowestConstant,
-                        P1Evolver.highestConstant
-                        )
-                int mutationTreeSize = (random.nextInt(P1.nodes.size() + 1) / 2) + 1
-                def mutationTree = randomGeneratedTree.generateTree(mutationTreeSize)
 
-                if (i == copyP1.nodes.size()) {
-                    copyP1.nodes.addAll(mutationTree.findSubTree(0))
-                } else {
-                    copyP1.nodes.addAll(i, mutationTree.findSubTree(0))
-                }
-                noiseProbability = 1/copyP1.nodes.size() * 100
-                i = copyP1.findCrossoverParameters(i) + 1
-            } else {
-                i++
-            }
-        }
-
-        def individual = new Individual(copyP1)
-        return individual
-    }
+		def individual = new Individual(copyP1)
+		return [individual, mutationPoint]
+	}
 }
-
-/** Other form of mutation, might want to come back to? **/				
-
-//		def normalDistributionVariance
-//		def min
-//		def max
-
-//				def fromNormalDistribution
-//				if (!(min <= P1.nodes[i] && P1.nodes[i] <= max)) {
-//					fromNormalDistribution //random number from N(0, normalDistributionVariance)
-//				}
-//				copyP1.nodes[i] = P1.nodes[i] + fromNormalDistribution
-//			}
-//		}
-//		return copyP1;
-//	}
-//}

@@ -77,7 +77,7 @@ class GpTree {
 		return nodes[i..findCrossoverParameters(i)]
 	}
 
-	def findCrossoverParameters(int i) {
+	def findCrossoverParameters(i) {
 		def j = 0
 		def end = i
 		while(j < OperatorJava.numArgs(nodes[i])) {

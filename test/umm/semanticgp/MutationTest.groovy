@@ -36,4 +36,19 @@ class MutationTest {
 		then:
 		assert (12..42).contains(childTree.nodes.size())
 	}
+	
+	@Test
+	public void manyOPMutation() {
+		given:
+		def P1 = new GpTree(["sin","sin","sin","sin","sin","sin","sin","sin","sin","sin","sin","x"])
+		def P1Evolver = new Evolver(["gpif", "sub", "mult", "sin", "divi", "cos"], ['x'], 10, 0, 5, 8, 20, 15)
+		
+		when:
+		def childTree = Mutation.mutation(P1, P1Evolver).getTree()
+		println(P1.printGpTree())
+		println(childTree.printGpTree())
+		
+		then:
+		assert (12..42).contains(childTree.nodes.size())
+	}
 }

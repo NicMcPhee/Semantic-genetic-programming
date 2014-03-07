@@ -65,8 +65,9 @@ class Neo4jObserverNotifier extends Observable {
 		return child;
 	}
 	
+	// made generations start at 1 because neo4j does not allow zeros to be the display
 	public int getGeneration() {
-		return generation;
+		return generation + 1;
 	}
 	
 	public String getTransformationType() {

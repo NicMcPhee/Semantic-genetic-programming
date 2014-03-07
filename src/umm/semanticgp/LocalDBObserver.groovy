@@ -46,10 +46,11 @@ public class LocalDBObserver implements Observer {
 				this.transformationType = neo4jNotifier.getTransformationType();
 				this.child = neo4jNotifier.getChild();
 				this.generation = neo4jNotifier.getGeneration();
-				println ("NEW INSTANCE")
+//				println ("NEW INSTANCE")
 				//Create Child node
 				individualNode = graphDB.createNode();
 				individualNode.setProperty("fitness", child.getFitness());
+				individualNode.setProperty("transformation_type", transformationType);
 				individualNode.setProperty("tree", child.getTree().toString());
 				individualNode.setProperty("id", child.getUid().toString());
 				individualNode.setProperty("generation", generation);
@@ -78,17 +79,17 @@ public class LocalDBObserver implements Observer {
 						 //build parent2 relationship
 					Node parent2Node = individualNodes.get("id", parent2.getUid().toString()).next();
 					toParent2 = parent2Node.createRelationshipTo(individualNode, RelTypes.PARENTOF);
-					System.out.println(transformationType);
-					System.out.println("parent1");
-					System.out.println(parent1);
-					System.out.println("parent2");
-					System.out.println(parent2);
-					System.out.println("child");
-					System.out.println(child);
-					System.out.println("gen");
-					System.out.println(generation);
-					System.out.println("alter");
-					System.out.println(pointOfAltercation);
+//					System.out.println(transformationType);
+//					System.out.println("parent1");
+//					System.out.println(parent1);
+//					System.out.println("parent2");
+//					System.out.println(parent2);
+//					System.out.println("child");
+//					System.out.println(child);
+//					System.out.println("gen");
+//					System.out.println(generation);
+//					System.out.println("alter");
+//					System.out.println(pointOfAltercation);
 					
 				} else if (transformationType == 'mutation'){
 						//get parent1
@@ -102,26 +103,26 @@ public class LocalDBObserver implements Observer {
 					
 						//Edit child's point of altercation
 					individualNode.setProperty("Point_of_altercation", this.pointOfAltercation);
-					System.out.println(transformationType);
-					System.out.println("parent1");
-					System.out.println(parent1);
-					System.out.println("child");
-					System.out.println(child);
-					System.out.println("gen");
-					System.out.println(generation);				
-					System.out.println("alter");
-					System.out.println(pointOfAltercation);
+//					System.out.println(transformationType);
+//					System.out.println("parent1");
+//					System.out.println(parent1);
+//					System.out.println("child");
+//					System.out.println(child);
+//					System.out.println("gen");
+//					System.out.println(generation);				
+//					System.out.println("alter");
+//					System.out.println(pointOfAltercation);
 				} else if (transformationType == 'reproduction') {
 						//get parent1
 					this.parent1 = neo4jNotifier.getFirstParent();
 						// edit parent 1 relation
 					Node parentNode = individualNodes.get("id", parent1.getUid().toString()).next();
 					toParent1 = parentNode.createRelationshipTo(individualNode, RelTypes.PARENTOF);
-					System.out.println("reproduction");
-					System.out.println("parent1");
-					System.out.println(parent1);
-					System.out.println("child");
-					System.out.println(child);
+//					System.out.println("reproduction");
+//					System.out.println("parent1");
+//					System.out.println(parent1);
+//					System.out.println("child");
+//					System.out.println(child);
 				}
 				
 
