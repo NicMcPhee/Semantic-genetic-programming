@@ -66,6 +66,7 @@ public class LocalDBObserver implements Observer {
 						// edit parent 1 relation
 					Node parentNode = individualNodes.get("id", parent1.getUid().toString()).next();
 					toParent1 = parentNode.createRelationshipTo(individualNode, RelTypes.PARENTOF);
+					toParent1.setProperty("root-parent", "true");
 					
 						//grab parent2
 					this.parent2 = neo4jNotifier.getSecondParent();
@@ -79,6 +80,7 @@ public class LocalDBObserver implements Observer {
 						 //build parent2 relationship
 					Node parent2Node = individualNodes.get("id", parent2.getUid().toString()).next();
 					toParent2 = parent2Node.createRelationshipTo(individualNode, RelTypes.PARENTOF);
+					toParent2.setProperty("root-parent", "true");
 //					System.out.println(transformationType);
 //					System.out.println("parent1");
 //					System.out.println(parent1);
