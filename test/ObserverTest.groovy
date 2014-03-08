@@ -34,6 +34,7 @@ class ObserverTest extends Specification {
 				neo4j.setCrossover(parent1,parent2, child, 1, 1)
 				neo4j.setReproduction(child, 2)
 				neo4j.setMutation(child, child2, 2, 3)
+				neo4j.setElitism(child2, 3)
 			
 			then:
 				assert true;

@@ -85,6 +85,8 @@ class Evolver {
 		for(int i = 0; i < popSize; i++) {
 			if(i < ((int) (popSize/100))) {
 				childGeneration[i] = nBestFitnessIndiv(popSize/100)[i]
+				childGeneration[i].setUid()
+				neo4j.setElitism(childGeneration[i], generation)
 			} else {
 				def parent1 = Tourney.Tournament(Population, 2)
 				def parent2 = Tourney.Tournament(Population, 2)

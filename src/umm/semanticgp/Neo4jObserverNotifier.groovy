@@ -53,6 +53,14 @@ class Neo4jObserverNotifier extends Observable {
 		childCreated();
 	}
 	
+	public void setElitism(Individual child, int generation) {
+		this.child = child;
+		this.parent1 = child;
+		this.generation = generation;
+		this.transformationType = 'elitism';
+		childCreated();
+	}
+	
 	public Individual getFirstParent() {
 		return parent1;
 	}

@@ -80,7 +80,7 @@ public class LocalDBObserver implements Observer {
 						 //build parent2 relationship
 					Node parent2Node = individualNodes.get("id", parent2.getUid().toString()).next();
 					toParent2 = parent2Node.createRelationshipTo(individualNode, RelTypes.PARENTOF);
-					toParent2.setProperty("root-parent", "true");
+					toParent2.setProperty("root-parent", "false");
 //					System.out.println(transformationType);
 //					System.out.println("parent1");
 //					System.out.println(parent1);
@@ -120,6 +120,17 @@ public class LocalDBObserver implements Observer {
 						// edit parent 1 relation
 					Node parentNode = individualNodes.get("id", parent1.getUid().toString()).next();
 					toParent1 = parentNode.createRelationshipTo(individualNode, RelTypes.PARENTOF);
+//					System.out.println("reproduction");
+//					System.out.println("parent1");
+//					System.out.println(parent1);
+//					System.out.println("child");
+//					System.out.println(child);
+				} else if (transformationType == 'elitism') {
+						//get parent1
+					this.parent1 = neo4jNotifier.getFirstParent();
+						// edit parent 1 relation
+					Node parentNode = individualNodes.get("id", parent1.getUid().toString()).next();
+					toParent1 = parentNode.createRelationshipTo(individualNode, RelTypes.ELITISM);
 //					System.out.println("reproduction");
 //					System.out.println("parent1");
 //					System.out.println(parent1);
