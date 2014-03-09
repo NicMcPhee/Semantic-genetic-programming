@@ -37,7 +37,7 @@ class EvolverTest {
 		println(initialPop.Population[1].getTree().printGpTree())
 		println(initialPop.Population[2].getTree().printGpTree())
 		println(initialPop.Population[3].getTree().printGpTree())
-		initialPop.mutationType(90)
+		initialPop.generateNewGeneration(90)
 		println()
 		println(initialPop.Population[0].getTree().printGpTree())
 		println(initialPop.Population[1].getTree().printGpTree())

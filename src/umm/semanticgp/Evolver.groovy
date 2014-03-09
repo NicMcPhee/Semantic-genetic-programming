@@ -17,6 +17,7 @@ class Evolver {
 
 	Neo4jObserverNotifier neo4j = new Neo4jObserverNotifier()
 	LocalDBObserver observer = new LocalDBObserver(neo4j)
+	Random random = SharedPRNG.instance() // new Random()
 
 	def Evolver(operatorList, variableList, percentVariables, lowestConstant, highestConstant, initialTreeSize, popSize, generations) {
 		this.operatorList = operatorList
@@ -29,13 +30,15 @@ class Evolver {
 		this.generations = generations
 	}
 
+	
+	
 	def evolve(crossoverPercent) {
 		initialPop()
 		printFitnessAndTree()
 		println("Best Individuals")
 		for (def j = 1; j < generations; j++) {
 			def start = System.currentTimeMillis()
-			mutationType(crossoverPercent, j)
+			generateNewGeneration(crossoverPercent, j)
 			println( "Generation " + j)
 			println(nBestFitnessIndiv(1)[0].toString())
 			println(System.currentTimeMillis() - start)
@@ -77,11 +80,10 @@ class Evolver {
 		}
 	}
 
-	def mutationType(crossoverPercentage, generation) {
+	def generateNewGeneration(crossoverPercentage, generation) {
 		def fitness = new Fitness(TestPointsList)
 		def childGeneration = []
-
-		Random random = SharedPRNG.instance() // new Random()
+		
 		for(int i = 0; i < popSize; i++) {
 			if(i < ((int) (popSize/100))) {
 				childGeneration[i] = nBestFitnessIndiv(popSize/100)[i]
@@ -90,26 +92,35 @@ class Evolver {
 			} else {
 				def parent1 = Tourney.Tournament(Population, 2)
 				def parent2 = Tourney.Tournament(Population, 2)
-				if (random.nextInt(100) < crossoverPercentage) {
-					def (child, XoPoint) = Crossover.crossover(parent1, parent2)
-					childGeneration[i] = child
-					childGeneration[i].setFitness(fitness.computeFitness(childGeneration[i]))
-					neo4j.setCrossover(parent1, parent2, childGeneration[i], generation, XoPoint)
-				} else if (random.nextInt(100) < (crossoverPercentage  + 1)) {
-					def (child, mutationPoint) = Mutation.mutation(parent1, this)
-					childGeneration[i] = child
-					childGeneration[i].setFitness(fitness.computeFitness(childGeneration[i]))
-					neo4j.setMutation(parent1, childGeneration[i], generation, mutationPoint)
-				} else {
-					childGeneration[i] = parent1
-					childGeneration[i].setUid()
-					neo4j.setReproduction(parent1, generation)
-				}
+				childGeneration[i] = generateChild(parent1,parent2, crossoverPercentage, generation)
 			}
 		}
 		Population = childGeneration.clone()
 	}
 
+	def generateChild(Individual parent1, Individual parent2, crossoverPercentage, generation) {
+		def fitness = new Fitness(TestPointsList)
+		def RANDOM_INT = random.nextInt(100)
+		def child
+		if (RANDOM_INT < crossoverPercentage) {
+			def (XOChild, XoPoint) = Crossover.crossover(parent1, parent2)
+			XOChild.setFitness(fitness.computeFitness(XOChild))
+			neo4j.setCrossover(parent1, parent2, XOChild, generation, XoPoint)
+			child = XOChild
+		} else if (RANDOM_INT < (crossoverPercentage  + 1)) {
+			def (mutationChild, mutationPoint) = Mutation.mutation(parent1, this)
+			mutationChild.setFitness(fitness.computeFitness(mutationChild))
+			neo4j.setMutation(parent1, mutationChild, generation, mutationPoint)
+			child = mutationChild
+		} else {
+			def reproductionChild = parent1
+			reproductionChild.setUid()
+			neo4j.setReproduction(parent1, generation)
+			child = reproductionChild
+		}
+		
+		return child
+	}
 
 	def nBestFitnessIndiv(n) {
 		def bestIndivArray = []
