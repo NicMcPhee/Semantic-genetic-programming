@@ -5,8 +5,8 @@ import umm.util.SharedPRNG;
 public class Mutation {
 	static random = SharedPRNG.instance()
 
-	static mutation(GpTree P1, Evolver P1Evolver) {
-		def copyP1 = new GpTree(P1.nodes.clone())
+	static mutation(Individual P1, Evolver P1Evolver) {
+		def copyP1 = new GpTree(P1.getTree().nodes.clone())
 		int mutationPoint = random.nextInt(copyP1.nodes.size)
 		def randomGeneratedTree = new Ptc2(
 				P1Evolver.operatorList,
@@ -17,7 +17,7 @@ public class Mutation {
 				)
 		if (!(OperatorJava.isFunction(copyP1.nodes[mutationPoint]))) {
 			copyP1.nodes.remove(mutationPoint)
-			int mutationTreeSize = (random.nextInt(P1.nodes.size() + 1) / 2) + 1
+			int mutationTreeSize = (random.nextInt(P1.getTree().nodes.size() + 1) / 2) + 1
 			def mutationTree = randomGeneratedTree.generateTree(mutationTreeSize)
 			if (mutationPoint == copyP1.nodes.size()) {
 				copyP1.nodes.addAll(mutationTree.findSubTree(0))
@@ -26,7 +26,7 @@ public class Mutation {
 			}
 		} else {
 			copyP1.nodes.removeRange(mutationPoint, copyP1.findCrossoverParameters((int) mutationPoint) + 1)
-			int mutationTreeSize = (random.nextInt(P1.nodes.size() + 1) / 2) + 1
+			int mutationTreeSize = (random.nextInt(P1.getTree().nodes.size() + 1) / 2) + 1
 			def mutationTree = randomGeneratedTree.generateTree(mutationTreeSize)
 			copyP1.nodes.addAll(mutationPoint, mutationTree.findSubTree(0))
 		}

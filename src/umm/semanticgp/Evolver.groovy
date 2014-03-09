@@ -91,12 +91,12 @@ class Evolver {
 				def parent1 = Tourney.Tournament(Population, 2)
 				def parent2 = Tourney.Tournament(Population, 2)
 				if (random.nextInt(100) < crossoverPercentage) {
-					def (child, XoPoint) = Crossover.crossover(parent1.getTree(), parent2.getTree())
+					def (child, XoPoint) = Crossover.crossover(parent1, parent2)
 					childGeneration[i] = child
 					childGeneration[i].setFitness(fitness.computeFitness(childGeneration[i]))
 					neo4j.setCrossover(parent1, parent2, childGeneration[i], generation, XoPoint)
 				} else if (random.nextInt(100) < (crossoverPercentage  + 1)) {
-					def (child, mutationPoint) = Mutation.mutation(parent1.getTree(), this)
+					def (child, mutationPoint) = Mutation.mutation(parent1, this)
 					childGeneration[i] = child
 					childGeneration[i].setFitness(fitness.computeFitness(childGeneration[i]))
 					neo4j.setMutation(parent1, childGeneration[i], generation, mutationPoint)

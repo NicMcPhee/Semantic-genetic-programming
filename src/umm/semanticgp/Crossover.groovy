@@ -4,9 +4,9 @@ import umm.util.SharedPRNG;
 // 90% or more crossover 1% mutation rest copy into next generation.
 class Crossover {
     
-    static crossover(GpTree P1, GpTree P2) {
+    static crossover(Individual P1, Individual P2) {
 		def rand = SharedPRNG.instance()
-        def copyP1 = new GpTree(P1.nodes.clone())
+        def copyP1 = new GpTree(P1.getTree().nodes.clone())
 		
 		def parent1Leaves = []
 		def parent2Leaves = []
@@ -16,15 +16,15 @@ class Crossover {
         def l2opP1 = rand.nextInt(10)
         def l2opP2 = rand.nextInt(10)
         // adds indices of P1
-		leavesAndOperators(P1, parent1Operators, parent1Leaves)
+		leavesAndOperators(P1.getTree(), parent1Operators, parent1Leaves)
         // adds indices of P2
-		leavesAndOperators(P2, parent2Operators, parent2Leaves)
+		leavesAndOperators(P2.getTree(), parent2Operators, parent2Leaves)
 
 		def newNodes 
 		if (l2opP2 < 1 || parent2Operators.empty) { // make into function
-			newNodes = P2.nodes[parent2Leaves[rand.nextInt(parent2Leaves.size())]]
+			newNodes = P2.getTree().nodes[parent2Leaves[rand.nextInt(parent2Leaves.size())]]
 		} else {
-			newNodes = P2.findSubTree(parent2Operators[rand.nextInt(parent2Operators.size())])
+			newNodes = P2.getTree().findSubTree(parent2Operators[rand.nextInt(parent2Operators.size())])
 		}
 		def indexToAdd
 		def endIndex

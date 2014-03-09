@@ -48,13 +48,7 @@ public class LocalDBObserver implements Observer {
 				this.generation = neo4jNotifier.getGeneration();
 //				println ("NEW INSTANCE")
 				//Create Child node
-				individualNode = graphDB.createNode();
-				individualNode.setProperty("fitness", child.getFitness());
-				individualNode.setProperty("transformation_type", transformationType);
-				individualNode.setProperty("tree", child.getTree().toString());
-				individualNode.setProperty("id", child.getUid().toString());
-				individualNode.setProperty("generation", generation);
-				individualNodes.add(individualNode, "id", child.getUid().toString());
+				createChildNode();
 
 
 
@@ -149,6 +143,16 @@ public class LocalDBObserver implements Observer {
 		finally {
 			tx.finish();
 		}
+	}
+
+	private createChildNode() {
+		individualNode = graphDB.createNode();
+		individualNode.setProperty("fitness", child.getFitness());
+		individualNode.setProperty("transformation_type", transformationType);
+		individualNode.setProperty("tree", child.getTree().toString());
+		individualNode.setProperty("id", child.getUid().toString());
+		individualNode.setProperty("generation", generation);
+		individualNodes.add(individualNode, "id", child.getUid().toString())
 	}
 
 //	public void transformationUpdate(Neo4jObserverNotifier neo4jNotifier, String transformationType) {
