@@ -30,8 +30,8 @@ class Evolver {
 		this.generations = generations
 	}
 
-	
-	
+
+
 	def evolve(crossoverPercent) {
 		initialPop()
 		printFitnessAndTree()
@@ -39,7 +39,7 @@ class Evolver {
 		for (def j = 1; j < generations; j++) {
 			def start = System.currentTimeMillis()
 			generateNewGeneration(crossoverPercent, j)
-			println( "Generation " + j)
+			println( "Generation " + j + " Avg Size = " + calcAvgSize())
 			println(nBestFitnessIndiv(1)[0].toString())
 			println(System.currentTimeMillis() - start)
 		}
@@ -83,7 +83,7 @@ class Evolver {
 	def generateNewGeneration(crossoverPercentage, generation) {
 		def fitness = new Fitness(TestPointsList)
 		def childGeneration = []
-		
+
 		for(int i = 0; i < popSize; i++) {
 			if(i < ((int) (popSize/100))) {
 				childGeneration[i] = nBestFitnessIndiv(popSize/100)[i]
@@ -118,7 +118,7 @@ class Evolver {
 			neo4j.setReproduction(parent1, generation)
 			child = reproductionChild
 		}
-		
+
 		return child
 	}
 
@@ -128,12 +128,6 @@ class Evolver {
 		for (def i = 0; i < n; i++) {
 			bestIndivArray[i] = Population[i]
 		}
-		//		def bestFitnessIndiv = Population[0]
-		//		for(def j = 0; j < Population.size(); j++) {
-		//			if( Population[j].getFitness() < bestFitnessIndiv.getFitness()) {
-		//				bestFitnessIndiv = Population[j]
-		//			}
-		//		}
 		return bestIndivArray
 	}
 
@@ -141,5 +135,14 @@ class Evolver {
 		for(def i = 0; i < Population.size(); i++) {
 			println(Population[i].toString())
 		}
+	}
+	
+	def calcAvgSize() {
+		def TOTAL_SIZE = 0
+		for(def i = 0; i < Population.size(); i++) {
+			TOTAL_SIZE += Population[i].getTree().nodes.size()
+		}
+		def AVG_SIZE = TOTAL_SIZE / Population.size()
+		return AVG_SIZE
 	}
 }
