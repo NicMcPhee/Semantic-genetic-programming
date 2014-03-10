@@ -21,7 +21,7 @@ class MutationTest {
 		println(childTree.getTree().printGpTree())
 		
 		then:
-		assert (3..11).contains(childTree.getTree().nodes.size())
+		assert (1..11).contains(childTree.getTree().nodes.size())
 	}
 	
 	@Test

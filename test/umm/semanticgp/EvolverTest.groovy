@@ -8,8 +8,8 @@ class EvolverTest {
 	@Test
 	public void initialPopTest() {
 		given:
-		def smallPop = new Evolver(["plus"], ["x","y"], 80, 0, 10, 20, 5, 20)
-		smallPop.TestPointsList = [
+		def simplePop = new Evolver(["plus"], ["x","y"], 80, 0, 10, 20, 5, 20)
+		simplePop.TestPointsList = [
 		[['x': 0, 'y': 0], 0],
 		[['x': 0, 'y': 1], 1],
 		[['x': 1, 'y': 0], 1],
@@ -33,21 +33,21 @@ class EvolverTest {
 		[['x': 7, 'y': 6], 13]
 	]
 		when:
-		smallPop.initialPop()
-		smallPop.printFitnessAndTree()
-		println(smallPop.Population[0].getTree().printGpTree())
-		println(smallPop.Population[1].getTree().printGpTree())
-		println(smallPop.Population[2].getTree().printGpTree())
-		println(smallPop.Population[3].getTree().printGpTree())
-		println(smallPop.Population[4].getTree().printGpTree())
+		simplePop.initialPop()
+		simplePop.printFitnessAndTree()
+		println(simplePop.Population[0].getTree().printGpTree())
+		println(simplePop.Population[1].getTree().printGpTree())
+		println(simplePop.Population[2].getTree().printGpTree())
+		println(simplePop.Population[3].getTree().printGpTree())
+		println(simplePop.Population[4].getTree().printGpTree())
 		println()
 		then:
-		assert (20..21).contains(smallPop.Population[0].getTree().size())
-		assert (20..21).contains(smallPop.Population[1].getTree().size())
-		assert (20..21).contains(smallPop.Population[2].getTree().size())
-		assert (20..21).contains(smallPop.Population[3].getTree().size())
-		assert (20..21).contains(smallPop.Population[4].getTree().size())
-		assert (smallPop.Population.size() == 5)
+		assert (20..21).contains(simplePop.Population[0].getTree().size())
+		assert (20..21).contains(simplePop.Population[1].getTree().size())
+		assert (20..21).contains(simplePop.Population[2].getTree().size())
+		assert (20..21).contains(simplePop.Population[3].getTree().size())
+		assert (20..21).contains(simplePop.Population[4].getTree().size())
+		assert (simplePop.Population.size() == 5)
 	}
 
 	@Test
@@ -98,8 +98,8 @@ class EvolverTest {
 	@Test
 	public void evolveTest() {
 		given:
-		def smallPop = new Evolver(["plus"], ["x","y"], 80, 0, 10, 20, 4, 3)
-		smallPop.TestPointsList = [
+		def evolvePop = new Evolver(["plus"], ["x","y"], 80, 0, 10, 20, 4, 3)
+		evolvePop.TestPointsList = [
 		[['x': 0, 'y': 0], 0],
 		[['x': 0, 'y': 1], 1],
 		[['x': 1, 'y': 0], 1],
@@ -124,12 +124,12 @@ class EvolverTest {
 	]
 		when:
 		println("evolveTest")
-		smallPop.evolve(90)
-		println(smallPop.Population[0].getTree().printGpTree())
-		println(smallPop.Population[1].getTree().printGpTree())
-		println(smallPop.Population[2].getTree().printGpTree())
-		println(smallPop.Population[3].getTree().printGpTree())
+		evolvePop.evolve(90)
+		println(evolvePop.Population[0].getTree().printGpTree())
+		println(evolvePop.Population[1].getTree().printGpTree())
+		println(evolvePop.Population[2].getTree().printGpTree())
+		println(evolvePop.Population[3].getTree().printGpTree())
 		then:
-		assert (smallPop.Population.size() == 4)
+		assert (evolvePop.Population.size() == 4)
 	}
 }
