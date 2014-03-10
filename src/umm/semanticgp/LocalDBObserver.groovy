@@ -67,17 +67,18 @@ public class LocalDBObserver implements Observer {
 			// edit parent 1 relation
 			Node parentNode = individualNodes.get("id", parent1.getUid().toString()).next();
 			toParent1 = parentNode.createRelationshipTo(individualNode, RelTypes.PARENTOF);
-			toParent1.setProperty("root-parent", "true");
+
 			//grab parent2
 			this.parent2 = neo4jNotifier.getSecondParent();
 			//grab point of altercation
 			this.pointOfAltercation= neo4jNotifier.getPointOfAltercation();
 			//Edit child's point of altercation
-			individualNode.setProperty("Point_of_altercation", this.pointOfAltercation);
+			individualNode.setProperty("Point_of_altercation", pointOfAltercation);
 			//build parent2 relationship
 			Node parent2Node = individualNodes.get("id", parent2.getUid().toString()).next();
 			toParent2 = parent2Node.createRelationshipTo(individualNode, RelTypes.PARENTOF);
-			toParent2.setProperty("root-parent", "false");
+			// sets rootParent property to appropriate parents
+			setRootParent()
 
 		} else if (transformationType == 'mutation'){
 			//get parent1
@@ -104,6 +105,16 @@ public class LocalDBObserver implements Observer {
 			Node parentNode = individualNodes.get("id", parent1.getUid().toString()).next();
 			toParent1 = parentNode.createRelationshipTo(individualNode, RelTypes.ELITISM);
 
+		}
+	}
+
+	private setRootParent() {
+		if (pointOfAltercation == 0) {
+			toParent1.setProperty("root-parent", "false");
+			toParent2.setProperty("root-parent", "true");
+		} else {
+			toParent1.setProperty("root-parent", "true");
+			toParent2.setProperty("root-parent", "false");
 		}
 	}
 
