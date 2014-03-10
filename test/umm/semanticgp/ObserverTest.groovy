@@ -1,3 +1,4 @@
+package umm.semanticgp
 	import static org.junit.Assert.*
 	import org.junit.Test
 import spock.lang.Specification

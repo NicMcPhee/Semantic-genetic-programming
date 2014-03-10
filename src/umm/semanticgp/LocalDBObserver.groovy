@@ -46,102 +46,64 @@ public class LocalDBObserver implements Observer {
 				this.transformationType = neo4jNotifier.getTransformationType();
 				this.child = neo4jNotifier.getChild();
 				this.generation = neo4jNotifier.getGeneration();
-//				println ("NEW INSTANCE")
 				//Create Child node
 				createChildNode();
+				//Create Relationships
+				createRelationships(neo4jNotifier)
 
-
-
-				
-				/*** made into method below had trouble with it*//////
-				if (transformationType == 'crossover') {
-						//get parent1
-					this.parent1 = neo4jNotifier.getFirstParent();
-						// edit parent 1 relation
-					Node parentNode = individualNodes.get("id", parent1.getUid().toString()).next();
-					toParent1 = parentNode.createRelationshipTo(individualNode, RelTypes.PARENTOF);
-					toParent1.setProperty("root-parent", "true");
-					
-						//grab parent2
-					this.parent2 = neo4jNotifier.getSecondParent();
-					
-						//grab point of altercation
-					this.pointOfAltercation= neo4jNotifier.getPointOfAltercation();
-					
-						//Edit child's point of altercation
-					individualNode.setProperty("Point_of_altercation", this.pointOfAltercation);
-					
-						 //build parent2 relationship
-					Node parent2Node = individualNodes.get("id", parent2.getUid().toString()).next();
-					toParent2 = parent2Node.createRelationshipTo(individualNode, RelTypes.PARENTOF);
-					toParent2.setProperty("root-parent", "false");
-//					System.out.println(transformationType);
-//					System.out.println("parent1");
-//					System.out.println(parent1);
-//					System.out.println("parent2");
-//					System.out.println(parent2);
-//					System.out.println("child");
-//					System.out.println(child);
-//					System.out.println("gen");
-//					System.out.println(generation);
-//					System.out.println("alter");
-//					System.out.println(pointOfAltercation);
-					
-				} else if (transformationType == 'mutation'){
-						//get parent1
-					this.parent1 = neo4jNotifier.getFirstParent();
-						// edit parent 1 relation
-					Node parentNode = individualNodes.get("id", parent1.getUid().toString()).next();
-					toParent1 = parentNode.createRelationshipTo(individualNode, RelTypes.PARENTOF);
-					
-						//grab point of altercation
-					this.pointOfAltercation= neo4jNotifier.getPointOfAltercation();
-					
-						//Edit child's point of altercation
-					individualNode.setProperty("Point_of_altercation", this.pointOfAltercation);
-//					System.out.println(transformationType);
-//					System.out.println("parent1");
-//					System.out.println(parent1);
-//					System.out.println("child");
-//					System.out.println(child);
-//					System.out.println("gen");
-//					System.out.println(generation);				
-//					System.out.println("alter");
-//					System.out.println(pointOfAltercation);
-				} else if (transformationType == 'reproduction') {
-						//get parent1
-					this.parent1 = neo4jNotifier.getFirstParent();
-						// edit parent 1 relation
-					Node parentNode = individualNodes.get("id", parent1.getUid().toString()).next();
-					toParent1 = parentNode.createRelationshipTo(individualNode, RelTypes.PARENTOF);
-//					System.out.println("reproduction");
-//					System.out.println("parent1");
-//					System.out.println(parent1);
-//					System.out.println("child");
-//					System.out.println(child);
-				} else if (transformationType == 'elitism') {
-						//get parent1
-					this.parent1 = neo4jNotifier.getFirstParent();
-						// edit parent 1 relation
-					Node parentNode = individualNodes.get("id", parent1.getUid().toString()).next();
-					toParent1 = parentNode.createRelationshipTo(individualNode, RelTypes.ELITISM);
-//					System.out.println("reproduction");
-//					System.out.println("parent1");
-//					System.out.println(parent1);
-//					System.out.println("child");
-//					System.out.println(child);
-				}
-				
-
-				/*********************************************************
-				 * transformationUpdate(neo4jNotifier, transformationType);
-				 **********************************************************/
 			}
 
 			tx.success();
 		}
 		finally {
 			tx.finish();
+		}
+	}
+
+	private createRelationships(Neo4jObserverNotifier neo4jNotifier) {
+		if (transformationType == 'crossover') {
+			//get parent1
+			this.parent1 = neo4jNotifier.getFirstParent();
+			// edit parent 1 relation
+			Node parentNode = individualNodes.get("id", parent1.getUid().toString()).next();
+			toParent1 = parentNode.createRelationshipTo(individualNode, RelTypes.PARENTOF);
+			toParent1.setProperty("root-parent", "true");
+			//grab parent2
+			this.parent2 = neo4jNotifier.getSecondParent();
+			//grab point of altercation
+			this.pointOfAltercation= neo4jNotifier.getPointOfAltercation();
+			//Edit child's point of altercation
+			individualNode.setProperty("Point_of_altercation", this.pointOfAltercation);
+			//build parent2 relationship
+			Node parent2Node = individualNodes.get("id", parent2.getUid().toString()).next();
+			toParent2 = parent2Node.createRelationshipTo(individualNode, RelTypes.PARENTOF);
+			toParent2.setProperty("root-parent", "false");
+
+		} else if (transformationType == 'mutation'){
+			//get parent1
+			this.parent1 = neo4jNotifier.getFirstParent();
+			// edit parent 1 relation
+			Node parentNode = individualNodes.get("id", parent1.getUid().toString()).next();
+			toParent1 = parentNode.createRelationshipTo(individualNode, RelTypes.PARENTOF);
+			//grab point of altercation
+			this.pointOfAltercation= neo4jNotifier.getPointOfAltercation();
+			//Edit child's point of altercation
+			individualNode.setProperty("Point_of_altercation", this.pointOfAltercation);
+
+		} else if (transformationType == 'reproduction') {
+			//get parent1
+			this.parent1 = neo4jNotifier.getFirstParent();
+			// edit parent 1 relation
+			Node parentNode = individualNodes.get("id", parent1.getUid().toString()).next();
+			toParent1 = parentNode.createRelationshipTo(individualNode, RelTypes.PARENTOF);
+
+		} else if (transformationType == 'elitism') {
+			//get parent1
+			this.parent1 = neo4jNotifier.getFirstParent();
+			// edit parent 1 relation
+			Node parentNode = individualNodes.get("id", parent1.getUid().toString()).next();
+			toParent1 = parentNode.createRelationshipTo(individualNode, RelTypes.ELITISM);
+
 		}
 	}
 
@@ -154,23 +116,6 @@ public class LocalDBObserver implements Observer {
 		individualNode.setProperty("generation", generation);
 		individualNodes.add(individualNode, "id", child.getUid().toString())
 	}
-
-//	public void transformationUpdate(Neo4jObserverNotifier neo4jNotifier, String transformationType) {
-//		if (transformationType == 'crossover') {
-//			//this.parent2 = neo4jNotifier.getSecondParent();
-//			this.pointOfAltercation= neo4jNotifier.getPointOfAltercation();
-//			//Edit child's point of altercation
-//			individualNode.setProperty("Point_of_altercation", this.pointOfAltercation);
-//			// build parent2 relationship
-//			//Node parent2Node = individualNodes.get("id", parent2.getUid().toString()).next();
-//			//toParent2 = individualNode.createRelationshipTo(parent2Node, RelTypes.PARENTOF);
-//
-//		} else if (transformationType == 'mutation'){
-//			this.pointOfAltercation= neo4jNotifier.getPointOfAltercation();
-//			//Edit child's point of altercation
-//			individualNode.setProperty("Point_of_altercation", this.pointOfAltercation);
-//		}
-//	}
 }
 
 

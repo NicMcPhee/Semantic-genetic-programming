@@ -100,8 +100,9 @@ class TourneyTest {
 			[['x': 6, 'y': 7], 13],
 			[['x': 7, 'y': 6], 13]
 		]
-		candidate1.setFitness(Fitness.computeFitness(candidate1))
-		candidate2.setFitness(Fitness.computeFitness(candidate2))
+		def fitness = new Fitness(P1Evolver.TestPointsList)
+		candidate1.setFitness(fitness.computeFitness(candidate1))
+		candidate2.setFitness(fitness.computeFitness(candidate2))
 		def parent = Tourney.Tournament([candidate1, candidate2], 10)
         println(parent.getTree().printGpTree())
         println(candidate2.getTree().printGpTree())
