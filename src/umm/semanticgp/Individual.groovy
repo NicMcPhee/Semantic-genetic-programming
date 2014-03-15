@@ -1,6 +1,9 @@
 package umm.semanticgp
+import groovy.transform.AutoClone;
+
 import java.util.UUID;
 
+@AutoClone
 class Individual {
 	private static final long serialVersionUID = 8709627944120749083L;
 	def gpTree
@@ -19,7 +22,7 @@ class Individual {
 	}
 	
 	def setUid() {
-		return UUID.randomUUID();
+		uid = UUID.randomUUID();
 	}
 	def getUid() {
 		return uid
