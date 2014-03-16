@@ -24,19 +24,13 @@ class Individual {
 	def setUid() {
 		uid = UUID.randomUUID();
 	}
+    
 	def getUid() {
 		return uid
 	}
+    
 	def setFitness(fitness) {
 		this.treeFitness = fitness
-	}
-    
-	def compareTo(individual) {
-		if (this.treeFitness < individual.treeFitness) {
-			return this
-		} else {
-			return individual
-		}
 	}
 	
     String toString() {
