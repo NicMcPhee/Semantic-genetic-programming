@@ -83,16 +83,19 @@ class Evolver {
 	def generateNewGeneration(crossoverPercentage, generation) {
 		def fitness = new Fitness(TestPointsList)
 		def childGeneration = []
+        def eliteSetSize = (int) (popSize/100) 
+        def elite = nBestFitnessIndiv(eliteSetSize)
 
 		for(int i = 0; i < popSize; i++) {
-			if(i < ((int) (popSize/100))) {
-				childGeneration[i] = nBestFitnessIndiv(popSize/100)[i]
+			if(i < eliteSetSize) {
+                def parent = elite[i]
+				childGeneration[i] = parent.clone()
 				childGeneration[i].setUid()
-				neo4j.setElitism(childGeneration[i], generation)
+				neo4j.setElitism(parent, childGeneration[i], generation)
 			} else {
 				def parent1 = Tourney.Tournament(Population, 2)
 				def parent2 = Tourney.Tournament(Population, 2)
-				childGeneration[i] = generateChild(parent1,parent2, crossoverPercentage, generation)
+				childGeneration[i] = generateChild(parent1, parent2, crossoverPercentage, generation)
 			}
 		}
 		Population = childGeneration.clone()
@@ -113,9 +116,9 @@ class Evolver {
 			neo4j.setMutation(parent1, mutationChild, generation, mutationPoint)
 			child = mutationChild
 		} else {
-			def reproductionChild = parent1
+			def reproductionChild = parent1.clone()
 			reproductionChild.setUid()
-			neo4j.setReproduction(parent1, generation)
+			neo4j.setReproduction(parent1, reproductionChild, generation)
 			child = reproductionChild
 		}
 

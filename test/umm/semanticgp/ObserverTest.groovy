@@ -33,9 +33,9 @@ class ObserverTest extends Specification {
 				neo4j.setInitial(parent1)
 				neo4j.setInitial(parent2)
 				neo4j.setCrossover(parent1,parent2, child, 1, 1)
-				neo4j.setReproduction(child, 2)
+				neo4j.setReproduction(child, child.clone(), 2)
 				neo4j.setMutation(child, child2, 2, 3)
-				neo4j.setElitism(child2, 3)
+				neo4j.setElitism(child2, child2.clone(), 3)
 			
 			then:
 				assert true;
@@ -65,9 +65,9 @@ class ObserverTest extends Specification {
 				neo4j.setInitial(parent1)
 				neo4j.setInitial(parent2)
 				neo4j.setCrossover(parent1,parent2, child, 1, 0)
-				neo4j.setReproduction(child, 2)
+				neo4j.setReproduction(child, child.clone(), 2)
 				neo4j.setMutation(child, child2, 2, 3)
-				neo4j.setElitism(child2, 3)
+				neo4j.setElitism(child2, child2.clone(), 3)
 			
 			then:
 				assert true;

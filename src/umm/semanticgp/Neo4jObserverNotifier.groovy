@@ -38,9 +38,9 @@ class Neo4jObserverNotifier extends Observable {
 		childCreated();
 	}
 	
-	public void setReproduction(Individual parent1, int generation) {
-		this.parent1 = parent1;
-		this.child = parent1;
+	public void setReproduction(Individual parent, Individual child, int generation) {
+		this.parent1 = parent;
+		this.child = child;
 		this.generation = generation;
 		this.transformationType = 'reproduction';
 		childCreated();
@@ -53,9 +53,9 @@ class Neo4jObserverNotifier extends Observable {
 		childCreated();
 	}
 	
-	public void setElitism(Individual child, int generation) {
+	public void setElitism(Individual parent, Individual child, int generation) {
 		this.child = child;
-		this.parent1 = child;
+		this.parent1 = parent;
 		this.generation = generation;
 		this.transformationType = 'elitism';
 		childCreated();
