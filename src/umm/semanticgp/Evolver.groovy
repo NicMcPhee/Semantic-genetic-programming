@@ -34,7 +34,7 @@ class Evolver {
 
 	def evolve(crossoverPercent) {
 		initialPop()
-		printFitnessAndTree()
+//		printFitnessAndTree()
 		println("Best Individuals")
 		for (def j = 1; j < generations; j++) {
 			def start = System.currentTimeMillis()
@@ -44,7 +44,7 @@ class Evolver {
 			println(System.currentTimeMillis() - start)
 		}
 		println("Resulting Individuals")
-		printFitnessAndTree()
+	//	printFitnessAndTree()
 	}
 
 	def readTestPoints(input) {
