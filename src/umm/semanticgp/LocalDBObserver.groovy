@@ -9,11 +9,13 @@ import org.neo4j.graphdb.Relationship;
 import org.neo4j.graphdb.Transaction;
 import org.neo4j.graphdb.index.Index;
 import org.neo4j.graphdb.index.IndexManager;
-
+import java.util.UUID;
 
 public class LocalDBObserver implements Observer {
     final GraphDatabaseService graphDB = GraphDB.graphDB();
     IndexManager index = graphDB.index();
+	private static final long serialVersionUID = 8709627944120749083L;
+	def runid = UUID.randomUUID();
 
     Relationship toParent1;
     Relationship toParent2;
@@ -119,6 +121,7 @@ public class LocalDBObserver implements Observer {
 
     private createChildNode() {
         individualNode = graphDB.createNode();
+		individualNode.setProperty("runid", runid.toString());
         individualNode.setProperty("fitness", (double) child.getFitness());
         individualNode.setProperty("transformation_type", transformationType);
         individualNode.setProperty("tree", child.getTree().toString());

@@ -33,6 +33,14 @@ class Individual {
 		this.treeFitness = fitness
 	}
 	
+	@Override
+	def clone() {
+		Individual copy;
+			copy = (Individual) super.clone();
+		copy.setUid()
+		return copy;
+	}
+	
     String toString() {
         return "[" + this.getFitness() + ": " + this.getTree().toString() + "]"
     }
