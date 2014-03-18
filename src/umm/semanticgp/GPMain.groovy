@@ -2,19 +2,26 @@ package umm.semanticgp
 
 import umm.semanticgp.Ptc2
 import umm.semanticgp.Operator
+import umm.semantic.parameters.GlobalParameters
+import java.io.File
 
 
 class GPMain {
 
 	static main(args) {
-		def OperatorList = ["plus", "mult", "sub","divi"]
-		def VarsList = ["x"]
-		def PercentVariables = 63
-		def LowestConstant = -5
-		def HighestConstant = 5
-		def InitialTreeSize = 20
-		def PopSize = 10000
-		def Generations = 100
+		//Global Parameters to read from file
+		File fileParam = new File('src/umm/semanticgp/fileParam.txt')
+		GlobalParameters.setParameters(fileParam)
+	
+		def OperatorList = GlobalParameters.getStringArrValue("OperatorList")
+		def VarsList = GlobalParameters.getStringArrValue("VarsList")
+		def PercentVariables= GlobalParameters.getIntValue('PercentVariables')
+		def LowestConstant= GlobalParameters.getIntValue('LowestConstant')
+		def HighestConstant= GlobalParameters.getIntValue('HighestConstant')
+		def InitialTreeSize= GlobalParameters.getIntValue('InitialTreeSize')
+		def PopSize= GlobalParameters.getIntValue('PopSize')
+		def Generations= GlobalParameters.getIntValue('Generations')
+		
 		def Evolve = new Evolver(OperatorList, VarsList, PercentVariables, LowestConstant, HighestConstant, InitialTreeSize, PopSize, Generations)
 		Evolve.TestPointsList = //Evolve.readTestPoints(args[0])
 			[[['x': 0.0], Math.sin(0.0)],

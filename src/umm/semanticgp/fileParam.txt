@@ -1,0 +1,8 @@
+OperatorList: plus,mult,sub,divi
+VarsList: x
+PercentVariables: 63
+LowestConstant: -5
+HighestConstant: 5
+InitialTreeSize: 20
+PopSize: 101
+Generations: 10

@@ -34,7 +34,7 @@ class Ptc2 {
 				randomTree.nodes[i + 1] = null
 				indexArr[i] = i + 1
 			}
-
+			
 			while (randomTree.nodes.size() < size) {
 				def anotherOperator = randomOperators()
 				def randomNodeIndex = rand.nextInt(indexArr.size())

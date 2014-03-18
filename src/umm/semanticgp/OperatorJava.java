@@ -99,15 +99,17 @@ public class OperatorJava {
 		}
 
 		public static Object toString(Object node) {
-			if (node == "plus") {
+			//String node = (String) nodes;
+			
+			if (node.equals("plus")) {
 				return "+";
-			} else if (node == "sub") {
+			} else if (node.equals("sub")) {
 				return "-";
-			} else if (node == "mult") {
+			} else if (node.equals("mult")) {
 				return "*";
-			} else if (node == "divi") {
+			} else if (node.equals("divi")) {
 				return "/";
-			} else if (node == "gpif") {
+			} else if (node.equals("gpif")) {
 				return "if";
 			} else {
 				return node;
