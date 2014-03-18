@@ -34,7 +34,6 @@ class Evolver {
 
 	def evolve(crossoverPercent) {
 		initialPop()
-//		printFitnessAndTree()
 		println("Best Individuals")
 		for (def j = 1; j < generations; j++) {
 			def start = System.currentTimeMillis()
@@ -43,8 +42,6 @@ class Evolver {
 			println(nBestFitnessIndiv(1)[0].toString())
 			println(System.currentTimeMillis() - start)
 		}
-		println("Resulting Individuals")
-	//	printFitnessAndTree()
 	}
 
 	def readTestPoints(input) {
@@ -69,6 +66,8 @@ class Evolver {
 		return TestPointsList
 	}
 
+	
+	// creates initial population  
 	def initialPop() {
 		def GpTree = new Ptc2(operatorList, variableList, percentVariables, lowestConstant, highestConstant)
 		def fitness = new Fitness(TestPointsList)
@@ -79,7 +78,8 @@ class Evolver {
 			neo4j.setInitial(individual)
 		}
 	}
-
+	
+	//creates 
 	def generateNewGeneration(crossoverPercentage, generation) {
 		def fitness = new Fitness(TestPointsList)
 		def childGeneration = []
@@ -90,7 +90,6 @@ class Evolver {
 			if(i < eliteSetSize) {
                 def parent = elite[i]
 				childGeneration[i] = parent.clone()
-//				childGeneration[i].setUid()
 				neo4j.setElitism(parent, childGeneration[i], generation)
 			} else {
 				def parent1 = Tourney.Tournament(Population, 2)
@@ -103,7 +102,7 @@ class Evolver {
 
 	def generateChild(Individual parent1, Individual parent2, crossoverPercentage, generation) {
 		def fitness = new Fitness(TestPointsList)
-		def RANDOM_INT = random.nextInt(100)
+		def RANDOM_INT = random.nextInt(99)
 		def child
 		if (RANDOM_INT < crossoverPercentage) {
 			def (XOChild, XoPoint) = Crossover.crossover(parent1, parent2)
@@ -117,7 +116,6 @@ class Evolver {
 			child = mutationChild
 		} else {
 			def reproductionChild = parent1.clone()
-//			reproductionChild.setUid()
 			neo4j.setReproduction(parent1, reproductionChild, generation)
 			child = reproductionChild
 		}
@@ -125,6 +123,7 @@ class Evolver {
 		return child
 	}
 
+	// takes the n best individuals and returns them in an array
 	def nBestFitnessIndiv(n) {
 		def bestIndivArray = []
 		Population.sort {it.getFitness()}
@@ -134,12 +133,14 @@ class Evolver {
 		return bestIndivArray
 	}
 
+	// used to see a whole generation
 	def printFitnessAndTree() {
 		for(def i = 0; i < Population.size(); i++) {
 			println(Population[i].toString())
 		}
 	}
 	
+	// finds avg size in a generation
 	def calcAvgSize() {
 		def TOTAL_SIZE = 0
 		for(def i = 0; i < Population.size(); i++) {
