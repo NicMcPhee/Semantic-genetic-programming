@@ -4,6 +4,8 @@ import java.util.Observable;
 import java.util.Observer;
 
 import org.neo4j.graphdb.GraphDatabaseService;
+import org.neo4j.graphdb.Label
+import org.neo4j.graphdb.DynamicLabel
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Relationship;
 import org.neo4j.graphdb.Transaction;
@@ -45,10 +47,11 @@ public class LocalDBObserver implements Observer {
                 this.child = neo4jNotifier.getChild();
                 this.generation = neo4jNotifier.getGeneration();
                 //Create Child node
-				
 				individualNodes = index.forNodes("Individual");
                 createChildNode();
+
                 //Create Relationships
+				
                 createRelationships(neo4jNotifier)
             }
 
@@ -121,6 +124,9 @@ public class LocalDBObserver implements Observer {
         individualNode.setProperty("uid", child.getUid().toString());
         individualNode.setProperty("generation", generation);
         individualNodes.add(individualNode, "uid", child.getUid().toString())
+		Label indivLabel = DynamicLabel.label('Individual');
+		individualNode.addLabel(indivLabel)
+		
 		
     }
 }
