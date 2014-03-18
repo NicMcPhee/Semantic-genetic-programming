@@ -37,11 +37,7 @@ public class LocalDBObserver implements Observer {
 
     public void update(Observable obs, Object arg) {
 
-
         Transaction tx = graphDB.beginTx();
-
-        individualNodes = index.forNodes("Individuals");
-
         try {
             if (obs instanceof Neo4jObserverNotifier) {
                 Neo4jObserverNotifier neo4jNotifier = (Neo4jObserverNotifier)obs;
@@ -49,6 +45,8 @@ public class LocalDBObserver implements Observer {
                 this.child = neo4jNotifier.getChild();
                 this.generation = neo4jNotifier.getGeneration();
                 //Create Child node
+				
+				individualNodes = index.forNodes("Individual");
                 createChildNode();
                 //Create Relationships
                 createRelationships(neo4jNotifier)
@@ -69,27 +67,20 @@ public class LocalDBObserver implements Observer {
         if (transformationType == 'crossover') {
             //get parent1
             this.parent1 = neo4jNotifier.getFirstParent();
-            // edit parent 1 relation
-            Node parentNode = getNode(parent1)
-            toParent1 = parentNode.createRelationshipTo(individualNode, RelTypes.PARENTOF);
-
             //grab parent2
             this.parent2 = neo4jNotifier.getSecondParent();
             //grab point of altercation
             this.pointOfAltercation= neo4jNotifier.getPointOfAltercation();
             //Edit child's point of altercation
             individualNode.setProperty("cutPoint", pointOfAltercation);
-            //build parent2 relationship
-            Node parent2Node = getNode(parent2)
-            toParent2 = parent2Node.createRelationshipTo(individualNode, RelTypes.PARENTOF);
-            // sets rootParent property to appropriate parents
+            // sets relationships to appropriate parents
             setRootParent()
         } else if (transformationType == 'mutation') {
             //get parent1
             this.parent1 = neo4jNotifier.getFirstParent();
             // edit parent 1 relation
             Node parentNode = getNode(parent1)
-            toParent1 = parentNode.createRelationshipTo(individualNode, RelTypes.PARENTOF);
+			toParent1 = parentNode.createRelationshipTo(individualNode, RelTypes.MUTANTOF);
             //grab point of altercation
             this.pointOfAltercation= neo4jNotifier.getPointOfAltercation();
             //Edit child's point of altercation
@@ -110,12 +101,14 @@ public class LocalDBObserver implements Observer {
     }
 
     private setRootParent() {
-        if (pointOfAltercation == 0) {
-            toParent1.setProperty("rootParent", "false");
-            toParent2.setProperty("rootParent", "true");
+		Node parentNode = getNode(parent1)
+		Node parent2Node = getNode(parent2)
+        if (pointOfAltercation == 0) {       
+			toParent1 = parentNode.createRelationshipTo(individualNode, RelTypes.NONROOT_XOOF);
+			toParent2 = parent2Node.createRelationshipTo(individualNode, RelTypes.ROOT_XOOF);
         } else {
-            toParent1.setProperty("rootParent", "true");
-            toParent2.setProperty("rootParent", "false");
+			toParent1 = parentNode.createRelationshipTo(individualNode, RelTypes.ROOT_XOOF);
+			toParent2 = parent2Node.createRelationshipTo(individualNode, RelTypes.NONROOT_XOOF);
         }
     }
 
@@ -128,5 +121,6 @@ public class LocalDBObserver implements Observer {
         individualNode.setProperty("uid", child.getUid().toString());
         individualNode.setProperty("generation", generation);
         individualNodes.add(individualNode, "uid", child.getUid().toString())
+		
     }
 }
