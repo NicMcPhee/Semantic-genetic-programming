@@ -118,7 +118,8 @@ public class LocalDBObserver implements Observer {
     private createChildNode() {
         individualNode = graphDB.createNode();
 		individualNode.setProperty("runid", runid.toString());
-        individualNode.setProperty("fitness", (double) child.getFitness());
+        individualNode.setProperty("penalizedFitness", (double) child.getFitness());
+		individualNode.setProperty("fitness", ((double) child.getFitness()) - child.getTree().size()/100)
         individualNode.setProperty("transformation_type", transformationType);
         individualNode.setProperty("tree", child.getTree().toString());
         individualNode.setProperty("uid", child.getUid().toString());
