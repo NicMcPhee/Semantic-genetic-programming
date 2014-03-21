@@ -33,7 +33,8 @@ public class Parameters extends HashMap<String,String> {
      * @throws IOException
      *             if there are problems with the file
      */
-    public Parameters(File file) throws IOException {
+    @SuppressWarnings("unchecked")
+	public Parameters(File file) throws IOException {
         ArrayList<String> includes = new ArrayList<String>();
         Scanner scan = new Scanner(file);
         while (scan.hasNextLine()) {
@@ -43,6 +44,7 @@ public class Parameters extends HashMap<String,String> {
                 System.out.println(includes.get(includes.size() - 1));
             }
         }
+        scan.close();
 
         Properties properties = new Properties();
 
