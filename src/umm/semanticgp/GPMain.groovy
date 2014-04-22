@@ -10,7 +10,7 @@ class GPMain {
 
 	static main(args) {
 		//Global Parameters to read from file
-		File fileParam = new File('run_parameters.txt')
+		File fileParam = new File('src/umm/semanticgp/fileParam.txt')
 		GlobalParameters.setParameters(fileParam)
 	
 		def OperatorList = GlobalParameters.getStringArrValue("OperatorList")
