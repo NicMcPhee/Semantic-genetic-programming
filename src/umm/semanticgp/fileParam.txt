@@ -4,5 +4,5 @@ PercentVariables: 63
 LowestConstant: -5
 HighestConstant: 5
 InitialTreeSize: 20
-PopSize: 101
+PopSize: 5
 Generations: 10
