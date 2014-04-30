@@ -16,8 +16,8 @@ class Evolver {
 	def generations
 
 	Neo4jObserverNotifier neo4j = new Neo4jObserverNotifier()
-	//LocalDBObserver observer = new LocalDBObserver(neo4j)
-	RestDBObserver observer = new RestDBObserver(neo4j)
+	LocalDBObserver observer = new LocalDBObserver(neo4j)
+	//RestDBObserver observer = new RestDBObserver(neo4j)
 	Random random = SharedPRNG.instance() // new Random()
 
 	def Evolver(operatorList, variableList, percentVariables, lowestConstant, highestConstant, initialTreeSize, popSize, generations) {

@@ -85,4 +85,8 @@ class Neo4jObserverNotifier extends Observable {
 	public int getPointOfAltercation() {
 		return pointOfAltercation;
 	}
+	
+	public String getUid(parent) {
+		return parent.uid
+	}
 }

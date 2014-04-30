@@ -3,6 +3,6 @@ VarsList: x
 PercentVariables: 63
 LowestConstant: -5
 HighestConstant: 5
-InitialTreeSize: 20
-PopSize: 5
+InitialTreeSize: 5
+PopSize: 100
 Generations: 10
