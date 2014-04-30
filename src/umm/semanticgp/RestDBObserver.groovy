@@ -18,7 +18,7 @@ import org.apache.commons.httpclient.methods.StringRequestEntity
 class RestDBObserver implements Observer {
 	private static final long serialVersionUID = 8709627944120749083L;
 	def runid = UUID.randomUUID();
-	def SERVER_ROOT_URI = 'http://localhost:7474'//'http://sentinel.morris.umn.edu:7474'
+	def SERVER_ROOT_URI = /*'http://localhost:7474'//*/'http://sentinel.morris.umn.edu:7474'
 
 	//	Relationship toParent1;
 	//	Relationship toParent2;
@@ -105,9 +105,8 @@ class RestDBObserver implements Observer {
 			HttpClient client = new HttpClient();
 			PostMethod mPost = new PostMethod(nodePointUrl);
 
-			/**
-			 * set headers
-			 */
+			//set headers
+
 			Header mtHeader = new Header();
 			mtHeader.setName("content-type");
 			mtHeader.setValue("application/json");
@@ -115,13 +114,13 @@ class RestDBObserver implements Observer {
 			mtHeader.setValue("application/json");
 			mPost.addRequestHeader(mtHeader);
 
-			/**
-			 * set json payload
-			 */
+			// set json 
 			StringRequestEntity requestEntity = new StringRequestEntity(
-			'{"runid": "' + runid + '", "fitness": "' + child.getFitness() + '", "transformation_type": "' + transformationType +'", "tree": "' + child.getTree().toString() +'", "uid": "'  + child.getUid().toString() + '","generation": "' + generation + '", "uid": "' + child.getUid().toString() + '"}',
+			'{"runid": "' + runid + '", "fitness": ' + child.getFitness() + ', "transformation_type": "' + transformationType +'", "tree": "' + child.getTree().toString() +'", "uid": "'  + child.getUid().toString() + '","generation": ' + generation + ', "uid": "' + child.getUid().toString() + '"}',
 			"application/json", "UTF-8");
 			mPost.setRequestEntity(requestEntity);
+			
+			// get response
 			int status = client.executeMethod(mPost);
 			output = mPost.getResponseBodyAsString( );
 			Header locationHeader =  mPost.getResponseHeader("location");
@@ -159,7 +158,7 @@ class RestDBObserver implements Observer {
 			 * set json payload
 			 */
 			StringRequestEntity requestEntity = new StringRequestEntity(
-			'{"runid": "' + runid + '", "fitness": "' + child.getFitness() + '", "transformation_type": "' + transformationType +'", "tree": "' + child.getTree().toString() +'", "uid": "'  + child.getUid().toString() + '","generation": "' + generation + '", "uid": "' + child.getUid().toString() + '", "cutPoint": "' + cutPoint + '"}',
+			'{"runid": "' + runid + '", "fitness": ' + child.getFitness() + ', "transformation_type": "' + transformationType +'", "tree": "' + child.getTree().toString() +'", "uid": "'  + child.getUid().toString() + '","generation": ' + generation + ', "uid": "' + child.getUid().toString() + '", "cutPoint": ' + cutPoint + '}',
 			"application/json", "UTF-8");
 			mPost.setRequestEntity(requestEntity);
 			int status = client.executeMethod(mPost);
@@ -240,7 +239,7 @@ class RestDBObserver implements Observer {
 			/**
 			 * set json payload
 			 */
-			String query = '{"query": "START p = node(*) WHERE p.uid = \'' + parentid + '\' RETURN p", "params": {}}';
+			String query = '{"query": "MATCH p WHERE p.uid = \'' + parentid + '\' RETURN p", "params": {}}';
 			StringRequestEntity requestEntity = new StringRequestEntity(query,
 																		"application/json",
 																		"UTF-8");
